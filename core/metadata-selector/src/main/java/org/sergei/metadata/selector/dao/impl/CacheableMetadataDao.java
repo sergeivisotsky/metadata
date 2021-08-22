@@ -1,13 +1,13 @@
-package org.sergei.metadata.app.dao.impl;
+package org.sergei.metadata.selector.dao.impl;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import org.sergei.metadata.app.dao.MetadataDao;
-import org.sergei.metadata.app.dto.FormMetadata;
-import org.sergei.metadata.app.exception.DataAccessException;
+import org.sergei.metadata.selector.dao.MetadataDao;
+import org.sergei.metadata.selector.dto.FormMetadata;
+import org.sergei.metadata.selector.exception.DataAccessException;
 
 public class CacheableMetadataDao implements MetadataDao {
 

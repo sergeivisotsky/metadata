@@ -1,7 +1,7 @@
-package org.sergei.metadata.app.rest;
+package org.sergei.metadata.selector.rest;
 
-import org.sergei.metadata.app.dao.MetadataDao;
-import org.sergei.metadata.app.dto.FormMetadata;
+import org.sergei.metadata.selector.dao.MetadataDao;
+import org.sergei.metadata.selector.dto.FormMetadata;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

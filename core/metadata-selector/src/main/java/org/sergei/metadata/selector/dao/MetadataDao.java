@@ -1,6 +1,6 @@
-package org.sergei.metadata.app.dao;
+package org.sergei.metadata.selector.dao;
 
-import org.sergei.metadata.app.dto.FormMetadata;
+import org.sergei.metadata.selector.dto.FormMetadata;
 
 public interface MetadataDao {
 

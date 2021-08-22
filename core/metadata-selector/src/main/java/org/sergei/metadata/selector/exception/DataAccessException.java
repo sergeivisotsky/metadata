@@ -1,4 +1,4 @@
-package org.sergei.metadata.app.exception;
+package org.sergei.metadata.selector.exception;
 
 public class DataAccessException extends RuntimeException {
 

@@ -1,15 +1,15 @@
-package org.sergei.metadata.app.dao.impl;
+package org.sergei.metadata.selector.dao.impl;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.sergei.metadata.app.dao.MetadataDao;
-import org.sergei.metadata.app.dto.Area;
-import org.sergei.metadata.app.dto.FormMetadata;
-import org.sergei.metadata.app.dto.Language;
-import org.sergei.metadata.app.dto.Layout;
-import org.sergei.metadata.app.dto.ViewField;
+import org.sergei.metadata.selector.dao.MetadataDao;
+import org.sergei.metadata.selector.dto.Area;
+import org.sergei.metadata.selector.dto.FormMetadata;
+import org.sergei.metadata.selector.dto.Language;
+import org.sergei.metadata.selector.dto.Layout;
+import org.sergei.metadata.selector.dto.ViewField;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class MetadataDaoImpl implements MetadataDao {

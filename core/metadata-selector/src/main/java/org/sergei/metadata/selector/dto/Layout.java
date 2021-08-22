@@ -1,4 +1,4 @@
-package org.sergei.metadata.app.dto;
+package org.sergei.metadata.selector.dto;
 
 public final class Layout {
 
