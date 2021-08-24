@@ -2,143 +2,96 @@ package org.sergei.metadata.selector.dto;
 
 import java.util.List;
 
-public final class FormMetadata {
+public class FormMetadata {
 
-    private final String cardinality;
-    private final Language lang;
-    private final String formName;
-    private final Integer offset;
-    private final Integer padding;
-    private final String font;
-    private final Integer fontSize;
-    private final String description;
-    private final ViewField viewField;
-    private final List<Layout> layouts;
-
-    FormMetadata(FormMetadataBuilder builder) {
-        this.cardinality = builder.cardinality;
-        this.formName = builder.formName;
-        this.lang = builder.lang;
-        this.offset = builder.offset;
-        this.padding = builder.padding;
-        this.font = builder.font;
-        this.fontSize = builder.fontSize;
-        this.description = builder.description;
-        this.viewField = builder.viewField;
-        this.layouts = builder.layouts;
-    }
+    private String cardinality;
+    private Language lang;
+    private String formName;
+    private Integer offset;
+    private Integer padding;
+    private String font;
+    private Integer fontSize;
+    private String description;
+    private ViewField viewField;
+    private List<Layout> layouts;
 
     public String getCardinality() {
         return cardinality;
     }
 
-    public String getFormName() {
-        return formName;
+    public void setCardinality(String cardinality) {
+        this.cardinality = cardinality;
     }
 
     public Language getLang() {
         return lang;
     }
 
+    public void setLang(Language lang) {
+        this.lang = lang;
+    }
+
+    public String getFormName() {
+        return formName;
+    }
+
+    public void setFormName(String formName) {
+        this.formName = formName;
+    }
+
     public Integer getOffset() {
         return offset;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
     }
 
     public Integer getPadding() {
         return padding;
     }
 
+    public void setPadding(Integer padding) {
+        this.padding = padding;
+    }
+
     public String getFont() {
         return font;
+    }
+
+    public void setFont(String font) {
+        this.font = font;
     }
 
     public Integer getFontSize() {
         return fontSize;
     }
 
+    public void setFontSize(Integer fontSize) {
+        this.fontSize = fontSize;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public ViewField getViewField() {
         return viewField;
     }
 
+    public void setViewField(ViewField viewField) {
+        this.viewField = viewField;
+    }
+
     public List<Layout> getLayouts() {
         return layouts;
     }
 
-    public static FormMetadataBuilder builder() {
-        return new FormMetadataBuilder();
-    }
-
-    public static class FormMetadataBuilder {
-        private String cardinality;
-        private String formName;
-        private Language lang;
-        private Integer offset;
-        private Integer padding;
-        private String font;
-        private Integer fontSize;
-        private String description;
-        private ViewField viewField;
-        private List<Layout> layouts;
-
-        FormMetadataBuilder() {
-        }
-
-        public FormMetadataBuilder cardinality(String cardinality) {
-            this.cardinality = cardinality;
-            return this;
-        }
-
-        public FormMetadataBuilder formName(String formName) {
-            this.formName = formName;
-            return this;
-        }
-
-        public FormMetadataBuilder lang(Language lang) {
-            this.lang = lang;
-            return this;
-        }
-
-        public FormMetadataBuilder offset(Integer offset) {
-            this.offset = offset;
-            return this;
-        }
-
-        public FormMetadataBuilder padding(Integer padding) {
-            this.padding = padding;
-            return this;
-        }
-
-        public FormMetadataBuilder font(String font) {
-            this.font = font;
-            return this;
-        }
-
-        public FormMetadataBuilder fontSize(Integer fontSize) {
-            this.fontSize = fontSize;
-            return this;
-        }
-
-        public FormMetadataBuilder description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public FormMetadataBuilder viewField(ViewField viewField) {
-            this.viewField = viewField;
-            return this;
-        }
-
-        public FormMetadataBuilder layouts(List<Layout> layouts) {
-            this.layouts = layouts;
-            return this;
-        }
-
-        public FormMetadata build() {
-            return new FormMetadata(this);
-        }
+    public void setLayouts(List<Layout> layouts) {
+        this.layouts = layouts;
     }
 }

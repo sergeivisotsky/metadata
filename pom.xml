@@ -11,9 +11,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>metadata-provider-app</module>
-        <module>metadata-deployer</module>
         <module>core</module>
+        <module>ref-impl</module>
     </modules>
 
     <properties>
@@ -47,12 +46,6 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.sergei.metadata</groupId>
-                <artifactId>metadata-selector</artifactId>
-                <version>${project.parent.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
