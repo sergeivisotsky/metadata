@@ -1,4 +1,4 @@
-package org.sergei.metadata.app.config;
+package org.sergei.metadata.selector.config;
 
 import javax.sql.DataSource;
 
@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+/**
+ * @author Sergei Visotsky
+ */
 @Configuration
 public class DatasourceConfig {
 

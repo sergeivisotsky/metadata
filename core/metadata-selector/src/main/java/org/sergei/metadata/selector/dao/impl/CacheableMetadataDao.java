@@ -9,6 +9,9 @@ import org.sergei.metadata.selector.dao.MetadataDao;
 import org.sergei.metadata.selector.dto.FormMetadata;
 import org.sergei.metadata.selector.exception.DataAccessException;
 
+/**
+ * @author Sergei Visotsky
+ */
 public class CacheableMetadataDao implements MetadataDao {
 
     private final Cache<MetadataCacheKey, FormMetadata> cache;

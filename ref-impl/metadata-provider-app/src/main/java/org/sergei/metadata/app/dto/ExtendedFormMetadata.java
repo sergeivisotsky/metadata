@@ -2,6 +2,9 @@ package org.sergei.metadata.app.dto;
 
 import org.sergei.metadata.selector.dto.FormMetadata;
 
+/**
+ * @author Sergei Visotsky
+ */
 public class ExtendedFormMetadata extends FormMetadata {
 
     private String facet;

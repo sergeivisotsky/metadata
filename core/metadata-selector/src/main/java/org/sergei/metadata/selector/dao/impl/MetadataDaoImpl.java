@@ -4,21 +4,24 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
-import org.sergei.metadata.selector.Mapper;
+import org.sergei.metadata.selector.MetadataMapper;
 import org.sergei.metadata.selector.dao.MetadataDao;
 import org.sergei.metadata.selector.dto.FormMetadata;
 import org.sergei.metadata.selector.dto.Layout;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+/**
+ * @author Sergei Visotsky
+ */
 public class MetadataDaoImpl implements MetadataDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final Mapper<ResultSet, FormMetadata> formMetadataMapper;
-    private final Mapper<ResultSet, Layout> layoutMapper;
+    private final MetadataMapper<ResultSet, FormMetadata> formMetadataMapper;
+    private final MetadataMapper<ResultSet, Layout> layoutMapper;
 
     public MetadataDaoImpl(NamedParameterJdbcTemplate jdbcTemplate,
-                           Mapper<ResultSet, FormMetadata> formMetadataMapper,
-                           Mapper<ResultSet, Layout> layoutMapper) {
+                           MetadataMapper<ResultSet, FormMetadata> formMetadataMapper,
+                           MetadataMapper<ResultSet, Layout> layoutMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.formMetadataMapper = formMetadataMapper;
         this.layoutMapper = layoutMapper;

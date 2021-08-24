@@ -2,6 +2,9 @@ package org.sergei.metadata.selector.dto;
 
 import java.util.List;
 
+/**
+ * @author Sergei Visotsky
+ */
 public class FormMetadata {
 
     private String cardinality;

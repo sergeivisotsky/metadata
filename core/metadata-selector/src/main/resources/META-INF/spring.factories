@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.sergei.metadata.selector.config.MetadataSelectorConfig
+  org.sergei.metadata.selector.config.MetadataSelectorConfig,\
+  org.sergei.metadata.selector.config.DatasourceConfig

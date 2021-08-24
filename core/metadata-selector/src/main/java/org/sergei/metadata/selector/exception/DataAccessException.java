@@ -1,5 +1,8 @@
 package org.sergei.metadata.selector.exception;
 
+/**
+ * @author Sergei Visotsky
+ */
 public class DataAccessException extends RuntimeException {
 
     public DataAccessException() {

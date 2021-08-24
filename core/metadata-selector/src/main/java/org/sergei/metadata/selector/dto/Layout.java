@@ -1,5 +1,8 @@
 package org.sergei.metadata.selector.dto;
 
+/**
+ * @author Sergei Visotsky
+ */
 public class Layout {
 
     private Area area;

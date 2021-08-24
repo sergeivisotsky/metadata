@@ -4,13 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.sergei.metadata.app.dto.ExtendedLayout;
-import org.sergei.metadata.selector.Mapper;
+import org.sergei.metadata.selector.MetadataMapper;
 import org.sergei.metadata.selector.dto.Area;
 import org.sergei.metadata.selector.dto.Layout;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Sergei Visotsky
+ */
 @Component
-public class LayoutMapper implements Mapper<ResultSet, Layout> {
+public class LayoutMapper implements MetadataMapper<ResultSet, Layout> {
 
     @Override
     public String getSql() {

@@ -5,14 +5,17 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 import org.sergei.metadata.app.dto.ExtendedFormMetadata;
-import org.sergei.metadata.selector.Mapper;
+import org.sergei.metadata.selector.MetadataMapper;
 import org.sergei.metadata.selector.dto.FormMetadata;
 import org.sergei.metadata.selector.dto.Language;
 import org.sergei.metadata.selector.dto.ViewField;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Sergei Visotsky
+ */
 @Component
-public class FormMetadataMapper implements Mapper<ResultSet, FormMetadata> {
+public class FormMetadataMapper implements MetadataMapper<ResultSet, FormMetadata> {
 
     @Override
     public String getSql() {
