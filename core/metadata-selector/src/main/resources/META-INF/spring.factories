@@ -1,3 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   io.github.sergeivisotsky.metadata.selector.config.MetadataSelectorConfig,\
   io.github.sergeivisotsky.metadata.selector.config.DatasourceConfig
+
+org.springframework.boot.context.properties.EnableConfigurationProperties=\
+  io.github.sergeivisotsky.metadata.selector.config.DataSourceConfigProperties

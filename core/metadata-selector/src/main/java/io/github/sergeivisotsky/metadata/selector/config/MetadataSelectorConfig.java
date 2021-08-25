@@ -34,7 +34,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  */
 @Configuration
 @ComponentScan(basePackages = {
-        "org.sergei.metadata.*"
+        "io.github.sergeivisotsky.metadata.*"
 })
 public class MetadataSelectorConfig {
 
