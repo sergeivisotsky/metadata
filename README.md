@@ -19,13 +19,34 @@ cardinality, language, font size, and font itself.
 ```
 
 ## Get started
-To get started with a usage of metadata provider just add the following maven dependency:
+To get started with a usage of metadata provider just add the following maven dependency to the main application:
 
 ```html
 <dependency>
     <groupId>io.github.sergeivisotsky.metadata</groupId>
     <artifactId>metadata-selector</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
+</dependency>
+```
+
+And the following dependency to a deployment application:
+```html
+<dependency>
+    <groupId>io.github.sergeivisotsky.metadata</groupId>
+    <artifactId>metadata-deploy</artifactId>
+    <version>0.0.2</version>
+</dependency>
+```
+
+It is also highly recommended adding library starter to have a compatible version of both 
+dependencies to your `dependencyManegemnt` section of parent POM: 
+```html
+<dependency>
+    <groupId>io.github.sergeivisotsky.metadata</groupId>
+    <artifactId>metadata-provider-starter</artifactId>
+    <version>0.0.2</version>
+    <scope>import</scope>
+    <type>pom</type>
 </dependency>
 ```
 
