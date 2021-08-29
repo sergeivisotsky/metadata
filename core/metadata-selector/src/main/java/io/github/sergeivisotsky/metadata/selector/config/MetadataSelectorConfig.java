@@ -45,8 +45,10 @@ public class MetadataSelectorConfig {
     @Bean
     public MetadataDao metadataDao(NamedParameterJdbcTemplate jdbcTemplate,
                                    MetadataMapper<ResultSet, FormMetadata> formMetadataMapper,
-                                   MetadataMapper<ResultSet, Layout> layoutMapper) {
-        return new CacheableMetadataDao(new MetadataDaoImpl(jdbcTemplate, formMetadataMapper, layoutMapper));
+                                   MetadataMapper<ResultSet, Layout> layoutMapper,
+                                   CacheConfigProperties cacheConfigProperties) {
+        MetadataDaoImpl metadataDao = new MetadataDaoImpl(jdbcTemplate, formMetadataMapper, layoutMapper);
+        return new CacheableMetadataDao(metadataDao, cacheConfigProperties);
     }
 
     @Bean

@@ -17,12 +17,12 @@
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
-import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import io.github.sergeivisotsky.metadata.selector.config.CacheConfigProperties;
+import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
 
 /**
@@ -33,11 +33,14 @@ public class CacheableMetadataDao implements MetadataDao {
     private final Cache<MetadataCacheKey, FormMetadata> cache;
     private final MetadataDao metadataDao;
 
-    public CacheableMetadataDao(MetadataDao metadataDao) {
+    public CacheableMetadataDao(MetadataDao metadataDao,
+                                CacheConfigProperties cacheConfigProperties) {
         this.metadataDao = metadataDao;
         cache = CacheBuilder.newBuilder()
-                .initialCapacity(8000)
-                .expireAfterAccess(8, TimeUnit.HOURS)
+                .initialCapacity(cacheConfigProperties.getInitialCapacity())
+                .maximumSize(cacheConfigProperties.getMaximumSize())
+                .expireAfterAccess(cacheConfigProperties.getExpireAfterAccess(),
+                        cacheConfigProperties.getExpirationAfterAccessUnits())
                 .build();
     }
 
