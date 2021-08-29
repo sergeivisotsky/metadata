@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <createTable tableName="lookup_holder">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(15)"/>
+            <column name="weight" type="java.sql.Types.INTEGER"/>
+            <column name="height" type="java.sql.Types.INTEGER"/>
+        </createTable>
+        <createTable tableName="lookup_metadata">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="java.sql.Types.VARCHAR(10)">
+                <constraints unique="true"/>
+            </column>
+            <column name="default_value" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="display_value" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="lang" type="java.sql.Types.VARCHAR(2)"/>
+            <column name="lookup_holder_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="lookup_metadata"
+                                 baseColumnNames="lookup_holder_id"
+                                 constraintName="lookup_holder_fk"
+                                 referencedTableName="lookup_holder"
+                                 referencedColumnNames="id"/>
+
+        <insert tableName="lookup_holder">
+            <column name="id" value="1"/>
+            <column name="name" value="CHECK_POINT"/>
+            <column name="weight" value="250"/>
+            <column name="height" value="70"/>
+        </insert>
+        <insert tableName="lookup_metadata">
+            <column name="id" value="1"/>
+            <column name="code" value="0001"/>
+            <column name="display_value" value="Some default Value one"/>
+            <column name="lang" value="en"/>
+            <column name="lookup_holder_id" value="1"/>
+        </insert>
+        <insert tableName="lookup_metadata">
+            <column name="id" value="2"/>
+            <column name="code" value="0002"/>
+            <column name="display_value" value="Something more then this"/>
+            <column name="lang" value="en"/>
+            <column name="lookup_holder_id" value="1"/>
+        </insert>
+        <insert tableName="lookup_metadata">
+            <column name="id" value="3"/>
+            <column name="code" value="0003"/>
+            <column name="display_value" value="Some second display value"/>
+            <column name="lang" value="en"/>
+            <column name="lookup_holder_id" value="1"/>
+        </insert>
+        <insert tableName="lookup_metadata">
+            <column name="id" value="4"/>
+            <column name="code" value="0004"/>
+            <column name="display_value" value="Какое-то значие по умолчанию один"/>
+            <column name="lang" value="ru"/>
+            <column name="lookup_holder_id" value="1"/>
+        </insert>
+        <insert tableName="lookup_metadata">
+            <column name="id" value="5"/>
+            <column name="code" value="0005"/>
+            <column name="display_value" value="Что-то большее, чем то"/>
+            <column name="lang" value="ru"/>
+            <column name="lookup_holder_id" value="1"/>
+        </insert>
+        <insert tableName="lookup_metadata">
+            <column name="id" value="6"/>
+            <column name="code" value="0006"/>
+            <column name="display_value" value="Какое-то второе значение отображения"/>
+            <column name="lang" value="ru"/>
+            <column name="lookup_holder_id" value="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

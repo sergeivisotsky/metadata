@@ -19,11 +19,15 @@ package io.github.sergeivisotsky.metadata.selector.config;
 import java.sql.ResultSet;
 
 import io.github.sergeivisotsky.metadata.selector.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.CacheableMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.impl.LookupMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.MetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
+import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
+import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -43,5 +47,12 @@ public class MetadataSelectorConfig {
                                    MetadataMapper<ResultSet, FormMetadata> formMetadataMapper,
                                    MetadataMapper<ResultSet, Layout> layoutMapper) {
         return new CacheableMetadataDao(new MetadataDaoImpl(jdbcTemplate, formMetadataMapper, layoutMapper));
+    }
+
+    @Bean
+    public LookupMetadataDao lookupMetadataDao(NamedParameterJdbcTemplate jdbcTemplate,
+                                               MetadataMapper<ResultSet, LookupHolder> lookupHolderMapper,
+                                               MetadataMapper<ResultSet, LookupMetadata> lookupMetadataMapper) {
+        return new LookupMetadataDaoImpl(jdbcTemplate, lookupHolderMapper, lookupMetadataMapper);
     }
 }
