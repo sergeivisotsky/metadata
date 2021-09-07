@@ -33,6 +33,7 @@ public class FormMetadata {
     private String description;
     private ViewField viewField;
     private List<Layout> layouts;
+    private List<ComboBox> comboBoxes;
 
     public String getCardinality() {
         return cardinality;
@@ -112,5 +113,13 @@ public class FormMetadata {
 
     public void setLayouts(List<Layout> layouts) {
         this.layouts = layouts;
+    }
+
+    public List<ComboBox> getComboBoxes() {
+        return comboBoxes;
+    }
+
+    public void setComboBoxes(List<ComboBox> comboBoxes) {
+        this.comboBoxes = comboBoxes;
     }
 }

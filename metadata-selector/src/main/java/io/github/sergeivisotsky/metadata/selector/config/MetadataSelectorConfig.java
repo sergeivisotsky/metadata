@@ -25,10 +25,12 @@ import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.CacheableMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LookupMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.MetadataDaoImpl;
+import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -44,13 +46,19 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class MetadataSelectorConfig {
 
     @Bean
-    public MetadataDao metadataDao(NamedParameterJdbcTemplate jdbcTemplate,
-                                   MetadataMapper<ResultSet, FormMetadata> formMetadataMapper,
-                                   MetadataMapper<ResultSet, Layout> layoutMapper,
+    public MetadataDao metadataDao(@Qualifier("simpleMetadataDao") MetadataDao metadataDao,
                                    CacheConfigProperties cacheConfigProperties) {
-        MetadataDaoImpl metadataDao = new MetadataDaoImpl(jdbcTemplate, formMetadataMapper, layoutMapper);
         return new CacheableMetadataDao(metadataDao, cacheConfigProperties);
     }
+
+    @Bean("simpleMetadataDao")
+    public MetadataDao simpleMetadataDao(NamedParameterJdbcTemplate jdbcTemplate,
+                                         MetadataMapper<ResultSet, FormMetadata> formMetadataMapper,
+                                         MetadataMapper<ResultSet, Layout> layoutMapper,
+                                         MetadataMapper<ResultSet, ComboBox> comboBoxMapper) {
+        return new MetadataDaoImpl(jdbcTemplate, formMetadataMapper, layoutMapper, comboBoxMapper);
+    }
+
 
     @Bean
     public LookupMetadataDao lookupMetadataDao(NamedParameterJdbcTemplate jdbcTemplate,

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <createTable tableName="combo_box">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="codifier" type="java.sql.Types.VARCHAR(10)">
+                <constraints unique="true"/>
+            </column>
+            <column name="font" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="font_size" type="java.sql.Types.INTEGER"/>
+            <column name="weight" type="java.sql.Types.INTEGER"/>
+            <column name="height" type="java.sql.Types.INTEGER"/>
+            <column name="displayable" type="java.sql.Types.BOOLEAN"/>
+            <column name="immutable" type="java.sql.Types.BOOLEAN"/>
+            <column name="form_metadata_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="combo_box"
+                                 baseColumnNames="form_metadata_id"
+                                 constraintName="form_metadata_id_fk"
+                                 referencedTableName="form_metadata"
+                                 referencedColumnNames="id"/>
+        <createTable tableName="combo_box_content">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="key" type="java.sql.Types.VARCHAR(10)"/>
+            <column name="default_value" type="java.sql.Types.VARCHAR(45)"/>
+        </createTable>
+        <createTable tableName="combo_box_and_content_relation">
+            <column name="box_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="box_content_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="combo_box_and_content_relation"
+                                 baseColumnNames="box_id"
+                                 constraintName="box_id_fk"
+                                 referencedTableName="combo_box"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="combo_box_and_content_relation"
+                                 baseColumnNames="box_content_id"
+                                 constraintName="box_content_id_fk"
+                                 referencedTableName="combo_box_content"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="2" author="svisockis">
+        <insert tableName="combo_box">
+            <column name="id" value="1"/>
+            <column name="codifier" value="CD_001"/>
+            <column name="font" value="Times New Roman"/>
+            <column name="font_size" value="12"/>
+            <column name="weight" value="300"/>
+            <column name="height" value="20"/>
+            <column name="displayable" value="true"/>
+            <column name="immutable" value="false"/>
+            <column name="form_metadata_id" value="1"/>
+        </insert>
+        <insert tableName="combo_box_content">
+            <column name="id" value="1"/>
+            <column name="key" value="initial"/>
+            <column name="default_value" value="Some initial value"/>
+        </insert>
+        <insert tableName="combo_box_content">
+            <column name="id" value="2"/>
+            <column name="key" value="secondary"/>
+            <column name="default_value" value="Some secondary value"/>
+        </insert>
+        <insert tableName="combo_box_and_content_relation">
+            <column name="box_id" value="1"/>
+            <column name="box_content_id" value="1"/>
+        </insert>
+        <insert tableName="combo_box_and_content_relation">
+            <column name="box_id" value="1"/>
+            <column name="box_content_id" value="2"/>
+        </insert>
+    </changeSet>
+    <changeSet id="3" author="svisockis">
+        <insert tableName="combo_box_content">
+            <column name="id" value="3"/>
+            <column name="key" value="someThird"/>
+            <column name="default_value" value="Some third value"/>
+        </insert>
+        <insert tableName="combo_box_and_content_relation">
+            <column name="box_id" value="1"/>
+            <column name="box_content_id" value="3"/>
+        </insert>
+
+        <insert tableName="combo_box">
+            <column name="id" value="2"/>
+            <column name="codifier" value="CD_002"/>
+            <column name="font" value="Times New Roman"/>
+            <column name="font_size" value="12"/>
+            <column name="weight" value="700"/>
+            <column name="height" value="20"/>
+            <column name="displayable" value="true"/>
+            <column name="immutable" value="false"/>
+            <column name="form_metadata_id" value="1"/>
+        </insert>
+        <insert tableName="combo_box_content">
+            <column name="id" value="4"/>
+            <column name="key" value="someThing"/>
+            <column name="default_value" value="Some thing value"/>
+        </insert>
+        <insert tableName="combo_box_and_content_relation">
+            <column name="box_id" value="2"/>
+            <column name="box_content_id" value="4"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

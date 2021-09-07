@@ -6,5 +6,6 @@
 
     <include file="./db.changelog-schema_13-08-2021.xml" relativeToChangelogFile="true"/>
     <include file="./db.changelog-schema_29-08-2021.xml" relativeToChangelogFile="true"/>
+    <include file="./0.0.7/db.changelog-schema_06-09-2021.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
