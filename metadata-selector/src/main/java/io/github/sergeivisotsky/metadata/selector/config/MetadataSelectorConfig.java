@@ -16,9 +16,6 @@
 
 package io.github.sergeivisotsky.metadata.selector.config;
 
-import java.sql.ResultSet;
-
-import io.github.sergeivisotsky.metadata.selector.MetadataMapper;
 import io.github.sergeivisotsky.metadata.selector.config.properties.CacheConfigProperties;
 import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
@@ -30,6 +27,7 @@ import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
+import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -54,20 +52,18 @@ public class MetadataSelectorConfig {
     }
 
     @Bean("simpleMetadataDao")
-    @ConditionalOnMissingBean
     public MetadataDao simpleMetadataDao(NamedParameterJdbcTemplate jdbcTemplate,
-                                         MetadataMapper<ResultSet, FormMetadata> formMetadataMapper,
-                                         MetadataMapper<ResultSet, Layout> layoutMapper,
-                                         MetadataMapper<ResultSet, ComboBox> comboBoxMapper) {
+                                         MetadataMapper<FormMetadata> formMetadataMapper,
+                                         MetadataMapper<Layout> layoutMapper,
+                                         MetadataMapper<ComboBox> comboBoxMapper) {
         return new MetadataDaoImpl(jdbcTemplate, formMetadataMapper, layoutMapper, comboBoxMapper);
     }
-
 
     @Bean
     @ConditionalOnMissingBean
     public LookupMetadataDao lookupMetadataDao(NamedParameterJdbcTemplate jdbcTemplate,
-                                               MetadataMapper<ResultSet, LookupHolder> lookupHolderMapper,
-                                               MetadataMapper<ResultSet, LookupMetadata> lookupMetadataMapper) {
+                                               MetadataMapper<LookupHolder> lookupHolderMapper,
+                                               MetadataMapper<LookupMetadata> lookupMetadataMapper) {
         return new LookupMetadataDaoImpl(jdbcTemplate, lookupHolderMapper, lookupMetadataMapper);
     }
 }

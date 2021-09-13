@@ -16,14 +16,13 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
-import io.github.sergeivisotsky.metadata.selector.MetadataMapper;
 import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
+import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
@@ -32,12 +31,12 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class LookupMetadataDaoImpl implements LookupMetadataDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final MetadataMapper<ResultSet, LookupHolder> lookupHolderMapper;
-    private final MetadataMapper<ResultSet, LookupMetadata> lookupMetadataMapper;
+    private final MetadataMapper<LookupHolder> lookupHolderMapper;
+    private final MetadataMapper<LookupMetadata> lookupMetadataMapper;
 
     public LookupMetadataDaoImpl(NamedParameterJdbcTemplate jdbcTemplate,
-                                 MetadataMapper<ResultSet, LookupHolder> lookupHolderMapper,
-                                 MetadataMapper<ResultSet, LookupMetadata> lookupMetadataMapper) {
+                                 MetadataMapper<LookupHolder> lookupHolderMapper,
+                                 MetadataMapper<LookupMetadata> lookupMetadataMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.lookupHolderMapper = lookupHolderMapper;
         this.lookupMetadataMapper = lookupMetadataMapper;
@@ -48,7 +47,7 @@ public class LookupMetadataDaoImpl implements LookupMetadataDao {
         Map<String, Object> params = Map.of("lookupName", lookupName);
         return jdbcTemplate.queryForObject(lookupHolderMapper.getSql(), params,
                 (rs, index) -> {
-                    LookupHolder holder = lookupHolderMapper.apply(rs);
+                    LookupHolder holder = lookupHolderMapper.map(rs);
                     holder.setMetadata(getMetadataForLookupHolder(lang, rs.getLong("id")));
                     return holder;
                 });
@@ -59,6 +58,6 @@ public class LookupMetadataDaoImpl implements LookupMetadataDao {
                 "holderId", holderId,
                 "lang", lang);
         return jdbcTemplate.query(lookupMetadataMapper.getSql(), metadataParams,
-                (rs, index) -> lookupMetadataMapper.apply(rs));
+                (rs, index) -> lookupMetadataMapper.map(rs));
     }
 }

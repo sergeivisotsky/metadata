@@ -16,18 +16,17 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import io.github.sergeivisotsky.metadata.selector.MetadataMapper;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBoxContent;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
+import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
@@ -36,14 +35,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public class MetadataDaoImpl implements MetadataDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final MetadataMapper<ResultSet, FormMetadata> formMetadataMapper;
-    private final MetadataMapper<ResultSet, Layout> layoutMapper;
-    private final MetadataMapper<ResultSet, ComboBox> comboBoxMapper;
+    private final MetadataMapper<FormMetadata> formMetadataMapper;
+    private final MetadataMapper<Layout> layoutMapper;
+    private final MetadataMapper<ComboBox> comboBoxMapper;
 
     public MetadataDaoImpl(NamedParameterJdbcTemplate jdbcTemplate,
-                           MetadataMapper<ResultSet, FormMetadata> formMetadataMapper,
-                           MetadataMapper<ResultSet, Layout> layoutMapper,
-                           MetadataMapper<ResultSet, ComboBox> comboBoxMapper) {
+                           MetadataMapper<FormMetadata> formMetadataMapper,
+                           MetadataMapper<Layout> layoutMapper,
+                           MetadataMapper<ComboBox> comboBoxMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.formMetadataMapper = formMetadataMapper;
         this.layoutMapper = layoutMapper;
@@ -58,7 +57,7 @@ public class MetadataDaoImpl implements MetadataDao {
         );
         return jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
                 (rs, index) -> {
-                    FormMetadata metadata = formMetadataMapper.apply(rs);
+                    FormMetadata metadata = formMetadataMapper.map(rs);
                     metadata.setLayouts(getLayoutMetadata(formName));
                     metadata.setComboBoxes(getComboBoxes(rs.getLong("id")));
                     return metadata;
@@ -73,7 +72,7 @@ public class MetadataDaoImpl implements MetadataDao {
     private List<ComboBox> getComboBoxes(Long id) {
         Map<String, Object> params = Map.of("formMetadataId", id);
         List<ComboBox> combos = jdbcTemplate.query(comboBoxMapper.getSql(), params, (rs, index) -> {
-            ComboBox comboBox = comboBoxMapper.apply(rs);
+            ComboBox comboBox = comboBoxMapper.map(rs);
             List<ComboBoxContent> comboContent = new ArrayList<>();
             comboContent.add(new ComboBoxContent(
                     rs.getString("content_key"),
@@ -105,7 +104,7 @@ public class MetadataDaoImpl implements MetadataDao {
         return resultingCombos;
     }
 
-    private <T> List<T> executeQuery(Map<String, Object> params, MetadataMapper<ResultSet, T> mapper) {
-        return jdbcTemplate.query(mapper.getSql(), params, (rs, index) -> mapper.apply(rs));
+    private <T> List<T> executeQuery(Map<String, Object> params, MetadataMapper<T> mapper) {
+        return jdbcTemplate.query(mapper.getSql(), params, (rs, index) -> mapper.map(rs));
     }
 }

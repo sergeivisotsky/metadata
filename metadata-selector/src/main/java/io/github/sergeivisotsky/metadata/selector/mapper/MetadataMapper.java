@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector;
+package io.github.sergeivisotsky.metadata.selector.mapper;
 
 import java.sql.ResultSet;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * An interface to be implemented by mappers from {@link ResultSet} to DTO.
  *
- * @param <F> map from.
- * @param <T> map to.
+ * @param <T> type to extract a {@link ResultSet} to.
  * @author Sergei Visotsky
  */
-public interface MetadataMapper<F, T> extends Function<F, T> {
+public interface MetadataMapper<T> {
 
     /**
      * Get an SQL containing a new fields added during customization.
@@ -38,13 +34,11 @@ public interface MetadataMapper<F, T> extends Function<F, T> {
     String getSql();
 
     /**
-     * Map a collection of elements.
+     * Maps an extracted metadata from {@link ResultSet} to a Java DTO.
      *
-     * @param fromList collection to map.
-     * @return returning collection with mapped elements.
+     * @param rs database result set.
+     * @return resulting metadata aggregate DTO.
      */
-    default List<T> applyList(List<F> fromList) {
-        return fromList.stream().map(this).collect(Collectors.toList());
-    }
+    T map(ResultSet rs);
 
 }

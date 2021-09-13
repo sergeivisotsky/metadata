@@ -16,15 +16,14 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.sergeivisotsky.metadata.selector.MetadataMapper;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBoxContent;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
+import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -43,13 +42,13 @@ public class MetadataDaoImplTest {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Mock
-    private MetadataMapper<ResultSet, FormMetadata> formMetadataMapper;
+    private MetadataMapper<FormMetadata> formMetadataMapper;
 
     @Mock
-    private MetadataMapper<ResultSet, Layout> layoutMapper;
+    private MetadataMapper<Layout> layoutMapper;
 
     @Mock
-    private MetadataMapper<ResultSet, ComboBox> comboBoxMapper;
+    private MetadataMapper<ComboBox> comboBoxMapper;
 
     @InjectMocks
     private MetadataDaoImpl metadataDao;
