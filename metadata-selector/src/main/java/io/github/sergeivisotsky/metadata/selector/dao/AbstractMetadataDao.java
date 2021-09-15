@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
-import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -47,13 +46,16 @@ public abstract class AbstractMetadataDao {
     protected <T> T checkLogicType(Supplier<LogicType> logicType,
                                    Supplier<T> sql,
                                    Supplier<T> functionCall) {
-        if (SQL.equals(logicType.get())) {
+        LogicType logicTypeAsString = logicType.get();
+        if (SQL.equals(logicTypeAsString)) {
             return sql.get();
         }
-        if (FUNCTION.equals(logicType.get())) {
+        if (FUNCTION.equals(logicTypeAsString)) {
             return functionCall.get();
         }
-        throw new DataAccessException("Provided LogicType: {} is not supported", logicType.get().name());
+        throw new IllegalStateException(
+                String.format("Provided LogicType: %s is not supported", logicTypeAsString)
+        );
     }
 
     @Autowired
