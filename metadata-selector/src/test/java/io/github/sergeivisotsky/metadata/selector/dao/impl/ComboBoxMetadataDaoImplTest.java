@@ -36,7 +36,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Sergei Visotsky
  */
-public class MetadataDaoImplTest {
+public class ComboBoxMetadataDaoImplTest {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -51,7 +51,7 @@ public class MetadataDaoImplTest {
     private MetadataMapper<ComboBox> comboBoxMapper;
 
     @InjectMocks
-    private MetadataDaoImpl metadataDao;
+    private ComboBoxMetadataDaoImpl dao;
 
     @Before
     public void setUp() {
@@ -80,7 +80,7 @@ public class MetadataDaoImplTest {
 
         comboBoxes.add(comboBoxThree);
 
-        List<ComboBox> resultCombos = metadataDao.normalizeCombos(comboBoxes);
+        List<ComboBox> resultCombos = dao.normalizeCombos(comboBoxes);
 
         assertEquals(1, resultCombos.size());
         assertEquals(3, resultCombos.get(0).getComboContent().size());

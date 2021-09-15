@@ -14,30 +14,17 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.exception;
+package io.github.sergeivisotsky.metadata.selector.dto;
 
 /**
+ * Represents a type how metadata aggregation logic is
+ * accessed/organized/stored rather an SQL or stored database function.
+ *
  * @author Sergei Visotsky
  */
-public class DataAccessException extends RuntimeException {
+public enum LogicType {
 
-    public DataAccessException() {
-        super();
-    }
+    SQL,
+    FUNCTION
 
-    public DataAccessException(String message) {
-        super(message);
-    }
-
-    public DataAccessException(String message, Object... params) {
-        super(String.format(message.replace("{}", "%s"), params));
-    }
-
-    public DataAccessException(Throwable cause, String message, Object... params) {
-        super(String.format(message.replace("{}", "%s"), params), cause);
-    }
-
-    public DataAccessException(Throwable cause) {
-        super(cause);
-    }
 }

@@ -14,30 +14,24 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.exception;
+package io.github.sergeivisotsky.metadata.selector.dao;
+
+import java.util.List;
+
+import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
 
 /**
+ * A combo box metadata access object.
+ *
  * @author Sergei Visotsky
  */
-public class DataAccessException extends RuntimeException {
+public interface ComboBoxMetadataDao {
 
-    public DataAccessException() {
-        super();
-    }
-
-    public DataAccessException(String message) {
-        super(message);
-    }
-
-    public DataAccessException(String message, Object... params) {
-        super(String.format(message.replace("{}", "%s"), params));
-    }
-
-    public DataAccessException(Throwable cause, String message, Object... params) {
-        super(String.format(message.replace("{}", "%s"), params), cause);
-    }
-
-    public DataAccessException(Throwable cause) {
-        super(cause);
-    }
+    /**
+     * Gets a combo boxes by metadata ID provided as aa parameter.
+     *
+     * @param id metadata ID.
+     * @return all combo boxes needed.
+     */
+    List<ComboBox> getComboBoxesByFormMetadataId(Long id);
 }

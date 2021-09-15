@@ -22,7 +22,9 @@ import io.github.sergeivisotsky.metadata.selector.config.properties.DataSourceCo
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 /**
@@ -54,5 +56,12 @@ public class DatasourceConfig {
     @ConditionalOnMissingBean
     public NamedParameterJdbcTemplate namedJdbcTemplate() {
         return new NamedParameterJdbcTemplate(dataSource());
+    }
+
+    @Bean
+    @Scope("prototype")
+    @ConditionalOnMissingBean
+    public SimpleJdbcCall simpleJdbcCall() {
+        return new SimpleJdbcCall(dataSource());
     }
 }
