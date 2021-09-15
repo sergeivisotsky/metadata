@@ -24,11 +24,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
-import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-
-import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.FUNCTION;
-import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
 
 /**
  * @author Sergei Visotsky
@@ -53,23 +49,20 @@ public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao 
                 "formName", formName,
                 "lang", lang
         );
-        LogicType logicType = formMetadataMapper.logicType();
-        if (SQL.equals(logicType)) {
-            return jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
-                    (rs, index) -> {
-                        FormMetadata metadata = formMetadataMapper.map(rs);
-                        metadata.setLayouts(layoutMetadataDao.getLayoutMetadata(formName));
-                        metadata.setComboBoxes(comboBoxMetadataDao
-                                .getComboBoxesByFormMetadataId(rs.getLong("id")));
-                        return metadata;
-                    });
-        }
-        if (FUNCTION.equals(logicType)) {
-            return jdbcCall.executeFunction(FormMetadata.class, formName, lang);
-        }
-        throw new DataAccessException("Provided LogicType: {} is not supported. " +
-                "Attempted to select a metadata for the following formName: {} " +
-                "with the following lang: {}", logicType.name(), formName, lang);
+        return checkLogicType(
+                formMetadataMapper::logicType,
+                () -> jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
+                        (rs, index) -> {
+                            FormMetadata metadata = formMetadataMapper.map(rs);
+                            metadata.setLayouts(layoutMetadataDao.getLayoutMetadata(formName));
+                            metadata.setComboBoxes(comboBoxMetadataDao
+                                    .getComboBoxesByFormMetadataId(rs.getLong("id")));
+                            return metadata;
+                        }),
+                () -> jdbcCall
+                        .withFunctionName(formMetadataMapper.getSql())
+                        .executeFunction(FormMetadata.class, formName, lang)
+        );
     }
 
 }

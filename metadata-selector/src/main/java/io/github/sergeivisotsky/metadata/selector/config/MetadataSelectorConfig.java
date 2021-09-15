@@ -37,7 +37,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
  * @author Sergei Visotsky
@@ -74,9 +73,8 @@ public class MetadataSelectorConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public LookupMetadataDao lookupMetadataDao(NamedParameterJdbcTemplate jdbcTemplate,
-                                               MetadataMapper<LookupHolder> lookupHolderMapper,
+    public LookupMetadataDao lookupMetadataDao(MetadataMapper<LookupHolder> lookupHolderMapper,
                                                MetadataMapper<LookupMetadata> lookupMetadataMapper) {
-        return new LookupMetadataDaoImpl(jdbcTemplate, lookupHolderMapper, lookupMetadataMapper);
+        return new LookupMetadataDaoImpl(lookupHolderMapper, lookupMetadataMapper);
     }
 }

@@ -31,9 +31,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 public interface MetadataMapper<T> {
 
     /**
-     * Get an SQL containing a new fields added during customization.
+     * Get an SQL or stored function containing a new fields added during customization.
      *
-     * @return SQL to execute.
+     * @return SQL or function to execute.
      */
     String getSql();
 

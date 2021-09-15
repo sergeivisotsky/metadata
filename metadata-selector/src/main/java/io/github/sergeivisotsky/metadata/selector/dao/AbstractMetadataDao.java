@@ -18,11 +18,17 @@ package io.github.sergeivisotsky.metadata.selector.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
+import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
+import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+
+import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.FUNCTION;
+import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
 
 /**
  * An abstract class to hold a common methods and beans for all metadata provider DAOs.
@@ -36,6 +42,18 @@ public abstract class AbstractMetadataDao {
 
     protected <T> List<T> executeQuery(Map<String, Object> params, MetadataMapper<T> mapper) {
         return jdbcTemplate.query(mapper.getSql(), params, (rs, index) -> mapper.map(rs));
+    }
+
+    protected <T> T checkLogicType(Supplier<LogicType> logicType,
+                                   Supplier<T> sql,
+                                   Supplier<T> functionCall) {
+        if (SQL.equals(logicType.get())) {
+            return sql.get();
+        }
+        if (FUNCTION.equals(logicType.get())) {
+            return functionCall.get();
+        }
+        throw new DataAccessException("Provided LogicType: {} is not supported", logicType.get().name());
     }
 
     @Autowired

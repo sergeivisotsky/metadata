@@ -19,25 +19,22 @@ package io.github.sergeivisotsky.metadata.selector.dao.impl;
 import java.util.List;
 import java.util.Map;
 
+import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
  * @author Sergei Visotsky
  */
-public class LookupMetadataDaoImpl implements LookupMetadataDao {
+public class LookupMetadataDaoImpl extends AbstractMetadataDao implements LookupMetadataDao {
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
     private final MetadataMapper<LookupHolder> lookupHolderMapper;
     private final MetadataMapper<LookupMetadata> lookupMetadataMapper;
 
-    public LookupMetadataDaoImpl(NamedParameterJdbcTemplate jdbcTemplate,
-                                 MetadataMapper<LookupHolder> lookupHolderMapper,
+    public LookupMetadataDaoImpl(MetadataMapper<LookupHolder> lookupHolderMapper,
                                  MetadataMapper<LookupMetadata> lookupMetadataMapper) {
-        this.jdbcTemplate = jdbcTemplate;
         this.lookupHolderMapper = lookupHolderMapper;
         this.lookupMetadataMapper = lookupMetadataMapper;
     }
@@ -45,19 +42,32 @@ public class LookupMetadataDaoImpl implements LookupMetadataDao {
     @Override
     public LookupHolder getLookupMetadata(String lookupName, String lang) {
         Map<String, Object> params = Map.of("lookupName", lookupName);
-        return jdbcTemplate.queryForObject(lookupHolderMapper.getSql(), params,
-                (rs, index) -> {
-                    LookupHolder holder = lookupHolderMapper.map(rs);
-                    holder.setMetadata(getMetadataForLookupHolder(lang, rs.getLong("id")));
-                    return holder;
-                });
+        return checkLogicType(
+                lookupHolderMapper::logicType,
+                () -> jdbcTemplate.queryForObject(lookupHolderMapper.getSql(), params,
+                        (rs, index) -> {
+                            LookupHolder holder = lookupHolderMapper.map(rs);
+                            holder.setMetadata(getMetadataForLookupHolder(lang, rs.getLong("id")));
+                            return holder;
+                        }),
+                () -> jdbcCall
+                        .withFunctionName(lookupHolderMapper.getSql())
+                        .executeFunction(LookupHolder.class)
+        );
     }
 
+    @SuppressWarnings({"unchecked"})
     private List<LookupMetadata> getMetadataForLookupHolder(String lang, Long holderId) {
         Map<String, Object> metadataParams = Map.of(
                 "holderId", holderId,
                 "lang", lang);
-        return jdbcTemplate.query(lookupMetadataMapper.getSql(), metadataParams,
-                (rs, index) -> lookupMetadataMapper.map(rs));
+        return checkLogicType(
+                lookupMetadataMapper::logicType,
+                () -> jdbcTemplate.query(lookupMetadataMapper.getSql(), metadataParams,
+                        (rs, index) -> lookupMetadataMapper.map(rs)),
+                () -> jdbcCall
+                        .withFunctionName(lookupHolderMapper.getSql())
+                        .executeFunction(List.class)
+        );
     }
 }

@@ -38,10 +38,16 @@ public class LayoutMetadataDaoImpl extends AbstractMetadataDao implements Layout
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings({"unchecked"})
     @Override
     public List<Layout> getLayoutMetadata(String formName) {
         Map<String, Object> params = Map.of("formName", formName);
-        // TODO: Check for LogicType whether it is a stored function or pure SQL
-        return executeQuery(params, layoutMapper);
+        return checkLogicType(
+                layoutMapper::logicType,
+                () -> executeQuery(params, layoutMapper),
+                () -> jdbcCall
+                        .withFunctionName(layoutMapper.getSql())
+                        .executeFunction(List.class)
+        );
     }
 }
