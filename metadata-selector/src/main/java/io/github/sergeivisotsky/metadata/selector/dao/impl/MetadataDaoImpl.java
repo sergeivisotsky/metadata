@@ -23,7 +23,6 @@ import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
 /**
@@ -59,9 +58,7 @@ public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao 
                                     .getComboBoxesByFormMetadataId(rs.getLong("id")));
                             return metadata;
                         }),
-                () -> jdbcCall
-                        .withFunctionName(formMetadataMapper.getSql())
-                        .executeFunction(FormMetadata.class, formName, lang)
+                formMetadataMapper::executeFunction
         );
     }
 

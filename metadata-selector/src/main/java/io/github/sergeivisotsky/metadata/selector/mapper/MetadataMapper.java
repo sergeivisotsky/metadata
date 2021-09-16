@@ -37,6 +37,8 @@ public interface MetadataMapper<T> {
      */
     String getSql();
 
+    T executeFunction();
+
     /**
      * Maps an extracted metadata from {@link ResultSet} to a Java DTO.
      *

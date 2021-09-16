@@ -16,11 +16,17 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import javax.sql.DataSource;
 
 import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
+import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -36,6 +42,7 @@ import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
  */
 public abstract class AbstractMetadataDao {
 
+    private DataSource dataSource;
     protected SimpleJdbcCall jdbcCall;
     protected NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -56,6 +63,11 @@ public abstract class AbstractMetadataDao {
         throw new IllegalStateException(
                 String.format("Provided LogicType: %s is not supported", logicTypeAsString)
         );
+    }
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Autowired

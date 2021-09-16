@@ -50,9 +50,7 @@ public class LookupMetadataDaoImpl extends AbstractMetadataDao implements Lookup
                             holder.setMetadata(getMetadataForLookupHolder(lang, rs.getLong("id")));
                             return holder;
                         }),
-                () -> jdbcCall
-                        .withFunctionName(lookupHolderMapper.getSql())
-                        .executeFunction(LookupHolder.class)
+                lookupHolderMapper::executeFunction
         );
     }
 
@@ -61,13 +59,11 @@ public class LookupMetadataDaoImpl extends AbstractMetadataDao implements Lookup
         Map<String, Object> metadataParams = Map.of(
                 "holderId", holderId,
                 "lang", lang);
-        return checkLogicType(
+        return (List<LookupMetadata>) checkLogicType(
                 lookupMetadataMapper::logicType,
                 () -> jdbcTemplate.query(lookupMetadataMapper.getSql(), metadataParams,
                         (rs, index) -> lookupMetadataMapper.map(rs)),
-                () -> jdbcCall
-                        .withFunctionName(lookupHolderMapper.getSql())
-                        .executeFunction(List.class)
+                lookupMetadataMapper::executeFunction
         );
     }
 }

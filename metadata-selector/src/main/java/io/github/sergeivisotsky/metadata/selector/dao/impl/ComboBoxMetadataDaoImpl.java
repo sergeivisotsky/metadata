@@ -41,11 +41,11 @@ public class ComboBoxMetadataDaoImpl extends AbstractMetadataDao implements Comb
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings({"unchecked"})
     @Override
+    @SuppressWarnings({"unchecked"})
     public List<ComboBox> getComboBoxesByFormMetadataId(Long id) {
         Map<String, Object> params = Map.of("formMetadataId", id);
-        List<ComboBox> combos = checkLogicType(
+        List<ComboBox> combos = (List<ComboBox>) checkLogicType(
                 comboBoxMapper::logicType,
                 () -> jdbcTemplate.query(comboBoxMapper.getSql(), params, (rs, index) -> {
                     ComboBox comboBox = comboBoxMapper.map(rs);
@@ -57,9 +57,7 @@ public class ComboBoxMetadataDaoImpl extends AbstractMetadataDao implements Comb
                     comboBox.setComboContent(comboContent);
                     return comboBox;
                 }),
-                () -> jdbcCall
-                        .withFunctionName(comboBoxMapper.getSql())
-                        .executeFunction(List.class)
+                comboBoxMapper::executeFunction
         );
         return normalizeCombos(combos);
     }
