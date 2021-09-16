@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import javax.sql.DataSource;
 
+import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
