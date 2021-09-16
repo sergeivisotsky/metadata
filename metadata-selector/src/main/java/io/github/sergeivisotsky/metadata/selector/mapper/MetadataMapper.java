@@ -16,11 +16,7 @@
 
 package io.github.sergeivisotsky.metadata.selector.mapper;
 
-import java.sql.CallableStatement;
 import java.sql.ResultSet;
-
-import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
  * An interface to be implemented by mappers from {@link ResultSet} to DTO.
@@ -37,8 +33,6 @@ public interface MetadataMapper<T> {
      */
     String getSql();
 
-    T executeFunction();
-
     /**
      * Maps an extracted metadata from {@link ResultSet} to a Java DTO.
      *
@@ -46,13 +40,4 @@ public interface MetadataMapper<T> {
      * @return resulting metadata aggregate DTO.
      */
     T map(ResultSet rs);
-
-    /**
-     * Defines the way on how metadata is being stored for this particular entity.
-     * In case if it is an SQL then a pure SQL is used in {@link NamedParameterJdbcTemplate}
-     * and in case of stored function a stored function is being called using {@link CallableStatement}.
-     *
-     * @return enumerator of logic is stored.
-     */
-    LogicType logicType();
 }

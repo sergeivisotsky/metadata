@@ -48,18 +48,14 @@ public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao 
                 "formName", formName,
                 "lang", lang
         );
-        return checkLogicType(
-                formMetadataMapper::logicType,
-                () -> jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
-                        (rs, index) -> {
-                            FormMetadata metadata = formMetadataMapper.map(rs);
-                            metadata.setLayouts(layoutMetadataDao.getLayoutMetadata(formName));
-                            metadata.setComboBoxes(comboBoxMetadataDao
-                                    .getComboBoxesByFormMetadataId(rs.getLong("id")));
-                            return metadata;
-                        }),
-                formMetadataMapper::executeFunction
-        );
+        return jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
+                (rs, index) -> {
+                    FormMetadata metadata = formMetadataMapper.map(rs);
+                    metadata.setLayouts(layoutMetadataDao.getLayoutMetadata(formName));
+                    metadata.setComboBoxes(comboBoxMetadataDao
+                            .getComboBoxesByFormMetadataId(rs.getLong("id")));
+                    return metadata;
+                });
     }
 
 }

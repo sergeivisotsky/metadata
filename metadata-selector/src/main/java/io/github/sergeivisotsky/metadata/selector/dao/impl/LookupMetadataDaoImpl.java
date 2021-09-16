@@ -42,28 +42,19 @@ public class LookupMetadataDaoImpl extends AbstractMetadataDao implements Lookup
     @Override
     public LookupHolder getLookupMetadata(String lookupName, String lang) {
         Map<String, Object> params = Map.of("lookupName", lookupName);
-        return checkLogicType(
-                lookupHolderMapper::logicType,
-                () -> jdbcTemplate.queryForObject(lookupHolderMapper.getSql(), params,
-                        (rs, index) -> {
-                            LookupHolder holder = lookupHolderMapper.map(rs);
-                            holder.setMetadata(getMetadataForLookupHolder(lang, rs.getLong("id")));
-                            return holder;
-                        }),
-                lookupHolderMapper::executeFunction
-        );
+        return jdbcTemplate.queryForObject(lookupHolderMapper.getSql(), params,
+                (rs, index) -> {
+                    LookupHolder holder = lookupHolderMapper.map(rs);
+                    holder.setMetadata(getMetadataForLookupHolder(lang, rs.getLong("id")));
+                    return holder;
+                });
     }
 
-    @SuppressWarnings({"unchecked"})
     private List<LookupMetadata> getMetadataForLookupHolder(String lang, Long holderId) {
         Map<String, Object> metadataParams = Map.of(
                 "holderId", holderId,
                 "lang", lang);
-        return (List<LookupMetadata>) checkLogicType(
-                lookupMetadataMapper::logicType,
-                () -> jdbcTemplate.query(lookupMetadataMapper.getSql(), metadataParams,
-                        (rs, index) -> lookupMetadataMapper.map(rs)),
-                lookupMetadataMapper::executeFunction
-        );
+        return jdbcTemplate.query(lookupMetadataMapper.getSql(), metadataParams,
+                (rs, index) -> lookupMetadataMapper.map(rs));
     }
 }
