@@ -45,7 +45,9 @@ public class LayoutMetadataDaoImpl extends AbstractMetadataDao implements Layout
         return (List<Layout>) checkLogicType(
                 layoutMapper::logicType,
                 () -> executeQuery(params, layoutMapper),
-                layoutMapper::executeFunction
+                () -> {
+                    throw new UnsupportedOperationException(); // TODO
+                }
         );
     }
 }

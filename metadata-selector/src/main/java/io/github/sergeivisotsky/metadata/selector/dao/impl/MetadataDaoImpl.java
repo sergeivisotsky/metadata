@@ -16,6 +16,10 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.Map;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
@@ -23,6 +27,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
 /**
@@ -58,8 +63,30 @@ public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao 
                                     .getComboBoxesByFormMetadataId(rs.getLong("id")));
                             return metadata;
                         }),
-                formMetadataMapper::executeFunction
+                () -> executeFunction(formName, lang)
         );
+    }
+
+    protected FormMetadata executeFunction(String formName, String lang) {
+        try (Connection conn = dataSource.getConnection();
+             CallableStatement stmt = conn.prepareCall(formMetadataMapper.getSql())) {
+
+            stmt.registerOutParameter(1, Types.REF_CURSOR);
+            stmt.setString(1, formName);
+            stmt.setString(2, lang);
+            stmt.execute();
+
+            ResultSet rs = stmt.getResultSet();
+            FormMetadata metadata = formMetadataMapper.map(rs);
+            metadata.setLayouts(layoutMetadataDao.getLayoutMetadata(formName));
+            metadata.setComboBoxes(comboBoxMetadataDao
+                    .getComboBoxesByFormMetadataId(rs.getLong("id")));
+
+            return metadata;
+        } catch (Exception e) {
+            throw new DataAccessException(e, "Unable to execute stored function to get a form " +
+                    "metadata with formName: {} and lang: {}", formName, lang);
+        }
     }
 
 }

@@ -37,7 +37,7 @@ import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
  */
 public abstract class AbstractMetadataDao {
 
-    private DataSource dataSource;
+    protected DataSource dataSource;
     protected SimpleJdbcCall jdbcCall;
     protected NamedParameterJdbcTemplate jdbcTemplate;
 

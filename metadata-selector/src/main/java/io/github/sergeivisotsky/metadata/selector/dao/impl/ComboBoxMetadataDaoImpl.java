@@ -57,7 +57,9 @@ public class ComboBoxMetadataDaoImpl extends AbstractMetadataDao implements Comb
                     comboBox.setComboContent(comboContent);
                     return comboBox;
                 }),
-                comboBoxMapper::executeFunction
+                () -> {
+                    throw new UnsupportedOperationException(); // TODO
+                }
         );
         return normalizeCombos(combos);
     }

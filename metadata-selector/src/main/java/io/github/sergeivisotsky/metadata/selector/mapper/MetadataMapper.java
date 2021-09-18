@@ -18,6 +18,7 @@ package io.github.sergeivisotsky.metadata.selector.mapper;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -37,15 +38,13 @@ public interface MetadataMapper<T> {
      */
     String getSql();
 
-    T executeFunction();
-
     /**
      * Maps an extracted metadata from {@link ResultSet} to a Java DTO.
      *
      * @param rs database result set.
      * @return resulting metadata aggregate DTO.
      */
-    T map(ResultSet rs);
+    T map(ResultSet rs) throws SQLException;
 
     /**
      * Defines the way on how metadata is being stored for this particular entity.

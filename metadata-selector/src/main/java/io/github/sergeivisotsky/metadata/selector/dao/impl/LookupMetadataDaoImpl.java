@@ -50,7 +50,7 @@ public class LookupMetadataDaoImpl extends AbstractMetadataDao implements Lookup
                             holder.setMetadata(getMetadataForLookupHolder(lang, rs.getLong("id")));
                             return holder;
                         }),
-                lookupHolderMapper::executeFunction
+                () -> null
         );
     }
 
@@ -63,7 +63,9 @@ public class LookupMetadataDaoImpl extends AbstractMetadataDao implements Lookup
                 lookupMetadataMapper::logicType,
                 () -> jdbcTemplate.query(lookupMetadataMapper.getSql(), metadataParams,
                         (rs, index) -> lookupMetadataMapper.map(rs)),
-                lookupMetadataMapper::executeFunction
+                () -> {
+                    throw new UnsupportedOperationException(); // TODO
+                }
         );
     }
 }
