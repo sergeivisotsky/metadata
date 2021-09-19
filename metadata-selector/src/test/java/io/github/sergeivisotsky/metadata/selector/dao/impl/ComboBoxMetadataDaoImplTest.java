@@ -19,48 +19,50 @@ package io.github.sergeivisotsky.metadata.selector.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBoxContent;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.Layout;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Sergei Visotsky
  */
-public class ComboBoxMetadataDaoImplTest {
+public class ComboBoxMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Mock
-    private MetadataMapper<FormMetadata> formMetadataMapper;
-
-    @Mock
-    private MetadataMapper<Layout> layoutMapper;
-
-    @Mock
     private MetadataMapper<ComboBox> comboBoxMapper;
+
+    @Mock
+    private LayoutMetadataDao layoutMetadataDao;
 
     @InjectMocks
     private ComboBoxMetadataDaoImpl dao;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+    private static List<ComboBox> comboBoxes;
 
-    @Test
-    public void shouldObfuscateCombos() {
-        List<ComboBox> comboBoxes = new ArrayList<>();
+    @BeforeClass
+    public static void beforeClass() {
+        comboBoxes = new ArrayList<>();
 
         ComboBox comboBoxOne = new ComboBox();
         comboBoxOne.setId(1L);
@@ -79,7 +81,28 @@ public class ComboBoxMetadataDaoImplTest {
         comboBoxThree.setComboContent(List.of(new ComboBoxContent("thirdKey", "thirdValue", 1L)));
 
         comboBoxes.add(comboBoxThree);
+    }
 
+    @Before
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void shouldGetComboBoxesByFormMetadataId() {
+        when(comboBoxMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
+        when(jdbcTemplate.query(anyString(), anyMap(), any(RowMapper.class))).thenReturn(comboBoxes);
+
+        List<ComboBox> combos = dao.getComboBoxesByFormMetadataId(1L);
+
+        assertEquals(1, combos.size());
+        assertNotEquals(0, combos.get(0).getComboContent().size());
+        verify(comboBoxMapper).getSql();
+        verify(jdbcTemplate).query(anyString(), anyMap(), any(RowMapper.class));
+    }
+
+    @Test
+    public void shouldNormalizeCombos() {
         List<ComboBox> resultCombos = dao.normalizeCombos(comboBoxes);
 
         assertEquals(1, resultCombos.size());

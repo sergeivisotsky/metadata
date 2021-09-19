@@ -17,12 +17,10 @@
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
+import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,32 +31,27 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
  * @author Sergei Visotsky
  */
-public class MetadataDaoImplTest extends AbstractMetadataDao {
+public class LookupMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Mock
-    private MetadataMapper<FormMetadata> formMetadataMapper;
+    private MetadataMapper<LookupHolder> lookupHolderMapper;
 
     @Mock
-    private ComboBoxMetadataDao comboBoxMetadataDao;
-
-    @Mock
-    private LayoutMetadataDao layoutMetadataDao;
+    private MetadataMapper<LookupMetadata> lookupMetadataMapper;
 
     @InjectMocks
-    private MetadataDaoImpl dao;
+    private LookupMetadataDaoImpl dao;
 
     @Before
     public void setUp() {
@@ -66,25 +59,19 @@ public class MetadataDaoImplTest extends AbstractMetadataDao {
     }
 
     @Test
-    public void shouldGetFormMetadata() {
-        FormMetadata metadata = new FormMetadata();
-        metadata.setFont("Times New Roman");
-        metadata.setDescription("some description");
+    public void shouldGetLookupMetadata() {
+        LookupHolder lookupHolder = new LookupHolder();
+        lookupHolder.setName("someHolder");
+        lookupHolder.setWeight(300);
+        lookupHolder.setHeight(20);
+        lookupHolder.setMetadata(List.of());
 
-        Map<String, String> map = Map.of(
-                "formName", "main",
-                "lang", "en"
-        );
+        when(lookupHolderMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
+        when(jdbcTemplate.queryForObject(anyString(), anyMap(), any(RowMapper.class))).thenReturn(lookupHolder);
 
-        final String mockSql = "SELECT * FROM some_table WHERE id = 1";
-        when(formMetadataMapper.getSql()).thenReturn(mockSql);
-        when(layoutMetadataDao.getLayoutMetadata(anyString())).thenReturn(List.of());
-        when(comboBoxMetadataDao.getComboBoxesByFormMetadataId(anyLong())).thenReturn(List.of());
-        when(jdbcTemplate.queryForObject(anyString(), anyMap(), eq(RowMapper.class))).thenReturn((rs, rowNum) -> metadata);
+        dao.getLookupMetadata("someLookup", "en");
 
-        dao.getFormMetadata("main", "en");
-
-        verify(formMetadataMapper).getSql();
-        verify(jdbcTemplate).queryForObject(any(), anyMap(), any(RowMapper.class));
+        verify(lookupHolderMapper).getSql();
+        verify(jdbcTemplate).queryForObject(anyString(), anyMap(), any(RowMapper.class));
     }
 }
