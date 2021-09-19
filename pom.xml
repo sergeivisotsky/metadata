@@ -19,6 +19,15 @@
         <module>metadata-provider-bom</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>itest</id>
+            <modules>
+                <module>metadata-selector-itest</module>
+            </modules>
+        </profile>
+    </profiles>
+
     <scm>
         <url>https://github.com/sergeivisotsky/metadata-provider</url>
         <connection>git://github.com/sergeivisotsky/metadata-provider.git</connection>
