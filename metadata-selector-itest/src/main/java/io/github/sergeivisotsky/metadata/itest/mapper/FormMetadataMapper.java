@@ -39,7 +39,7 @@ public class FormMetadataMapper implements MetadataMapper<FormMetadata> {
                 "       fm.form_name,\n" +
                 "       fm.cardinality,\n" +
                 "       fm.language,\n" +
-                "       fm.offset,\n" +
+                "       fm.\"offset\",\n" +
                 "       fm.padding,\n" +
                 "       fm.font,\n" +
                 "       fm.font_size,\n" +

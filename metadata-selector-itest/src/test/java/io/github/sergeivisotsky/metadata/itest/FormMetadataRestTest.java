@@ -43,13 +43,14 @@ import static org.junit.Assert.assertEquals;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FormMetadataRestTest {
 
+    private static final ClassLoader CLASS_LOADER = FormMetadataRestTest.class.getClassLoader();
+
     @LocalServerPort
     private int port;
 
     @Test
     public void testGetFormMetadata() throws IOException {
-        final ClassLoader classLoader = this.getClass().getClassLoader();
-        InputStream jsonStream = classLoader.getResourceAsStream("json/testFormMetadata.json");
+        InputStream jsonStream = CLASS_LOADER.getResourceAsStream("json/testFormMetadata.json");
         Optional.ofNullable(jsonStream).orElseThrow(IllegalStateException::new);
 
         TestRestTemplate restTemplate = new TestRestTemplate();
@@ -59,5 +60,20 @@ public class FormMetadataRestTest {
         String responseAsString = restTemplate.getForObject(url, String.class);
 
         assertEquals(expectedResponse, responseAsString);
+    }
+
+    @Test
+    public void testGetLookupMetadata() throws IOException {
+        InputStream jsonStream = CLASS_LOADER.getResourceAsStream("json/testLookupMetadata.json");
+        Optional.ofNullable(jsonStream).orElseThrow(IllegalStateException::new);
+
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        String url = String.format("http://localhost:%s/api/v1/lookup/metadata/CHECK_POINT/en", port);
+
+        String expectedResponse = IOUtils.toString(jsonStream, StandardCharsets.UTF_8);
+        String responseAsString = restTemplate.getForObject(url, String.class);
+
+        assertEquals(expectedResponse, responseAsString);
+
     }
 }
