@@ -72,8 +72,8 @@ public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao 
              CallableStatement stmt = conn.prepareCall(formMetadataMapper.getSql())) {
 
             stmt.registerOutParameter(1, Types.REF_CURSOR);
-            stmt.setString(1, formName);
-            stmt.setString(2, lang);
+            stmt.setString(2, formName);
+            stmt.setString(3, lang);
             stmt.execute();
 
             ResultSet rs = stmt.getResultSet();
