@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+  liquibase:
+    change-log: classpath:db/db.changelog-master.xml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: postgres
+
+datasource:
+  driver-class-name: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5433/postgres
+  username: postgres
+  password: postgres
+
+cache:
+  initialCapacity: 100
+  maximumSize: 800
+  expireAfterAccess: 8
+  expirationAfterAccessUnits: HOURS

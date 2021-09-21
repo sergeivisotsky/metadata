@@ -1,0 +1,23 @@
+version: '3.5'
+services:
+  itest-db:
+    image: postgres
+    container_name: itest-db
+    restart: always
+    env_file:
+      - pg.env
+    ports:
+      - "5433:5432"
+    command:
+      [ "postgres", "-c", "wal_level=logical" ]
+    volumes:
+      - "vol_postgres:/var/lib/postgresql/data"
+    networks:
+      - itest_net
+
+volumes:
+  vol_postgres:
+
+networks:
+  itest_net:
+    driver: bridge

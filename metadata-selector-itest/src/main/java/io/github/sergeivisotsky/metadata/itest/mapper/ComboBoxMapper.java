@@ -5,8 +5,11 @@ import java.sql.SQLException;
 
 import io.github.sergeivisotsky.metadata.itest.dto.ExtendedComboBox;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
+import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.stereotype.Component;
+
+import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
 
 /**
  * @author Sergei Visotsky
@@ -50,5 +53,10 @@ public class ComboBoxMapper implements MetadataMapper<ComboBox> {
             throw new RuntimeException("Unable to get value from ResultSet for Mapper: {}" +
                     FormMetadataMapper.class.getSimpleName(), e);
         }
+    }
+
+    @Override
+    public LogicType logicType() {
+        return SQL;
     }
 }

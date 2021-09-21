@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <sql>
+            CREATE OR REPLACE FUNCTION get_form_metadata(name VARCHAR, lang VARCHAR)
+                RETURNS SETOF REFCURSOR
+                LANGUAGE plpgsql
+            AS
+            $$
+            DECLARE
+                resulting_record REFCURSOR;
+            BEGIN
+                OPEN resulting_record FOR
+                    SELECT fm.id,
+                           fm.form_name,
+                           fm.cardinality,
+                           fm.language,
+                           fm.offset,
+                           fm.padding,
+                           fm.font,
+                           fm.font_size,
+                           fm.description,
+                           fm.facet,
+                           vf.enabled_by_default,
+                           vf.ui_control
+                    FROM form_metadata fm
+                             LEFT JOIN view_field vf ON fm.id = vf.form_metadata_id
+                    WHERE fm.form_name = name
+                      AND fm.language = lang;
+                RETURN NEXT resulting_record;
+            END;
+            $$;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

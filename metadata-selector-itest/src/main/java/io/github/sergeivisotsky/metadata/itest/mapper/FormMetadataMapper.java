@@ -23,9 +23,12 @@ import java.util.Locale;
 import io.github.sergeivisotsky.metadata.itest.dto.ExtendedFormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Language;
+import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
 import io.github.sergeivisotsky.metadata.selector.dto.ViewField;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.stereotype.Component;
+
+import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.FUNCTION;
 
 /**
  * @author Sergei Visotsky
@@ -35,21 +38,22 @@ public class FormMetadataMapper implements MetadataMapper<FormMetadata> {
 
     @Override
     public String getSql() {
-        return "SELECT fm.id,\n" +
-                "       fm.form_name,\n" +
-                "       fm.cardinality,\n" +
-                "       fm.language,\n" +
-                "       fm.\"offset\",\n" +
-                "       fm.padding,\n" +
-                "       fm.font,\n" +
-                "       fm.font_size,\n" +
-                "       fm.description,\n" +
-                "       vf.enabled_by_default,\n" +
-                "       vf.ui_control\n" +
-                "FROM form_metadata fm\n" +
-                "         LEFT JOIN view_field vf on fm.id = vf.form_metadata_id\n" +
-                "WHERE fm.form_name = :formName\n" +
-                "  AND fm.language = :lang";
+        return "{? = call get_form_metadata(?, ?)}";
+//        return "SELECT fm.id,\n" +
+//                "       fm.form_name,\n" +
+//                "       fm.cardinality,\n" +
+//                "       fm.language,\n" +
+//                "       fm.\"offset\",\n" +
+//                "       fm.padding,\n" +
+//                "       fm.font,\n" +
+//                "       fm.font_size,\n" +
+//                "       fm.description,\n" +
+//                "       vf.enabled_by_default,\n" +
+//                "       vf.ui_control\n" +
+//                "FROM form_metadata fm\n" +
+//                "         LEFT JOIN view_field vf on fm.id = vf.form_metadata_id\n" +
+//                "WHERE fm.form_name = :formName\n" +
+//                "  AND fm.language = :lang";
     }
 
     @Override
@@ -74,5 +78,10 @@ public class FormMetadataMapper implements MetadataMapper<FormMetadata> {
             throw new RuntimeException("Unable to get value from ResultSet for Mapper: {}" +
                     FormMetadataMapper.class.getSimpleName(), e);
         }
+    }
+
+    @Override
+    public LogicType logicType() {
+        return FUNCTION;
     }
 }
