@@ -23,7 +23,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
 /**
@@ -31,14 +31,15 @@ import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
  */
 public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao {
 
-    private final MetadataMapper<FormMetadata> formMetadataMapper;
+    private final MetadataMapper<ViewMetadata> formMetadataMapper;
     private final ComboBoxMetadataDao comboBoxMetadataDao;
     private final LayoutMetadataDao layoutMetadataDao;
     private final NavigationMetadataDao navigationMetadataDao;
 
-    public MetadataDaoImpl(MetadataMapper<FormMetadata> formMetadataMapper,
+    public MetadataDaoImpl(MetadataMapper<ViewMetadata> formMetadataMapper,
                            ComboBoxMetadataDao comboBoxMetadataDao,
-                           LayoutMetadataDao layoutMetadataDao, NavigationMetadataDao navigationMetadataDao) {
+                           LayoutMetadataDao layoutMetadataDao,
+                           NavigationMetadataDao navigationMetadataDao) {
         this.formMetadataMapper = formMetadataMapper;
         this.comboBoxMetadataDao = comboBoxMetadataDao;
         this.layoutMetadataDao = layoutMetadataDao;
@@ -49,18 +50,18 @@ public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao 
      * {@inheritDoc}
      */
     @Override
-    public FormMetadata getFormMetadata(String formName, String lang) {
+    public ViewMetadata getViewMetadata(String viewName, String lang) {
         Map<String, Object> params = Map.of(
-                "formName", formName,
+                "viewName", viewName,
                 "lang", lang
         );
         return jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
                 (rs, index) -> {
-                    FormMetadata metadata = formMetadataMapper.map(rs);
-                    metadata.setLayouts(layoutMetadataDao.getLayoutMetadata(formName));
+                    ViewMetadata metadata = formMetadataMapper.map(rs);
+                    metadata.setLayouts(layoutMetadataDao.getLayoutMetadata(viewName));
                     metadata.setComboBoxes(comboBoxMetadataDao
                             .getComboBoxesByFormMetadataId(rs.getLong("id")));
-                    metadata.setNavigation(navigationMetadataDao.getNavigationMetadata(formName));
+                    metadata.setNavigation(navigationMetadataDao.getNavigationMetadata(viewName));
                     return metadata;
                 });
     }

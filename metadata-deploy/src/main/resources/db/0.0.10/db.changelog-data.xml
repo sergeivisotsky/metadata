@@ -11,7 +11,7 @@
             <column name="number_of_elements" value="5"/>
             <column name="fixed" value="true"/>
             <column name="resizable" value="false"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="view_metadata_id" value="1"/>
         </insert>
         <insert tableName="navigation_element">
             <column name="id" value="1"/>

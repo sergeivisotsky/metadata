@@ -22,7 +22,7 @@ import java.util.Map;
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class MetadataDaoImplTest extends AbstractMetadataDao {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Mock
-    private MetadataMapper<FormMetadata> formMetadataMapper;
+    private MetadataMapper<ViewMetadata> formMetadataMapper;
 
     @Mock
     private ComboBoxMetadataDao comboBoxMetadataDao;
@@ -67,7 +67,7 @@ public class MetadataDaoImplTest extends AbstractMetadataDao {
 
     @Test
     public void shouldGetFormMetadata() {
-        FormMetadata metadata = new FormMetadata();
+        ViewMetadata metadata = new ViewMetadata();
         metadata.setFont("Times New Roman");
         metadata.setDescription("some description");
 
@@ -82,7 +82,7 @@ public class MetadataDaoImplTest extends AbstractMetadataDao {
         when(comboBoxMetadataDao.getComboBoxesByFormMetadataId(anyLong())).thenReturn(List.of());
         when(jdbcTemplate.queryForObject(anyString(), anyMap(), eq(RowMapper.class))).thenReturn((rs, rowNum) -> metadata);
 
-        dao.getFormMetadata("main", "en");
+        dao.getViewMetadata("main", "en");
 
         verify(formMetadataMapper).getSql();
         verify(jdbcTemplate).queryForObject(any(), anyMap(), any(RowMapper.class));

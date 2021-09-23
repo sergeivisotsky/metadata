@@ -13,7 +13,7 @@
             <column name="number_of_elements" type="java.sql.Types.INTEGER"/>
             <column name="fixed" type="java.sql.Types.BOOLEAN"/>
             <column name="resizable" type="java.sql.Types.BOOLEAN"/>
-            <column name="form_metadata_id" type="java.sql.Types.BIGINT">
+            <column name="view_metadata_id" type="java.sql.Types.BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -29,9 +29,9 @@
             </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="navigation"
-                                 baseColumnNames="form_metadata_id"
-                                 constraintName="navigation_form_metadata_fk"
-                                 referencedTableName="form_metadata"
+                                 baseColumnNames="view_metadata_id"
+                                 constraintName="navigation_view_metadata_fk"
+                                 referencedTableName="view_metadata"
                                  referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="navigation_element"
                                  baseColumnNames="navigation_id"

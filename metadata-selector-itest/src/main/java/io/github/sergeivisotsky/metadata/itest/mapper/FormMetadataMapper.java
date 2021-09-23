@@ -20,8 +20,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
 
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedFormMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.itest.dto.ExtendedViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Language;
 import io.github.sergeivisotsky.metadata.selector.dto.ViewField;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
  * @author Sergei Visotsky
  */
 @Component
-public class FormMetadataMapper implements MetadataMapper<FormMetadata> {
+public class FormMetadataMapper implements MetadataMapper<ViewMetadata> {
 
     @Override
     public String getSql() {
@@ -53,10 +53,10 @@ public class FormMetadataMapper implements MetadataMapper<FormMetadata> {
     }
 
     @Override
-    public ExtendedFormMetadata map(ResultSet rs) {
+    public ExtendedViewMetadata map(ResultSet rs) {
         try {
-            ExtendedFormMetadata metadata = new ExtendedFormMetadata();
-            metadata.setFormName(rs.getString("form_name"));
+            ExtendedViewMetadata metadata = new ExtendedViewMetadata();
+            metadata.setViewName(rs.getString("form_name"));
             metadata.setCardinality(rs.getString("cardinality"));
             metadata.setLang(Language.valueOf(rs.getString("language")
                     .toUpperCase(Locale.ROOT)));

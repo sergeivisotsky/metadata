@@ -39,8 +39,8 @@ public class LayoutMetadataDaoImpl extends AbstractMetadataDao implements Layout
      * {@inheritDoc}
      */
     @Override
-    public List<Layout> getLayoutMetadata(String formName) {
-        Map<String, Object> params = Map.of("formName", formName);
+    public List<Layout> getLayoutMetadata(String viewName) {
+        Map<String, Object> params = Map.of("viewName", viewName);
         return executeQuery(params, layoutMapper);
     }
 }

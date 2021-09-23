@@ -16,10 +16,10 @@
 
 package io.github.sergeivisotsky.metadata.itest.dto;
 
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 
 /**
  * @author Sergei Visotsky
  */
-public class ExtendedFormMetadata extends FormMetadata {
+public class ExtendedViewMetadata extends ViewMetadata {
 }

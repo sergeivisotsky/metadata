@@ -16,7 +16,7 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao;
 
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 
 /**
  * Interface to be considered both API and SPI for a metadata retrieval functionality.
@@ -30,10 +30,10 @@ public interface MetadataDao {
     /**
      * Gets the all metadata.
      *
-     * @param formName name of the form to retrieve metadata for.
+     * @param viewName name of the view to retrieve metadata for.
      * @param lang     language on which metadata should be handled.
      * @return metadata DTO.
      */
-    FormMetadata getFormMetadata(String formName, String lang);
+    ViewMetadata getViewMetadata(String viewName, String lang);
 
 }

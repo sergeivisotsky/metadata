@@ -29,7 +29,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.impl.LookupMetadataDaoImpl
 import io.github.sergeivisotsky.metadata.selector.dao.impl.MetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.NavigationMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
@@ -58,7 +58,7 @@ public class MetadataSelectorConfig {
     }
 
     @Bean("simpleMetadataDao")
-    public MetadataDao simpleMetadataDao(MetadataMapper<FormMetadata> formMetadataMapper,
+    public MetadataDao simpleMetadataDao(MetadataMapper<ViewMetadata> formMetadataMapper,
                                          ComboBoxMetadataDao comboBoxMetadataDao,
                                          LayoutMetadataDao layoutMetadataDao,
                                          NavigationMetadataDao navigationMetadataDao) {

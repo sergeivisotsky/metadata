@@ -22,7 +22,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import io.github.sergeivisotsky.metadata.selector.config.properties.CacheConfigProperties;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
 
 /**
@@ -30,7 +30,7 @@ import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
  */
 public class CacheableMetadataDao implements MetadataDao {
 
-    private final Cache<MetadataCacheKey, FormMetadata> cache;
+    private final Cache<MetadataCacheKey, ViewMetadata> cache;
     private final MetadataDao metadataDao;
 
     public CacheableMetadataDao(MetadataDao metadataDao,
@@ -45,27 +45,27 @@ public class CacheableMetadataDao implements MetadataDao {
     }
 
     @Override
-    public FormMetadata getFormMetadata(String formName, String lang) {
+    public ViewMetadata getViewMetadata(String viewName, String lang) {
         try {
-            MetadataCacheKey cacheKey = new MetadataCacheKey(formName, lang);
-            return cache.get(cacheKey, () -> metadataDao.getFormMetadata(formName, lang));
+            MetadataCacheKey cacheKey = new MetadataCacheKey(viewName, lang);
+            return cache.get(cacheKey, () -> metadataDao.getViewMetadata(viewName, lang));
         } catch (ExecutionException e) {
             throw new DataAccessException(e, "Unable to get a metadata from cache for " +
-                    "formName={} with lang={}", formName, lang);
+                    "formName={} with lang={}", viewName, lang);
         }
     }
 
     private static final class MetadataCacheKey {
-        private final String formName;
+        private final String viewName;
         private final String lang;
 
-        private MetadataCacheKey(String formName, String lang) {
-            this.formName = formName;
+        private MetadataCacheKey(String viewName, String lang) {
+            this.viewName = viewName;
             this.lang = lang;
         }
 
-        public String getFormName() {
-            return formName;
+        public String getViewName() {
+            return viewName;
         }
 
         public String getLang() {

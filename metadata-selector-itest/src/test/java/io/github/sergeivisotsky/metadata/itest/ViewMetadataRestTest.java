@@ -41,9 +41,9 @@ import static org.junit.Assert.assertEquals;
 @ActiveProfiles("test")
 @SpringBootTest(classes = ITestBootstrap.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class FormMetadataRestTest {
+public class ViewMetadataRestTest {
 
-    private static final ClassLoader CLASS_LOADER = FormMetadataRestTest.class.getClassLoader();
+    private static final ClassLoader CLASS_LOADER = ViewMetadataRestTest.class.getClassLoader();
 
     @LocalServerPort
     private int port;

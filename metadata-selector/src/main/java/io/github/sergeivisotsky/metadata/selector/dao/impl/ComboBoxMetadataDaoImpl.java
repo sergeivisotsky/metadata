@@ -43,7 +43,7 @@ public class ComboBoxMetadataDaoImpl extends AbstractMetadataDao implements Comb
      */
     @Override
     public List<ComboBox> getComboBoxesByFormMetadataId(Long id) {
-        Map<String, Object> params = Map.of("formMetadataId", id);
+        Map<String, Object> params = Map.of("viewMetadataId", id);
         List<ComboBox> combos = jdbcTemplate.query(comboBoxMapper.getSql(), params, (rs, index) -> {
             ComboBox comboBox = comboBoxMapper.map(rs);
             List<ComboBoxContent> comboContent = new ArrayList<>();

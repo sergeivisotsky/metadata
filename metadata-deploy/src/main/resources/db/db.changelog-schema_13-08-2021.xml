@@ -5,12 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <changeSet id="1" author="svisockis">
-        <createTable tableName="form_metadata">
+        <createTable tableName="view_metadata">
             <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="cardinality" type="java.sql.Types.VARCHAR(45)"/>
-            <column name="form_name" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="view_name" type="java.sql.Types.VARCHAR(45)"/>
             <column name="language" type="java.sql.Types.VARCHAR(2)"/>
             <column name="offset" type="java.sql.Types.INTEGER"/>
             <column name="padding" type="java.sql.Types.INTEGER"/>
@@ -27,7 +27,7 @@
             <column name="height" type="java.sql.Types.INTEGER"/>
             <column name="font" type="java.sql.Types.VARCHAR(20)"/>
             <column name="font_size" type="java.sql.Types.INTEGER"/>
-            <column name="form_metadata_id" type="java.sql.Types.BIGINT">
+            <column name="view_metadata_id" type="java.sql.Types.BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -37,22 +37,22 @@
             </column>
             <column name="enabled_by_default" type="java.sql.Types.INTEGER"/>
             <column name="ui_control" type="java.sql.types.VARCHAR(45)"/>
-            <column name="form_metadata_id" type="java.sql.Types.BIGINT"/>
+            <column name="view_metadata_id" type="java.sql.Types.BIGINT"/>
         </createTable>
-        <addForeignKeyConstraint baseTableName="layout" baseColumnNames="form_metadata_id"
-                                 constraintName="form_metadata_fk"
-                                 referencedTableName="form_metadata"
+        <addForeignKeyConstraint baseTableName="layout" baseColumnNames="view_metadata_id"
+                                 constraintName="view_metadata_fk"
+                                 referencedTableName="view_metadata"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="view_field" baseColumnNames="form_metadata_id"
-                                 constraintName="form_view_metadata_fk"
-                                 referencedTableName="form_metadata"
+        <addForeignKeyConstraint baseTableName="view_field" baseColumnNames="view_metadata_id"
+                                 constraintName="view_field_view_metadata_fk"
+                                 referencedTableName="view_metadata"
                                  referencedColumnNames="id"/>
     </changeSet>
     <changeSet id="2" author="svisockis">
-        <insert tableName="form_metadata">
+        <insert tableName="view_metadata">
             <column name="id" value="1"/>
             <column name="cardinality" value="test"/>
-            <column name="form_name" value="main"/>
+            <column name="view_name" value="main"/>
             <column name="language" value="en"/>
             <column name="offset" value="24"/>
             <column name="padding" value="25"/>
@@ -67,7 +67,7 @@
             <column name="height" value="200"/>
             <column name="font" value="Times New Roman"/>
             <column name="font_size" value="12"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="view_metadata_id" value="1"/>
         </insert>
         <insert tableName="layout">
             <column name="id" value="2"/>
@@ -76,7 +76,7 @@
             <column name="height" value="500"/>
             <column name="font" value="Times New Roman"/>
             <column name="font_size" value="12"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="view_metadata_id" value="1"/>
         </insert>
         <insert tableName="layout">
             <column name="id" value="3"/>
@@ -85,22 +85,22 @@
             <column name="height" value="500"/>
             <column name="font" value="Times New Roman"/>
             <column name="font_size" value="12"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="view_metadata_id" value="1"/>
         </insert>
         <insert tableName="view_field">
             <column name="id" value="1"/>
             <column name="enabled_by_default" value="1"/>
             <column name="ui_control" value="control_main"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="view_metadata_id" value="1"/>
         </insert>
     </changeSet>
     <changeSet id="3" author="svisockis">
         <addColumn tableName="layout">
-            <column name="form_name" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="view_name" type="java.sql.Types.VARCHAR(45)"/>
         </addColumn>
         <update tableName="layout">
-            <column name="form_name" value="main"/>
-            <where>form_metadata_id = 1</where>
+            <column name="view_name" value="main"/>
+            <where>view_metadata_id = 1</where>
         </update>
     </changeSet>
 

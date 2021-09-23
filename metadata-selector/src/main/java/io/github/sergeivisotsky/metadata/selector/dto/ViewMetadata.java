@@ -21,11 +21,11 @@ import java.util.List;
 /**
  * @author Sergei Visotsky
  */
-public class FormMetadata {
+public class ViewMetadata {
 
     private String cardinality;
     private Language lang;
-    private String formName;
+    private String viewName;
     private Integer offset;
     private Integer padding;
     private String font;
@@ -52,12 +52,12 @@ public class FormMetadata {
         this.lang = lang;
     }
 
-    public String getFormName() {
-        return formName;
+    public String getViewName() {
+        return viewName;
     }
 
-    public void setFormName(String formName) {
-        this.formName = formName;
+    public void setViewName(String viewName) {
+        this.viewName = viewName;
     }
 
     public Integer getOffset() {

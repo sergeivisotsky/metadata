@@ -17,7 +17,7 @@
 package io.github.sergeivisotsky.metadata.selector.rest;
 
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +36,9 @@ public class MetadataRestController {
         this.metadataDao = metadataDao;
     }
 
-    @GetMapping("/getFormMetadata/{formName}/{lang}")
-    public FormMetadata getFormMetadata(@PathVariable("formName") String formName,
+    @GetMapping("/getFormMetadata/{viewName}/{lang}")
+    public ViewMetadata getViewMetadata(@PathVariable("viewName") String viewName,
                                         @PathVariable("lang") String lang) {
-        return metadataDao.getFormMetadata(formName, lang);
+        return metadataDao.getViewMetadata(viewName, lang);
     }
 }

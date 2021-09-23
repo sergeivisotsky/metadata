@@ -18,14 +18,14 @@
             <column name="height" type="java.sql.Types.INTEGER"/>
             <column name="displayable" type="java.sql.Types.BOOLEAN"/>
             <column name="immutable" type="java.sql.Types.BOOLEAN"/>
-            <column name="form_metadata_id" type="java.sql.Types.BIGINT">
+            <column name="view_metadata_id" type="java.sql.Types.BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="combo_box"
-                                 baseColumnNames="form_metadata_id"
-                                 constraintName="form_metadata_id_fk"
-                                 referencedTableName="form_metadata"
+                                 baseColumnNames="view_metadata_id"
+                                 constraintName="view_metadata_id_fk"
+                                 referencedTableName="view_metadata"
                                  referencedColumnNames="id"/>
         <createTable tableName="combo_box_content">
             <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
@@ -64,7 +64,7 @@
             <column name="height" value="20"/>
             <column name="displayable" value="true"/>
             <column name="immutable" value="false"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="view_metadata_id" value="1"/>
         </insert>
         <insert tableName="combo_box_content">
             <column name="id" value="1"/>
@@ -105,7 +105,7 @@
             <column name="height" value="20"/>
             <column name="displayable" value="true"/>
             <column name="immutable" value="false"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="view_metadata_id" value="1"/>
         </insert>
         <insert tableName="combo_box_content">
             <column name="id" value="4"/>
