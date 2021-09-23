@@ -34,6 +34,7 @@ public class FormMetadata {
     private ViewField viewField;
     private List<Layout> layouts;
     private List<ComboBox> comboBoxes;
+    private Navigation navigation;
 
     public String getCardinality() {
         return cardinality;
@@ -121,5 +122,13 @@ public class FormMetadata {
 
     public void setComboBoxes(List<ComboBox> comboBoxes) {
         this.comboBoxes = comboBoxes;
+    }
+
+    public Navigation getNavigation() {
+        return navigation;
+    }
+
+    public void setNavigation(Navigation navigation) {
+        this.navigation = navigation;
     }
 }

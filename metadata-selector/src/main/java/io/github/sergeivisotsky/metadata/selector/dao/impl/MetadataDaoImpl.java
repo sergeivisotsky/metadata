@@ -22,6 +22,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
@@ -33,15 +34,20 @@ public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao 
     private final MetadataMapper<FormMetadata> formMetadataMapper;
     private final ComboBoxMetadataDao comboBoxMetadataDao;
     private final LayoutMetadataDao layoutMetadataDao;
+    private final NavigationMetadataDao navigationMetadataDao;
 
     public MetadataDaoImpl(MetadataMapper<FormMetadata> formMetadataMapper,
                            ComboBoxMetadataDao comboBoxMetadataDao,
-                           LayoutMetadataDao layoutMetadataDao) {
+                           LayoutMetadataDao layoutMetadataDao, NavigationMetadataDao navigationMetadataDao) {
         this.formMetadataMapper = formMetadataMapper;
         this.comboBoxMetadataDao = comboBoxMetadataDao;
         this.layoutMetadataDao = layoutMetadataDao;
+        this.navigationMetadataDao = navigationMetadataDao;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FormMetadata getFormMetadata(String formName, String lang) {
         Map<String, Object> params = Map.of(
@@ -54,6 +60,7 @@ public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao 
                     metadata.setLayouts(layoutMetadataDao.getLayoutMetadata(formName));
                     metadata.setComboBoxes(comboBoxMetadataDao
                             .getComboBoxesByFormMetadataId(rs.getLong("id")));
+                    metadata.setNavigation(navigationMetadataDao.getNavigationMetadata(formName));
                     return metadata;
                 });
     }

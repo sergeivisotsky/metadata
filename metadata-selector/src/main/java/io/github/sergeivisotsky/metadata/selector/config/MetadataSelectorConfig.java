@@ -21,16 +21,19 @@ import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.CacheableMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.ComboBoxMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LayoutMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LookupMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.MetadataDaoImpl;
+import io.github.sergeivisotsky.metadata.selector.dao.impl.NavigationMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.Navigation;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -57,8 +60,9 @@ public class MetadataSelectorConfig {
     @Bean("simpleMetadataDao")
     public MetadataDao simpleMetadataDao(MetadataMapper<FormMetadata> formMetadataMapper,
                                          ComboBoxMetadataDao comboBoxMetadataDao,
-                                         LayoutMetadataDao layoutMetadataDao) {
-        return new MetadataDaoImpl(formMetadataMapper, comboBoxMetadataDao, layoutMetadataDao);
+                                         LayoutMetadataDao layoutMetadataDao,
+                                         NavigationMetadataDao navigationMetadataDao) {
+        return new MetadataDaoImpl(formMetadataMapper, comboBoxMetadataDao, layoutMetadataDao, navigationMetadataDao);
     }
 
     @Bean
@@ -76,5 +80,10 @@ public class MetadataSelectorConfig {
     public LookupMetadataDao lookupMetadataDao(MetadataMapper<LookupHolder> lookupHolderMapper,
                                                MetadataMapper<LookupMetadata> lookupMetadataMapper) {
         return new LookupMetadataDaoImpl(lookupHolderMapper, lookupMetadataMapper);
+    }
+
+    @Bean
+    public NavigationMetadataDao navigationMetadataDao(MetadataMapper<Navigation> navigationMapper) {
+        return new NavigationMetadataDaoImpl(navigationMapper);
     }
 }
