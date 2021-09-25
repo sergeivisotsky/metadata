@@ -23,20 +23,11 @@ import java.util.List;
  */
 public class Navigation {
 
-    private Long id;
     private NavigationType type;
     private Integer numberOfElements;
     private Boolean fixed;
     private Boolean resizable;
     private List<NavigationElement> elements;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public NavigationType getType() {
         return type;

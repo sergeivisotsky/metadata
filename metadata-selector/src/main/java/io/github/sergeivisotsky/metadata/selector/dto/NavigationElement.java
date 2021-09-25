@@ -24,7 +24,6 @@ public class NavigationElement {
     private String code;
     private String value;
     private Boolean isActive;
-    private Long navigationId;
 
     public String getCode() {
         return code;
@@ -50,11 +49,4 @@ public class NavigationElement {
         isActive = active;
     }
 
-    public Long getNavigationId() {
-        return navigationId;
-    }
-
-    public void setNavigationId(Long navigationId) {
-        this.navigationId = navigationId;
-    }
 }

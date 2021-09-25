@@ -16,6 +16,8 @@
 
 package io.github.sergeivisotsky.metadata.selector.config;
 
+import java.util.List;
+
 import io.github.sergeivisotsky.metadata.selector.config.properties.CacheConfigProperties;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
@@ -29,11 +31,11 @@ import io.github.sergeivisotsky.metadata.selector.dao.impl.LookupMetadataDaoImpl
 import io.github.sergeivisotsky.metadata.selector.dao.impl.MetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.NavigationMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
-import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Navigation;
+import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -83,7 +85,7 @@ public class MetadataSelectorConfig {
     }
 
     @Bean
-    public NavigationMetadataDao navigationMetadataDao(MetadataMapper<Navigation> navigationMapper) {
+    public NavigationMetadataDao navigationMetadataDao(MetadataMapper<List<Navigation>> navigationMapper) {
         return new NavigationMetadataDaoImpl(navigationMapper);
     }
 }

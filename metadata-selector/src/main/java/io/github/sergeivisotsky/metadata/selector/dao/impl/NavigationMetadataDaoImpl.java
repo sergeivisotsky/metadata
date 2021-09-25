@@ -16,11 +16,14 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.Navigation;
+import io.github.sergeivisotsky.metadata.selector.dto.NavigationElement;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
 /**
@@ -28,9 +31,9 @@ import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
  */
 public class NavigationMetadataDaoImpl extends AbstractMetadataDao implements NavigationMetadataDao {
 
-    private final MetadataMapper<Navigation> navigationMapper;
+    private final MetadataMapper<List<Navigation>> navigationMapper;
 
-    public NavigationMetadataDaoImpl(MetadataMapper<Navigation> navigationMapper) {
+    public NavigationMetadataDaoImpl(MetadataMapper<List<Navigation>> navigationMapper) {
         this.navigationMapper = navigationMapper;
     }
 
@@ -41,6 +44,19 @@ public class NavigationMetadataDaoImpl extends AbstractMetadataDao implements Na
     public Navigation getNavigationMetadata(String viewName) {
         Map<String, Object> params = Map.of("viewName", viewName);
         return jdbcTemplate.queryForObject(navigationMapper.getSql(), params,
-                (rs, index) -> navigationMapper.map(rs));
+                (rs, index) -> normalizeNavigationMetadata(navigationMapper.map(rs)));
+    }
+
+    private Navigation normalizeNavigationMetadata(List<Navigation> originalNav) {
+        Navigation navigation = originalNav.get(0);
+
+        List<NavigationElement> navElements = originalNav
+                .stream()
+                .flatMap(nav -> nav.getElements().stream())
+                .collect(Collectors.toList());
+        navigation.getElements().clear();
+
+        navigation.setElements(navElements);
+        return navigation;
     }
 }
