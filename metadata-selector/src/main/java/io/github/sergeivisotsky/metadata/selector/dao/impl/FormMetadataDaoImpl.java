@@ -54,7 +54,7 @@ public class FormMetadataDaoImpl extends AbstractMetadataDao implements FormMeta
                 "formName", formName
         );
 
-        List<FormField> formFields = jdbcTemplate.query(formSectionMapper.getSql(), params,
+        List<FormField> formFields = jdbcTemplate.query(formFieldMapper.getSql(), params,
                 (rs, index) -> formFieldMapper.map(rs));
 
         List<FormSection> formSections = jdbcTemplate.query(formSectionMapper.getSql(), params,
