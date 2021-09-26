@@ -16,8 +16,10 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
@@ -26,6 +28,7 @@ import io.github.sergeivisotsky.metadata.selector.dto.form.FormField;
 import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.form.FormSection;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.ModelMapper;
 
 /**
  * @author Sergei Visotsky
@@ -35,13 +38,16 @@ public class FormMetadataDaoImpl extends AbstractMetadataDao implements FormMeta
     private final MetadataMapper<FormMetadata> formMetadataMapper;
     private final MetadataMapper<FormSection> formSectionMapper;
     private final MetadataMapper<FormField> formFieldMapper;
+    private final ModelMapper<FormSection, FormSection> formSectionModelMapper;
 
     public FormMetadataDaoImpl(MetadataMapper<FormMetadata> formMetadataMapper,
                                MetadataMapper<FormSection> formSectionMapper,
-                               MetadataMapper<FormField> formFieldMapper) {
+                               MetadataMapper<FormField> formFieldMapper,
+                               ModelMapper<FormSection, FormSection> formSectionModelMapper) {
         this.formMetadataMapper = formMetadataMapper;
         this.formSectionMapper = formSectionMapper;
         this.formFieldMapper = formFieldMapper;
+        this.formSectionModelMapper = formSectionModelMapper;
     }
 
     /**
@@ -67,11 +73,40 @@ public class FormMetadataDaoImpl extends AbstractMetadataDao implements FormMeta
                     return section;
                 });
 
+        List<FormSection> hierarchyList = getHierarchyList(formSections);
+
         return jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
                 (rs, index) -> {
                     FormMetadata metadata = formMetadataMapper.map(rs);
-                    metadata.setSections(formSections);
+                    metadata.setSections(hierarchyList);
                     return metadata;
                 });
+    }
+
+    protected List<FormSection> getHierarchyList(List<FormSection> formSections) {
+        Map<Object, List<FormSection>> sectionMap = formSections
+                .stream()
+                .collect(Collectors.groupingBy(s -> Optional.ofNullable(s.getParentSectionName())));
+        return toHierarchicalList(sectionMap.get(Optional.empty()), sectionMap);
+    }
+
+    private List<FormSection> toHierarchicalList(List<FormSection> sections, Map<Object, List<FormSection>> parentToChildMap) {
+        if (sections == null) {
+            return List.of();
+        }
+
+        List<FormSection> resultList = new ArrayList<>();
+
+        for (FormSection section : sections) {
+            List<FormSection> child = parentToChildMap.get(Optional.of(section.getName()));
+            List<FormSection> convertedChild = toHierarchicalList(child, parentToChildMap);
+
+            FormSection resultSection = formSectionModelMapper.apply(section);
+            resultSection.setSubSections(convertedChild);
+
+            resultList.add(resultSection);
+        }
+
+        return resultList;
     }
 }
