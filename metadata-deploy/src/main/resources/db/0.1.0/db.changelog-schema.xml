@@ -10,14 +10,13 @@
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="java.sql.Types.VARCHAR(20)"/>
-            <column name="ui_name" type="java.sql.Types.VARCHAR(20)"/>
-            <column name="ui_description" type="java.sql.Types.VARCHAR(100)"/>
         </createTable>
         <createTable tableName="form_section">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
             <column name="name" type="java.sql.Types.VARCHAR(20)"/>
             <column name="parent_section_name" type="java.sql.Types.VARCHAR(20)"/>
-            <column name="ui_name" type="java.sql.Types.VARCHAR(20)"/>
-            <column name="ui_description" type="java.sql.Types.VARCHAR(100)"/>
             <column name="order_in_form" type="java.sql.Types.INTEGER"/>
             <column name="cardinality" type="java.sql.Types.VARCHAR(8)"/>
             <column name="form_metadata_id" type="java.sql.Types.BIGINT">
@@ -25,6 +24,9 @@
             </column>
         </createTable>
         <createTable tableName="form_field">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
             <column name="name" type="java.sql.Types.VARCHAR(20)"/>
             <column name="type" type="java.sql.Types.VARCHAR(8)"/>
             <column name="length" type="java.sql.Types.INTEGER"/>
@@ -32,25 +34,32 @@
             <column name="editable" type="java.sql.Types.BOOLEAN"/>
             <column name="form_section_name" type="java.sql.Types.VARCHAR(20)"/>
             <column name="ui_control_type" type="java.sql.Types.VARCHAR(8)"/>
-            <column name="ui_name" type="java.sql.Types.VARCHAR(20)"/>
-            <column name="ui_description" type="java.sql.Types.VARCHAR(100)"/>
             <column name="has_language" type="java.sql.Types.BOOLEAN"/>
             <column name="order" type="java.sql.Types.INTEGER"/>
             <column name="controls_dynamic_change" type="java.sql.Types.BOOLEAN"/>
+            <column name="lookup_info_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
             <column name="form_metadata_id" type="java.sql.Types.BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
         <createTable tableName="lookup_info">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
             <column name="lookup_type" type="java.sql.Types.VARCHAR(5)"/>
             <column name="view_name" type="java.sql.Types.VARCHAR(20)"/>
             <column name="value_field" type="java.sql.Types.VARCHAR(20)"/>
             <column name="text_in_field" type="java.sql.Types.VARCHAR(100)"/>
             <column name="is_text_enabled" type="java.sql.Types.BOOLEAN"/>
             <column name="combo_text_template" type="java.sql.Types.VARCHAR(100)"/>
-            <column name="form_field_id" type="java.sql.Types.BIGINT">
-                <constraints nullable="false"/>
-            </column>
+        </createTable>
+        <createTable tableName="amd_translation">
+            <column name="form_name" type="java.sql.Types.VARCHAR(20)"/>
+            <column name="lang" type="java.sql.Types.VARCHAR(3)"/>
+            <column name="ui_name" type="java.sql.Types.VARCHAR(20)"/>
+            <column name="ui_description" type="java.sql.Types.VARCHAR(100)"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="form_section" baseColumnNames="form_metadata_id"
                                  constraintName="form_section_form_metadata_fk"
@@ -60,9 +69,9 @@
                                  constraintName="form_field_form_metadata_fk"
                                  referencedTableName="form_metadata"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="lookup_info" baseColumnNames="form_field_id"
-                                 constraintName="lookup_info_form_field_fk"
-                                 referencedTableName="form_field"
+        <addForeignKeyConstraint baseTableName="form_field" baseColumnNames="lookup_info_id"
+                                 constraintName="form_field_lookup_info_fk"
+                                 referencedTableName="lookup_info"
                                  referencedColumnNames="id"/>
     </changeSet>
 

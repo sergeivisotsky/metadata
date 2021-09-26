@@ -21,7 +21,10 @@ package io.github.sergeivisotsky.metadata.selector.rest.dto;
  */
 public class FormMetadataRequest {
 
-    private final String formName;
+    private String formName;
+
+    public FormMetadataRequest() {
+    }
 
     public FormMetadataRequest(String formName) {
         this.formName = formName;
@@ -29,5 +32,9 @@ public class FormMetadataRequest {
 
     public String getFormName() {
         return formName;
+    }
+
+    public void setFormName(String formName) {
+        this.formName = formName;
     }
 }

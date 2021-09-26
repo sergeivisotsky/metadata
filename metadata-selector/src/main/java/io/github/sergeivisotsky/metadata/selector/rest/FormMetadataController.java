@@ -19,13 +19,16 @@ package io.github.sergeivisotsky.metadata.selector.rest;
 import io.github.sergeivisotsky.metadata.selector.dao.FormMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.rest.dto.FormMetadataRequest;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Sergei Visotsky
  */
+@RestController
 @RequestMapping("/api/v1/form")
 public class FormMetadataController {
 
@@ -35,8 +38,9 @@ public class FormMetadataController {
         this.formMetadataDao = formMetadataDao;
     }
 
-    @GetMapping("/metadata")
-    public FormMetadata getFormMetadata(@RequestBody FormMetadataRequest request) {
-        return formMetadataDao.getFormMetadata(request.getFormName());
+    @PostMapping("/metadata/{lang}")
+    public FormMetadata getFormMetadata(@PathVariable("lang") String lang,
+                                        @RequestBody FormMetadataRequest request) {
+        return formMetadataDao.getFormMetadata(lang, request.getFormName());
     }
 }

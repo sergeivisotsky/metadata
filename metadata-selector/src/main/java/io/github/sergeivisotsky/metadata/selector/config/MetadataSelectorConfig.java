@@ -20,12 +20,14 @@ import java.util.List;
 
 import io.github.sergeivisotsky.metadata.selector.config.properties.CacheConfigProperties;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.FormMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.CacheableMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.ComboBoxMetadataDaoImpl;
+import io.github.sergeivisotsky.metadata.selector.dao.impl.FormMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LayoutMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LookupMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.MetadataDaoImpl;
@@ -36,6 +38,9 @@ import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.Navigation;
 import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.form.FormField;
+import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.form.FormSection;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -87,5 +92,12 @@ public class MetadataSelectorConfig {
     @Bean
     public NavigationMetadataDao navigationMetadataDao(MetadataMapper<List<Navigation>> navigationMapper) {
         return new NavigationMetadataDaoImpl(navigationMapper);
+    }
+
+    @Bean
+    public FormMetadataDao formMetadataDao(MetadataMapper<FormMetadata> formMetadataMapper,
+                                           MetadataMapper<FormSection> formSectionMapper,
+                                           MetadataMapper<FormField> formFieldMapper) {
+        return new FormMetadataDaoImpl(formMetadataMapper, formSectionMapper, formFieldMapper);
     }
 }
