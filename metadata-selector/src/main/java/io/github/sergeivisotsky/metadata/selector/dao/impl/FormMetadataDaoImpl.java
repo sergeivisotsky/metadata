@@ -87,10 +87,15 @@ public class FormMetadataDaoImpl extends AbstractMetadataDao implements FormMeta
         Map<Object, List<FormSection>> sectionMap = formSections
                 .stream()
                 .collect(Collectors.groupingBy(s -> Optional.ofNullable(s.getParentSectionName())));
+        // FIXME: sectionMap.get(Optional.empty()) always leads to an empty form section as
+        //  sectionMap does not contain null key.
+        //  probably an impl SQL is written not efficiently enough.
+        // TODO: Investigate above mentioned issue
         return toHierarchicalList(sectionMap.get(Optional.empty()), sectionMap);
     }
 
     private List<FormSection> toHierarchicalList(List<FormSection> sections, Map<Object, List<FormSection>> parentToChildMap) {
+        // TODO: Expedite what is going wrong that sections are always = to null
         if (sections == null) {
             return List.of();
         }
