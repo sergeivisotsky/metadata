@@ -16,8 +16,8 @@
 
 package io.github.sergeivisotsky.metadata.selector.rest;
 
-import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,18 +27,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Sergei Visotsky
  */
 @RestController
-@RequestMapping("/api/v1")
-public class MetadataRestController {
+@RequestMapping("/api/v1/lookup")
+public class LookupController {
 
-    private final MetadataDao metadataDao;
+    private final LookupMetadataDao lookupMetadataDao;
 
-    public MetadataRestController(MetadataDao metadataDao) {
-        this.metadataDao = metadataDao;
+    public LookupController(LookupMetadataDao lookupMetadataDao) {
+        this.lookupMetadataDao = lookupMetadataDao;
     }
 
-    @GetMapping("/getFormMetadata/{viewName}/{lang}")
-    public ViewMetadata getViewMetadata(@PathVariable("viewName") String viewName,
-                                        @PathVariable("lang") String lang) {
-        return metadataDao.getViewMetadata(viewName, lang);
+    @GetMapping("/metadata/{lookupName}/{lang}")
+    public LookupHolder getLookupMetadata(@PathVariable("lookupName") String lookupName,
+                                          @PathVariable("lang") String lang) {
+        return lookupMetadataDao.getLookupMetadata(lookupName, lang);
     }
 }
