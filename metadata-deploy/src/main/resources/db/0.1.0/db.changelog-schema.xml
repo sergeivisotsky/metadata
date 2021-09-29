@@ -15,7 +15,6 @@
             <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="parent_section_id" type="java.sql.Types.BIGINT"/>
             <column name="name" type="java.sql.Types.VARCHAR(20)"/>
             <column name="order_in_form" type="java.sql.Types.INTEGER"/>
             <column name="cardinality" type="java.sql.Types.VARCHAR(8)"/>

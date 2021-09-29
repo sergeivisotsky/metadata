@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+import io.github.sergeivisotsky.metadata.selector.rest.dto.FormMetadataRequest;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,12 +50,12 @@ public class ViewMetadataRestTest {
     private int port;
 
     @Test
-    public void testGetFormMetadata() throws IOException {
+    public void testGetViewMetadata() throws IOException {
         InputStream jsonStream = CLASS_LOADER.getResourceAsStream("json/testFormMetadata.json");
         Optional.ofNullable(jsonStream).orElseThrow(IllegalStateException::new);
 
         TestRestTemplate restTemplate = new TestRestTemplate();
-        String url = String.format("http://localhost:%s/api/v1/getFormMetadata/main/en", port);
+        String url = String.format("http://localhost:%s/api/v1/view/metadata/main/en", port);
 
         String expectedResponse = IOUtils.toString(jsonStream, StandardCharsets.UTF_8);
         String responseAsString = restTemplate.getForObject(url, String.class);
@@ -74,6 +75,21 @@ public class ViewMetadataRestTest {
         String responseAsString = restTemplate.getForObject(url, String.class);
 
         assertEquals(expectedResponse, responseAsString);
+    }
 
+    @Test
+    public void testGetFormMetadata() {
+        InputStream jsonStream = CLASS_LOADER.getResourceAsStream("json/testLookupMetadata.json");
+        Optional.ofNullable(jsonStream).orElseThrow(IllegalStateException::new);
+
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        String url = String.format("http://localhost:%s/api/v1/form/metadata/EN", port);
+
+        FormMetadataRequest request = new FormMetadataRequest();
+        request.setFormName("feedback");
+
+        String responseAsString = restTemplate.postForObject(url, request, String.class);
+
+        System.out.println(responseAsString);
     }
 }

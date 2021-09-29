@@ -48,7 +48,7 @@ public class ComboBoxMapper implements MetadataMapper<ComboBox> {
             return comboBox;
         } catch (SQLException e) {
             throw new RuntimeException("Unable to get value from ResultSet for Mapper: {}" +
-                    FormMetadataMapper.class.getSimpleName(), e);
+                    ComboBoxMapper.class.getSimpleName(), e);
         }
     }
 }
