@@ -42,6 +42,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
+ * Unit test for {@link ComboBoxMetadataDaoImpl}.
+ *
  * @author Sergei Visotsky
  */
 public class ComboBoxMetadataDaoImplTest extends AbstractMetadataDao {

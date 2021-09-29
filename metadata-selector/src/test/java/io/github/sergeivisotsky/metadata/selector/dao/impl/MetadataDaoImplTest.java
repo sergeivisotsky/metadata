@@ -41,6 +41,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
+ * Unit test for {@link MetadataDaoImplTest}.
+ *
  * @author Sergei Visotsky
  */
 public class MetadataDaoImplTest extends AbstractMetadataDao {

@@ -37,6 +37,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
+ * Unit test for {@link LookupMetadataDaoImpl}.
+ *
  * @author Sergei Visotsky
  */
 public class LookupMetadataDaoImplTest extends AbstractMetadataDao {
