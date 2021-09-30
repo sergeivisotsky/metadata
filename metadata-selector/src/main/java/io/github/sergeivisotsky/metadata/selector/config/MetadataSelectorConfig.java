@@ -42,6 +42,7 @@ import io.github.sergeivisotsky.metadata.selector.dto.form.FormField;
 import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.form.FormSection;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -97,7 +98,8 @@ public class MetadataSelectorConfig {
     @Bean
     public FormMetadataDao formMetadataDao(MetadataMapper<FormMetadata> formMetadataMapper,
                                            MetadataMapper<FormSection> formSectionMapper,
-                                           MetadataMapper<FormField> formFieldMapper) {
-        return new FormMetadataDaoImpl(formMetadataMapper, formSectionMapper, formFieldMapper);
+                                           MetadataMapper<FormField> formFieldMapper,
+                                           ModelMapper<FormSection, FormSection> formSectionModelMapper) {
+        return new FormMetadataDaoImpl(formMetadataMapper, formSectionMapper, formFieldMapper, formSectionModelMapper);
     }
 }

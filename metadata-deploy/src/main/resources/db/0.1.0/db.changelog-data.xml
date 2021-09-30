@@ -75,5 +75,15 @@
             <column name="ui_description" value="This is the a secondary section form"/>
         </insert>
     </changeSet>
+    <changeSet id="3" author="svisockis">
+        <update tableName="form_section">
+            <column name="parent_section_id" value="1"/>
+            <where>id = 2</where>
+        </update>
+        <update tableName="form_section">
+            <column name="parent_section_id" value="1"/>
+            <where>id = 3</where>
+        </update>
+    </changeSet>
 
 </databaseChangeLog>

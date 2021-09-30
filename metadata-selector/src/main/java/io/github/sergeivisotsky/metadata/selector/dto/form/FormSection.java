@@ -24,11 +24,13 @@ import java.util.List;
 public class FormSection {
 
     private String name;
+    private String parentSectionName;
     private String uiName;
     private String uiDescription;
     private Integer orderInForm;
     private FormSectionCardinality cardinality;
     private List<FormField> fields;
+    private List<FormSection> subSections;
 
     public String getName() {
         return name;
@@ -36,6 +38,14 @@ public class FormSection {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getParentSectionName() {
+        return parentSectionName;
+    }
+
+    public void setParentSectionName(String parentSectionName) {
+        this.parentSectionName = parentSectionName;
     }
 
     public String getUiName() {
@@ -78,4 +88,11 @@ public class FormSection {
         this.fields = fields;
     }
 
+    public List<FormSection> getSubSections() {
+        return subSections;
+    }
+
+    public void setSubSections(List<FormSection> subSections) {
+        this.subSections = subSections;
+    }
 }

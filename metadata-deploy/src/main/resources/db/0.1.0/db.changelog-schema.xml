@@ -73,5 +73,14 @@
                                  referencedTableName="lookup_info"
                                  referencedColumnNames="id"/>
     </changeSet>
+    <changeSet id="3" author="svisockis">
+        <addColumn tableName="form_section">
+            <column name="parent_section_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="form_section" baseColumnNames="parent_section_id"
+                                 constraintName="parent_section_form_section_fk"
+                                 referencedTableName="form_section"
+                                 referencedColumnNames="id"/>
+    </changeSet>
 
 </databaseChangeLog>
