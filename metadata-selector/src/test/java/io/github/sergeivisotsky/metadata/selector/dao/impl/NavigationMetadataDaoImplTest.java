@@ -16,10 +16,12 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
+import java.util.List;
+
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormField;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormSection;
+import io.github.sergeivisotsky.metadata.selector.dto.Navigation;
+import io.github.sergeivisotsky.metadata.selector.dto.NavigationElement;
+import io.github.sergeivisotsky.metadata.selector.dto.NavigationType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,30 +34,25 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit test for {@link FormMetadataDaoImpl}.
+ * Unit test for {@link NavigationMetadataDaoImpl}.
  *
  * @author Sergei Visotsky
  */
-public class FormViewMetadataDaoImplTest extends AbstractMetadataDao {
+public class NavigationMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Mock
-    private MetadataMapper<FormMetadata> formMetadataMapper;
-
-    @Mock
-    private MetadataMapper<FormSection> formSectionMapper;
-
-    @Mock
-    private MetadataMapper<FormField> formFieldMapper;
+    private MetadataMapper<List<Navigation>> navigationMapper;
 
     @InjectMocks
-    private FormMetadataDaoImpl dao;
+    private NavigationMetadataDaoImpl dao;
 
     @Before
     public void setUp() {
@@ -63,13 +60,28 @@ public class FormViewMetadataDaoImplTest extends AbstractMetadataDao {
     }
 
     @Test
-    public void shouldGetFormMetadata() {
-        when(formMetadataMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
-        when(formSectionMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
-        when(formFieldMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
+    public void shouldGetNavigationMetadata() {
+        Navigation navigation = new Navigation();
+        navigation.setType(NavigationType.NAV_BAR);
+        navigation.setResizable(false);
+        navigation.setFixed(true);
+        navigation.setNumberOfElements(5);
 
-        dao.getFormMetadata("someForm", "EN");
+        NavigationElement element = new NavigationElement();
+        element.setCode("ELEM_123");
+        element.setValue("Main page");
+        element.setActive(true);
 
-        verify(jdbcTemplate).queryForObject(anyString(), anyMap(), any(RowMapper.class));
+        navigation.setElements(List.of(element));
+
+        final String mockSql = "SELECT * FROM some_table WHERE id = 1";
+        when(navigationMapper.getSql()).thenReturn(mockSql);
+        when(jdbcTemplate.queryForObject(anyString(), anyMap(), eq(RowMapper.class)))
+                .thenReturn((rs, rowNum) -> navigation);
+
+        dao.getNavigationMetadata("someView");
+
+        verify(navigationMapper).getSql();
+        verify(jdbcTemplate).queryForObject(any(), anyMap(), any(RowMapper.class));
     }
 }

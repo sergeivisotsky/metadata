@@ -19,9 +19,8 @@ package io.github.sergeivisotsky.metadata.selector.dao.impl;
 import java.util.List;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.Navigation;
-import io.github.sergeivisotsky.metadata.selector.dto.NavigationElement;
-import io.github.sergeivisotsky.metadata.selector.dto.NavigationType;
+import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
+import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,25 +33,27 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit test for {@link NavigationMetadataDaoImpl}.
+ * Unit test for {@link LookupMetadataDaoImpl}.
  *
  * @author Sergei Visotsky
  */
-public class NavigationViewMetadataDaoImplTest extends AbstractMetadataDao {
+public class LookupMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Mock
-    private MetadataMapper<List<Navigation>> navigationMapper;
+    private MetadataMapper<LookupHolder> lookupHolderMapper;
+
+    @Mock
+    private MetadataMapper<LookupMetadata> lookupMetadataMapper;
 
     @InjectMocks
-    private NavigationMetadataDaoImpl dao;
+    private LookupMetadataDaoImpl dao;
 
     @Before
     public void setUp() {
@@ -60,28 +61,19 @@ public class NavigationViewMetadataDaoImplTest extends AbstractMetadataDao {
     }
 
     @Test
-    public void shouldGetNavigationMetadata() {
-        Navigation navigation = new Navigation();
-        navigation.setType(NavigationType.NAV_BAR);
-        navigation.setResizable(false);
-        navigation.setFixed(true);
-        navigation.setNumberOfElements(5);
+    public void shouldGetLookupMetadata() {
+        LookupHolder lookupHolder = new LookupHolder();
+        lookupHolder.setName("someHolder");
+        lookupHolder.setWeight(300);
+        lookupHolder.setHeight(20);
+        lookupHolder.setMetadata(List.of());
 
-        NavigationElement element = new NavigationElement();
-        element.setCode("ELEM_123");
-        element.setValue("Main page");
-        element.setActive(true);
+        when(lookupHolderMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
+        when(jdbcTemplate.queryForObject(anyString(), anyMap(), any(RowMapper.class))).thenReturn(lookupHolder);
 
-        navigation.setElements(List.of(element));
+        dao.getLookupMetadata("someLookup", "en");
 
-        final String mockSql = "SELECT * FROM some_table WHERE id = 1";
-        when(navigationMapper.getSql()).thenReturn(mockSql);
-        when(jdbcTemplate.queryForObject(anyString(), anyMap(), eq(RowMapper.class)))
-                .thenReturn((rs, rowNum) -> navigation);
-
-        dao.getNavigationMetadata("someView");
-
-        verify(navigationMapper).getSql();
-        verify(jdbcTemplate).queryForObject(any(), anyMap(), any(RowMapper.class));
+        verify(lookupHolderMapper).getSql();
+        verify(jdbcTemplate).queryForObject(anyString(), anyMap(), any(RowMapper.class));
     }
 }
