@@ -73,10 +73,10 @@ public class FormMetadataDaoImpl extends AbstractMetadataDao implements FormMeta
                     return section;
                 });
 
-        Map<Object, List<FormSection>> parentToChildrenMap = formSections.stream()
+        Map<Object, List<FormSection>> sectionMap = formSections.stream()
                 .collect(Collectors.groupingBy(s -> Optional.ofNullable(s.getParentSectionName())));
 
-        List<FormSection> hierarchicalSections = toHierarchicalList(formSections, parentToChildrenMap);
+        List<FormSection> hierarchicalSections = toHierarchicalList(sectionMap.get(Optional.empty()), sectionMap);
 
         return jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
                 (rs, index) -> {
