@@ -18,10 +18,12 @@ package io.github.sergeivisotsky.metadata.selector.dto.form;
 
 import java.util.List;
 
+import io.github.sergeivisotsky.metadata.selector.dto.BaseMetadata;
+
 /**
  * @author Sergei Visotsky
  */
-public class FormMetadata {
+public class FormMetadata extends BaseMetadata {
 
     private Long id;
     private String name;

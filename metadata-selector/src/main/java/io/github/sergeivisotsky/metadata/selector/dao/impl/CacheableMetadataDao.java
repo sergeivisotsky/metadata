@@ -21,55 +21,57 @@ import java.util.concurrent.ExecutionException;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import io.github.sergeivisotsky.metadata.selector.config.properties.CacheConfigProperties;
-import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.FormMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.keys.FormMetadataCacheKey;
+import io.github.sergeivisotsky.metadata.selector.dao.keys.MetadataCacheKey;
+import io.github.sergeivisotsky.metadata.selector.dao.keys.ViewMetadataCacheKey;
+import io.github.sergeivisotsky.metadata.selector.dto.BaseMetadata;
 import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
 
 /**
  * @author Sergei Visotsky
  */
-public class CacheableMetadataDao implements MetadataDao {
+public class CacheableMetadataDao implements ViewMetadataDao, FormMetadataDao {
 
-    private final Cache<MetadataCacheKey, ViewMetadata> cache;
-    private final MetadataDao metadataDao;
+    private final Cache<MetadataCacheKey, BaseMetadata> cache;
+    private final ViewMetadataDao viewMetadata;
+    private final FormMetadataDao formMetadataDao;
 
-    public CacheableMetadataDao(MetadataDao metadataDao,
-                                CacheConfigProperties cacheConfigProperties) {
-        this.metadataDao = metadataDao;
+    public CacheableMetadataDao(ViewMetadataDao viewMetadata,
+                                CacheConfigProperties cacheConfigProperties,
+                                FormMetadataDao formMetadataDao) {
+        this.viewMetadata = viewMetadata;
         cache = CacheBuilder.newBuilder()
                 .initialCapacity(cacheConfigProperties.getInitialCapacity())
                 .maximumSize(cacheConfigProperties.getMaximumSize())
                 .expireAfterAccess(cacheConfigProperties.getExpireAfterAccess(),
                         cacheConfigProperties.getExpirationAfterAccessUnits())
                 .build();
+        this.formMetadataDao = formMetadataDao;
     }
 
     @Override
     public ViewMetadata getViewMetadata(String viewName, String lang) {
         try {
-            MetadataCacheKey cacheKey = new MetadataCacheKey(viewName, lang);
-            return cache.get(cacheKey, () -> metadataDao.getViewMetadata(viewName, lang));
+            ViewMetadataCacheKey cacheKey = new ViewMetadataCacheKey(viewName, lang);
+            return (ViewMetadata) cache.get(cacheKey, () -> viewMetadata.getViewMetadata(viewName, lang));
         } catch (ExecutionException e) {
             throw new DataAccessException(e, "Unable to get a metadata from cache for " +
-                    "formName={} with lang={}", viewName, lang);
+                    "viewName={} with lang={}", viewName, lang);
         }
     }
 
-    private static final class MetadataCacheKey {
-        private final String viewName;
-        private final String lang;
-
-        private MetadataCacheKey(String viewName, String lang) {
-            this.viewName = viewName;
-            this.lang = lang;
-        }
-
-        public String getViewName() {
-            return viewName;
-        }
-
-        public String getLang() {
-            return lang;
+    @Override
+    public FormMetadata getFormMetadata(String lang, String formName) {
+        try {
+            FormMetadataCacheKey cacheKey = new FormMetadataCacheKey(formName, lang);
+            return (FormMetadata) cache.get(cacheKey, () -> formMetadataDao.getFormMetadata(formName, lang));
+        } catch (ExecutionException e) {
+            throw new DataAccessException(e, "Unable to get a metadata from cache for " +
+                    "formName={} with lang={}", formName, lang);
         }
     }
 }

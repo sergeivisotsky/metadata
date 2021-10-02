@@ -41,11 +41,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit test for {@link MetadataDaoImplTest}.
+ * Unit test for {@link ViewMetadataDaoImplTest}.
  *
  * @author Sergei Visotsky
  */
-public class MetadataDaoImplTest extends AbstractMetadataDao {
+public class ViewMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -60,7 +60,7 @@ public class MetadataDaoImplTest extends AbstractMetadataDao {
     private LayoutMetadataDao layoutMetadataDao;
 
     @InjectMocks
-    private MetadataDaoImpl dao;
+    private ViewMetadataDaoImpl dao;
 
     @Before
     public void setUp() {

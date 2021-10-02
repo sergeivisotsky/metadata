@@ -16,10 +16,11 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
+import java.util.List;
+
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormField;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormSection;
+import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
+import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,26 +37,23 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit test for {@link FormMetadataDaoImpl}.
+ * Unit test for {@link LookupMetadataDaoImpl}.
  *
  * @author Sergei Visotsky
  */
-public class FormMetadataDaoImplTest extends AbstractMetadataDao {
+public class LookupViewMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Mock
-    private MetadataMapper<FormMetadata> formMetadataMapper;
+    private MetadataMapper<LookupHolder> lookupHolderMapper;
 
     @Mock
-    private MetadataMapper<FormSection> formSectionMapper;
-
-    @Mock
-    private MetadataMapper<FormField> formFieldMapper;
+    private MetadataMapper<LookupMetadata> lookupMetadataMapper;
 
     @InjectMocks
-    private FormMetadataDaoImpl dao;
+    private LookupMetadataDaoImpl dao;
 
     @Before
     public void setUp() {
@@ -63,13 +61,19 @@ public class FormMetadataDaoImplTest extends AbstractMetadataDao {
     }
 
     @Test
-    public void shouldGetFormMetadata() {
-        when(formMetadataMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
-        when(formSectionMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
-        when(formFieldMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
+    public void shouldGetLookupMetadata() {
+        LookupHolder lookupHolder = new LookupHolder();
+        lookupHolder.setName("someHolder");
+        lookupHolder.setWeight(300);
+        lookupHolder.setHeight(20);
+        lookupHolder.setMetadata(List.of());
 
-        dao.getFormMetadata("someForm", "EN");
+        when(lookupHolderMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
+        when(jdbcTemplate.queryForObject(anyString(), anyMap(), any(RowMapper.class))).thenReturn(lookupHolder);
 
+        dao.getLookupMetadata("someLookup", "en");
+
+        verify(lookupHolderMapper).getSql();
         verify(jdbcTemplate).queryForObject(anyString(), anyMap(), any(RowMapper.class));
     }
 }

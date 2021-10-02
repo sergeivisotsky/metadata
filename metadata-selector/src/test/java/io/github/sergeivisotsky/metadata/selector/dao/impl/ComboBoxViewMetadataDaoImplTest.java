@@ -46,7 +46,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Sergei Visotsky
  */
-public class ComboBoxMetadataDaoImplTest extends AbstractMetadataDao {
+public class ComboBoxViewMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;

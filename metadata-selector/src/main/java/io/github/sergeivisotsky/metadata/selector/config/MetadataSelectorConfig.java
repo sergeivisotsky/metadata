@@ -23,15 +23,15 @@ import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.FormMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.CacheableMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.ComboBoxMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.FormMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LayoutMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LookupMetadataDaoImpl;
-import io.github.sergeivisotsky.metadata.selector.dao.impl.MetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.NavigationMetadataDaoImpl;
+import io.github.sergeivisotsky.metadata.selector.dao.impl.ViewMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
 import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
@@ -60,17 +60,18 @@ public class MetadataSelectorConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public MetadataDao metadataDao(@Qualifier("simpleMetadataDao") MetadataDao metadataDao,
-                                   CacheConfigProperties cacheConfigProperties) {
-        return new CacheableMetadataDao(metadataDao, cacheConfigProperties);
+    public ViewMetadataDao metadataDao(@Qualifier("simpleMetadataDao") ViewMetadataDao viewMetadataDao,
+                                       FormMetadataDao formMetadataDao,
+                                       CacheConfigProperties cacheConfigProperties) {
+        return new CacheableMetadataDao(viewMetadataDao, cacheConfigProperties, formMetadataDao);
     }
 
     @Bean("simpleMetadataDao")
-    public MetadataDao simpleMetadataDao(MetadataMapper<ViewMetadata> formMetadataMapper,
-                                         ComboBoxMetadataDao comboBoxMetadataDao,
-                                         LayoutMetadataDao layoutMetadataDao,
-                                         NavigationMetadataDao navigationMetadataDao) {
-        return new MetadataDaoImpl(formMetadataMapper, comboBoxMetadataDao, layoutMetadataDao, navigationMetadataDao);
+    public ViewMetadataDao simpleMetadataDao(MetadataMapper<ViewMetadata> formMetadataMapper,
+                                             ComboBoxMetadataDao comboBoxMetadataDao,
+                                             LayoutMetadataDao layoutMetadataDao,
+                                             NavigationMetadataDao navigationMetadataDao) {
+        return new ViewMetadataDaoImpl(formMetadataMapper, comboBoxMetadataDao, layoutMetadataDao, navigationMetadataDao);
     }
 
     @Bean

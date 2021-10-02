@@ -17,6 +17,7 @@
 package io.github.sergeivisotsky.metadata.selector.dao;
 
 import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
 
 /**
  * Interface to be considered both API and SPI for a metadata retrieval functionality.
@@ -25,7 +26,7 @@ import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
  *
  * @author Sergei Visotsky
  */
-public interface MetadataDao {
+public interface ViewMetadataDao {
 
     /**
      * Gets the all metadata.

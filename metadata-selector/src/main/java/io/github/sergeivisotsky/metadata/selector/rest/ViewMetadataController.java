@@ -16,7 +16,7 @@
 
 package io.github.sergeivisotsky.metadata.selector.rest;
 
-import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,11 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/v1/view")
-public class MetadataController {
+public class ViewMetadataController {
 
-    private final MetadataDao metadataDao;
+    private final ViewMetadataDao metadataDao;
 
-    public MetadataController(MetadataDao metadataDao) {
+    public ViewMetadataController(ViewMetadataDao metadataDao) {
         this.metadataDao = metadataDao;
     }
 

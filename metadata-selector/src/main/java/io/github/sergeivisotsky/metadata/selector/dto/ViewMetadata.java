@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Sergei Visotsky
  */
-public class ViewMetadata {
+public class ViewMetadata extends BaseMetadata {
 
     private String cardinality;
     private Language lang;

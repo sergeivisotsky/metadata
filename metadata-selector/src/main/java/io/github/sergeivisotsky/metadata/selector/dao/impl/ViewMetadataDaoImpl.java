@@ -21,7 +21,7 @@ import java.util.Map;
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
@@ -29,17 +29,17 @@ import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 /**
  * @author Sergei Visotsky
  */
-public class MetadataDaoImpl extends AbstractMetadataDao implements MetadataDao {
+public class ViewMetadataDaoImpl extends AbstractMetadataDao implements ViewMetadataDao {
 
     private final MetadataMapper<ViewMetadata> formMetadataMapper;
     private final ComboBoxMetadataDao comboBoxMetadataDao;
     private final LayoutMetadataDao layoutMetadataDao;
     private final NavigationMetadataDao navigationMetadataDao;
 
-    public MetadataDaoImpl(MetadataMapper<ViewMetadata> formMetadataMapper,
-                           ComboBoxMetadataDao comboBoxMetadataDao,
-                           LayoutMetadataDao layoutMetadataDao,
-                           NavigationMetadataDao navigationMetadataDao) {
+    public ViewMetadataDaoImpl(MetadataMapper<ViewMetadata> formMetadataMapper,
+                               ComboBoxMetadataDao comboBoxMetadataDao,
+                               LayoutMetadataDao layoutMetadataDao,
+                               NavigationMetadataDao navigationMetadataDao) {
         this.formMetadataMapper = formMetadataMapper;
         this.comboBoxMetadataDao = comboBoxMetadataDao;
         this.layoutMetadataDao = layoutMetadataDao;
