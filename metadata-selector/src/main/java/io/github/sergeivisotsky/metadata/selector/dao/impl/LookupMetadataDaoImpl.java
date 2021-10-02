@@ -21,8 +21,8 @@ import java.util.Map;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
-import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
+import io.github.sergeivisotsky.metadata.selector.domain.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
 /**

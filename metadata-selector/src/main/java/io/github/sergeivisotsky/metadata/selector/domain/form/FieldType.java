@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto;
+package io.github.sergeivisotsky.metadata.selector.domain.form;
 
 /**
  * @author Sergei Visotsky
  */
-public enum Language {
-    EN,
-    PL,
-    RU,
-    LV
+public enum FieldType {
+
+    INTEGER,
+    DECIMAL,
+    STRING,
+    DATE,
+    TIME,
+    DATETIME
 }

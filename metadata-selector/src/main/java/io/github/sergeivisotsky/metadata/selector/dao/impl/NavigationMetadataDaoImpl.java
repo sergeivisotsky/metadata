@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.Navigation;
-import io.github.sergeivisotsky.metadata.selector.dto.NavigationElement;
+import io.github.sergeivisotsky.metadata.selector.domain.Navigation;
+import io.github.sergeivisotsky.metadata.selector.domain.NavigationElement;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
 /**

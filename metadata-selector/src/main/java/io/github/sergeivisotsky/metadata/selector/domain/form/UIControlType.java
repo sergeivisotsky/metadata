@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto;
+package io.github.sergeivisotsky.metadata.selector.domain.form;
 
 /**
  * @author Sergei Visotsky
  */
-public enum NavigationType {
-
-    MENU,
-    NAV_BAR
-
+public enum UIControlType {
+    RADIO,
+    TEXTAREA,
+    TEXT,
+    CHECKBOX,
+    COMBO,
+    DATE,
+    DATETIME,
+    TIME
 }

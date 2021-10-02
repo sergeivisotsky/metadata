@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto.form;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
  * @author Sergei Visotsky
  */
-public enum FormSectionCardinality {
+public enum NavigationType {
 
-    SINGLE,
-    MULTIPLE
+    MENU,
+    NAV_BAR
 
 }

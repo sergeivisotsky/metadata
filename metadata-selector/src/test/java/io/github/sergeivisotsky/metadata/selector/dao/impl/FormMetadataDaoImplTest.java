@@ -17,9 +17,9 @@
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormField;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormSection;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormField;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormSection;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.Test;

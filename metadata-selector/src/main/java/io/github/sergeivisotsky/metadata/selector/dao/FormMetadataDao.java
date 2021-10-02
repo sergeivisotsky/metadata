@@ -16,7 +16,7 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao;
 
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
 
 /**
  * A form metadata access object.

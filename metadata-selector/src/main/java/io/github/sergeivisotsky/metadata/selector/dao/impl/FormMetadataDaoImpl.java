@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.FormMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormField;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormSection;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormField;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormSection;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import io.github.sergeivisotsky.metadata.selector.mapper.ModelMapper;
 

@@ -14,32 +14,47 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
  * @author Sergei Visotsky
  */
-public class ComboBoxContent {
+public class LookupMetadata {
 
-    private final String key;
-    private final String defaultValue;
-    private final Long comboId;
+    private String code;
+    private String lang;
+    private String defaultValue;
+    private String displayValue;
 
-    public ComboBoxContent(String key, String defaultValue, Long comboId) {
-        this.key = key;
-        this.defaultValue = defaultValue;
-        this.comboId = comboId;
+    public String getCode() {
+        return code;
     }
 
-    public String getKey() {
-        return key;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public String getDefaultValue() {
         return defaultValue;
     }
 
-    public Long getComboId() {
-        return comboId;
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public String getDisplayValue() {
+        return displayValue;
+    }
+
+    public void setDisplayValue(String displayValue) {
+        this.displayValue = displayValue;
     }
 }

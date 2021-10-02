@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import io.github.sergeivisotsky.metadata.itest.dto.ExtendedFormSection;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormSection;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormSectionCardinality;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormSection;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormSectionCardinality;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.stereotype.Component;
 

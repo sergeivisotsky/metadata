@@ -16,8 +16,7 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao;
 
-import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 
 /**
  * Interface to be considered both API and SPI for a metadata retrieval functionality.

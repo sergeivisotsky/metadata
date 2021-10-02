@@ -17,7 +17,7 @@
 package io.github.sergeivisotsky.metadata.selector.rest;
 
 import io.github.sergeivisotsky.metadata.selector.dao.FormMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.rest.dto.FormMetadataRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

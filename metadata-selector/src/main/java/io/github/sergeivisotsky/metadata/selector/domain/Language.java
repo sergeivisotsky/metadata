@@ -14,29 +14,14 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
  * @author Sergei Visotsky
  */
-public class ViewField {
-
-    private Integer enabledByDefault;
-    private String uiControl;
-
-    public Integer getEnabledByDefault() {
-        return enabledByDefault;
-    }
-
-    public void setEnabledByDefault(Integer enabledByDefault) {
-        this.enabledByDefault = enabledByDefault;
-    }
-
-    public String getUiControl() {
-        return uiControl;
-    }
-
-    public void setUiControl(String uiControl) {
-        this.uiControl = uiControl;
-    }
+public enum Language {
+    EN,
+    PL,
+    RU,
+    LV
 }

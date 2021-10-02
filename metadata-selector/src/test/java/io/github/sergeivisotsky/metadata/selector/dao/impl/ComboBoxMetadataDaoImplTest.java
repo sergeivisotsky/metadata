@@ -21,8 +21,8 @@ import java.util.List;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
-import io.github.sergeivisotsky.metadata.selector.dto.ComboBoxContent;
+import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
+import io.github.sergeivisotsky.metadata.selector.domain.ComboBoxContent;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.BeforeClass;

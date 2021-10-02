@@ -14,39 +14,15 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
  * @author Sergei Visotsky
  */
-public class NavigationElement {
-
-    private String code;
-    private String value;
-    private Boolean isActive;
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
+public enum Area {
+    LEFT,
+    RIGHT,
+    TOP,
+    BOTTOM,
+    CONTENT
 }

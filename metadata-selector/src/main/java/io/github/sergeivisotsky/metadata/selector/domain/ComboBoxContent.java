@@ -14,17 +14,32 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto.form;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
  * @author Sergei Visotsky
  */
-public enum FieldType {
+public class ComboBoxContent {
 
-    INTEGER,
-    DECIMAL,
-    STRING,
-    DATE,
-    TIME,
-    DATETIME
+    private final String key;
+    private final String defaultValue;
+    private final Long comboId;
+
+    public ComboBoxContent(String key, String defaultValue, Long comboId) {
+        this.key = key;
+        this.defaultValue = defaultValue;
+        this.comboId = comboId;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public Long getComboId() {
+        return comboId;
+    }
 }

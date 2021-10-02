@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
-import io.github.sergeivisotsky.metadata.selector.dto.ComboBoxContent;
+import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
+import io.github.sergeivisotsky.metadata.selector.domain.ComboBoxContent;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
 /**

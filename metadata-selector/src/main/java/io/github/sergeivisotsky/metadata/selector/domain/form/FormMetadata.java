@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto.form;
+package io.github.sergeivisotsky.metadata.selector.domain.form;
 
 import java.util.List;
 
-import io.github.sergeivisotsky.metadata.selector.dto.BaseMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.BaseMetadata;
 
 /**
  * @author Sergei Visotsky

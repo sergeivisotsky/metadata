@@ -16,7 +16,7 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao;
 
-import io.github.sergeivisotsky.metadata.selector.dto.Navigation;
+import io.github.sergeivisotsky.metadata.selector.domain.Navigation;
 
 /**
  * An interface to get a metadata persisted data for a main page navigation representation.

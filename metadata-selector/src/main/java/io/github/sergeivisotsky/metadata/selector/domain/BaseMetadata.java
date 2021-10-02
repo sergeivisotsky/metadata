@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
  * @author Sergei Visotsky
  */
-public enum Area {
-    LEFT,
-    RIGHT,
-    TOP,
-    BOTTOM,
-    CONTENT
+public abstract class BaseMetadata {
 }

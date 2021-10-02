@@ -21,7 +21,7 @@ import java.util.Map;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.Layout;
+import io.github.sergeivisotsky.metadata.selector.domain.Layout;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
 /**

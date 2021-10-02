@@ -26,9 +26,9 @@ import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.keys.FormMetadataCacheKey;
 import io.github.sergeivisotsky.metadata.selector.dao.keys.MetadataCacheKey;
 import io.github.sergeivisotsky.metadata.selector.dao.keys.ViewMetadataCacheKey;
-import io.github.sergeivisotsky.metadata.selector.dto.BaseMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.BaseMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
 
 /**

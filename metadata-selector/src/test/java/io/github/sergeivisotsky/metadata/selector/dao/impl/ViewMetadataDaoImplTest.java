@@ -22,7 +22,7 @@ import java.util.Map;
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.Test;

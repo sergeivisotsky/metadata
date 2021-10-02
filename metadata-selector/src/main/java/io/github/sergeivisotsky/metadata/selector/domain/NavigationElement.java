@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
  * @author Sergei Visotsky
  */
-public class LookupMetadata {
+public class NavigationElement {
 
     private String code;
-    private String lang;
-    private String defaultValue;
-    private String displayValue;
+    private String value;
+    private Boolean isActive;
 
     public String getCode() {
         return code;
@@ -34,27 +33,20 @@ public class LookupMetadata {
         this.code = code;
     }
 
-    public String getLang() {
-        return lang;
+    public String getValue() {
+        return value;
     }
 
-    public void setLang(String lang) {
-        this.lang = lang;
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public String getDefaultValue() {
-        return defaultValue;
+    public Boolean getActive() {
+        return isActive;
     }
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
-    public String getDisplayValue() {
-        return displayValue;
-    }
-
-    public void setDisplayValue(String displayValue) {
-        this.displayValue = displayValue;
-    }
 }

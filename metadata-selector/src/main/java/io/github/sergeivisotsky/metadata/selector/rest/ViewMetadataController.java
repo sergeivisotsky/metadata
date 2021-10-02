@@ -17,7 +17,7 @@
 package io.github.sergeivisotsky.metadata.selector.rest;
 
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

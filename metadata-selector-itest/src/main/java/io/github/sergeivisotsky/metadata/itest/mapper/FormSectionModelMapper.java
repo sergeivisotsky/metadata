@@ -1,7 +1,7 @@
 package io.github.sergeivisotsky.metadata.itest.mapper;
 
 import io.github.sergeivisotsky.metadata.itest.dto.ExtendedFormSection;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormSection;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormSection;
 import io.github.sergeivisotsky.metadata.selector.mapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

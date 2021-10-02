@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dto;
-
-import java.util.List;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
  * @author Sergei Visotsky
  */
-public class LookupHolder {
+public class Layout {
 
-    private String name;
+    private Area area;
     private Integer weight;
     private Integer height;
-    private List<LookupMetadata> metadata;
+    private String font;
+    private Integer fontSize;
 
-    public String getName() {
-        return name;
+    public Area getArea() {
+        return area;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setArea(Area area) {
+        this.area = area;
     }
 
     public Integer getWeight() {
@@ -52,11 +51,19 @@ public class LookupHolder {
         this.height = height;
     }
 
-    public List<LookupMetadata> getMetadata() {
-        return metadata;
+    public String getFont() {
+        return font;
     }
 
-    public void setMetadata(List<LookupMetadata> metadata) {
-        this.metadata = metadata;
+    public void setFont(String font) {
+        this.font = font;
+    }
+
+    public Integer getFontSize() {
+        return fontSize;
+    }
+
+    public void setFontSize(Integer fontSize) {
+        this.fontSize = fontSize;
     }
 }

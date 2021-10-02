@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import io.github.sergeivisotsky.metadata.itest.dto.ExtendedComboBox;
-import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
+import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.stereotype.Component;
 

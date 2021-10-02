@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 import io.github.sergeivisotsky.metadata.itest.dto.ExtendedFormField;
 import io.github.sergeivisotsky.metadata.itest.dto.ExtendedLookupInfo;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FieldType;
-import io.github.sergeivisotsky.metadata.selector.dto.form.FormField;
-import io.github.sergeivisotsky.metadata.selector.dto.form.LookupType;
-import io.github.sergeivisotsky.metadata.selector.dto.form.UIControlType;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FieldType;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormField;
+import io.github.sergeivisotsky.metadata.selector.domain.form.LookupType;
+import io.github.sergeivisotsky.metadata.selector.domain.form.UIControlType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.springframework.stereotype.Component;
 

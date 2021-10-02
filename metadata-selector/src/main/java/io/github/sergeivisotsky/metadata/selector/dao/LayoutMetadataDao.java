@@ -18,7 +18,7 @@ package io.github.sergeivisotsky.metadata.selector.dao;
 
 import java.util.List;
 
-import io.github.sergeivisotsky.metadata.selector.dto.Layout;
+import io.github.sergeivisotsky.metadata.selector.domain.Layout;
 
 /**
  * A layout metadata access object.

@@ -23,7 +23,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
 /**

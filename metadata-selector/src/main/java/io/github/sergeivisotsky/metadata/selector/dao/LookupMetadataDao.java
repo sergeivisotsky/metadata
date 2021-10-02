@@ -16,7 +16,7 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao;
 
-import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
+import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
 
 /**
  * An interface to get a metadata persisted data for a lookup values to be displayed.

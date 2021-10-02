@@ -16,7 +16,7 @@
 
 package io.github.sergeivisotsky.metadata.itest.dto;
 
-import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.LookupMetadata;
 
 /**
  * @author Sergei Visotsky
