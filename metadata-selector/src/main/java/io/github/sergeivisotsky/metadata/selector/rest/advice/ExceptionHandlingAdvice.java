@@ -36,17 +36,17 @@ public class ExceptionHandlingAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler({SQLException.class, DataAccessException.class})
     public ResponseEntity<ErrorResponse> handleSQLException(Exception ex, WebRequest req) {
         return ResponseEntity.badRequest()
-                .body(getErrorInternalErrorBuilder(ex, req)
+                .body(getErrorInternalErrorBuilder()
                         .message("Unexpected data access Exception")
                         .build());
     }
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<ErrorResponse> handleExceptions(Exception ex, WebRequest req) {
-        return ResponseEntity.badRequest().body(getErrorInternalErrorBuilder(ex, req).build());
+        return ResponseEntity.badRequest().body(getErrorInternalErrorBuilder().build());
     }
 
-    private ErrorResponse.ErrorResponseBuilder getErrorInternalErrorBuilder(Exception ex, WebRequest req) {
+    private ErrorResponse.ErrorResponseBuilder getErrorInternalErrorBuilder() {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         return ErrorResponse.builder()
                 .code(status.value())
