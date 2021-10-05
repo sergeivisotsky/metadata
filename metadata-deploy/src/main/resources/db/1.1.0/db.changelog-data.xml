@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <insert tableName="chart">
+            <column name="id" value="1"/>
+            <column name="name" value="somePie"/>
+            <column name="type" value="PIE"/>
+            <column name="inactive_opacity" value="0.3"/>
+            <column name="gap" value="2"/>
+            <column name="spacing" value="0.1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="1"/>
+            <column name="key" value="JAN"/>
+            <column name="value" value="January"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="2"/>
+            <column name="key" value="FEB"/>
+            <column name="value" value="February"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="3"/>
+            <column name="key" value="MAR"/>
+            <column name="value" value="March"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="4"/>
+            <column name="key" value="APR"/>
+            <column name="value" value="April"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="5"/>
+            <column name="key" value="MAY"/>
+            <column name="value" value="May"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="6"/>
+            <column name="key" value="JUN"/>
+            <column name="value" value="June"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="7"/>
+            <column name="key" value="JUL"/>
+            <column name="value" value="July"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="8"/>
+            <column name="key" value="AUG"/>
+            <column name="value" value="August"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="9"/>
+            <column name="key" value="SEP"/>
+            <column name="value" value="September"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="10"/>
+            <column name="key" value="OCT"/>
+            <column name="value" value="October"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="11"/>
+            <column name="key" value="NOV"/>
+            <column name="value" value="November"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="12"/>
+            <column name="key" value="DEC"/>
+            <column name="value" value="December"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

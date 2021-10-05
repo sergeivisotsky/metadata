@@ -20,6 +20,9 @@ import java.sql.SQLException;
 
 import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 import io.github.sergeivisotsky.metadata.selector.rest.dto.ErrorResponse;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,8 +36,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ExceptionHandlingAdvice extends ResponseEntityExceptionHandler {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ExceptionHandlingAdvice.class);
+
     @ExceptionHandler({SQLException.class, MetadataStorageException.class})
     public ResponseEntity<ErrorResponse> handleSQLException(Exception ex, WebRequest req) {
+        LOG.error(ExceptionUtils.getStackTrace(ex));
         return ResponseEntity.badRequest()
                 .body(getErrorInternalErrorBuilder()
                         .message("Unexpected data access Exception")
@@ -43,6 +49,7 @@ public class ExceptionHandlingAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<ErrorResponse> handleExceptions(Exception ex, WebRequest req) {
+        LOG.error(ExceptionUtils.getStackTrace(ex));
         return ResponseEntity.badRequest().body(getErrorInternalErrorBuilder().build());
     }
 
