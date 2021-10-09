@@ -22,6 +22,7 @@ import java.util.Map;
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
@@ -54,6 +55,9 @@ public class ViewMetadataDaoImplTest extends AbstractMetadataDao {
     private MetadataMapper<ViewMetadata> formMetadataMapper;
 
     @Mock
+    private MetadataMapper<ViewField> viewFieldMetadataMapper;
+
+    @Mock
     private ComboBoxMetadataDao comboBoxMetadataDao;
 
     @Mock
@@ -73,13 +77,9 @@ public class ViewMetadataDaoImplTest extends AbstractMetadataDao {
         metadata.setFont("Times New Roman");
         metadata.setDescription("some description");
 
-        Map<String, String> map = Map.of(
-                "formName", "main",
-                "lang", "en"
-        );
-
         final String mockSql = "SELECT * FROM some_table WHERE id = 1";
         when(formMetadataMapper.getSql()).thenReturn(mockSql);
+        when(viewFieldMetadataMapper.getSql()).thenReturn(mockSql);
         when(layoutMetadataDao.getLayoutMetadata(anyString())).thenReturn(List.of());
         when(comboBoxMetadataDao.getComboBoxesByFormMetadataId(anyLong())).thenReturn(List.of());
         when(jdbcTemplate.queryForObject(anyString(), anyMap(), eq(RowMapper.class))).thenReturn((rs, rowNum) -> metadata);

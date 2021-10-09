@@ -16,6 +16,8 @@
 
 package io.github.sergeivisotsky.metadata.selector.domain.form;
 
+import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
+
 /**
  * @author Sergei Visotsky
  */

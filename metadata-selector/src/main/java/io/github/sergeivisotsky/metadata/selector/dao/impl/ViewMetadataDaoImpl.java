@@ -16,6 +16,7 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
@@ -23,6 +24,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
@@ -32,15 +34,18 @@ import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
  */
 public class ViewMetadataDaoImpl extends AbstractMetadataDao implements ViewMetadataDao {
 
+    private final MetadataMapper<ViewField> viewFieldMetadataMapper;
     private final MetadataMapper<ViewMetadata> formMetadataMapper;
     private final ComboBoxMetadataDao comboBoxMetadataDao;
     private final LayoutMetadataDao layoutMetadataDao;
     private final NavigationMetadataDao navigationMetadataDao;
 
-    public ViewMetadataDaoImpl(MetadataMapper<ViewMetadata> formMetadataMapper,
+    public ViewMetadataDaoImpl(MetadataMapper<ViewField> viewFieldMetadataMapper,
+                               MetadataMapper<ViewMetadata> formMetadataMapper,
                                ComboBoxMetadataDao comboBoxMetadataDao,
                                LayoutMetadataDao layoutMetadataDao,
                                NavigationMetadataDao navigationMetadataDao) {
+        this.viewFieldMetadataMapper = viewFieldMetadataMapper;
         this.formMetadataMapper = formMetadataMapper;
         this.comboBoxMetadataDao = comboBoxMetadataDao;
         this.layoutMetadataDao = layoutMetadataDao;
@@ -59,17 +64,26 @@ public class ViewMetadataDaoImpl extends AbstractMetadataDao implements ViewMeta
             );
             return jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
                     (rs, index) -> {
+                        Long viewId = rs.getLong("id");
+
                         ViewMetadata metadata = formMetadataMapper.map(rs);
                         metadata.setLayouts(layoutMetadataDao.getLayoutMetadata(viewName));
-                        metadata.setComboBoxes(comboBoxMetadataDao
-                                .getComboBoxesByFormMetadataId(rs.getLong("id")));
+                        metadata.setViewField(getViewFields(viewId));
+                        metadata.setComboBoxes(comboBoxMetadataDao.getComboBoxesByFormMetadataId(viewId));
                         metadata.setNavigation(navigationMetadataDao.getNavigationMetadata(viewName));
+
                         return metadata;
                     });
         } catch (Exception e) {
             throw new MetadataStorageException(e, "Failure to get view metadata with the following " +
                     "parameters: viewName={} and lang={}", viewName, lang);
         }
+    }
+
+    private List<ViewField> getViewFields(Long viewName) {
+        Map<String, Object> params = Map.of("viewId", viewName);
+        return jdbcTemplate.query(viewFieldMetadataMapper.getSql(), params,
+                (rs, index) -> viewFieldMetadataMapper.map(rs));
     }
 
 }

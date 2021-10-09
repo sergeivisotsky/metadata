@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.form;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
  * @author Sergei Visotsky

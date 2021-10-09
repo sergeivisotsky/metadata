@@ -21,8 +21,143 @@ package io.github.sergeivisotsky.metadata.selector.domain;
  */
 public class ViewField {
 
+    private String name;
+    private FieldType fieldType;
+    private String uiDescription;
+    private String uiQueryName;
+    private String uiQueryFromText;
+    private String uiQueryToText;
+    private String uiColumnName;
+    private String uiColumnRenderer;
+    private Boolean canShowInQuery;
+    private Boolean canShowInTable;
+    private Boolean showInQuery;
+    private Boolean showInTable;
+    private Boolean includeInSelect;
+    private Integer orderInQuery;
+    private Integer orderInTable;
     private Integer enabledByDefault;
     private String uiControl;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public FieldType getFieldType() {
+        return fieldType;
+    }
+
+    public void setFieldType(FieldType fieldType) {
+        this.fieldType = fieldType;
+    }
+
+    public String getUiDescription() {
+        return uiDescription;
+    }
+
+    public void setUiDescription(String uiDescription) {
+        this.uiDescription = uiDescription;
+    }
+
+    public String getUiQueryName() {
+        return uiQueryName;
+    }
+
+    public void setUiQueryName(String uiQueryName) {
+        this.uiQueryName = uiQueryName;
+    }
+
+    public String getUiQueryFromText() {
+        return uiQueryFromText;
+    }
+
+    public void setUiQueryFromText(String uiQueryFromText) {
+        this.uiQueryFromText = uiQueryFromText;
+    }
+
+    public String getUiQueryToText() {
+        return uiQueryToText;
+    }
+
+    public void setUiQueryToText(String uiQueryToText) {
+        this.uiQueryToText = uiQueryToText;
+    }
+
+    public String getUiColumnName() {
+        return uiColumnName;
+    }
+
+    public void setUiColumnName(String uiColumnName) {
+        this.uiColumnName = uiColumnName;
+    }
+
+    public String getUiColumnRenderer() {
+        return uiColumnRenderer;
+    }
+
+    public void setUiColumnRenderer(String uiColumnRenderer) {
+        this.uiColumnRenderer = uiColumnRenderer;
+    }
+
+    public Boolean isCanShowInQuery() {
+        return canShowInQuery;
+    }
+
+    public void setCanShowInQuery(Boolean canShowInQuery) {
+        this.canShowInQuery = canShowInQuery;
+    }
+
+    public Boolean isCanShowInTable() {
+        return canShowInTable;
+    }
+
+    public void setCanShowInTable(Boolean canShowInTable) {
+        this.canShowInTable = canShowInTable;
+    }
+
+    public Boolean isShowInQuery() {
+        return showInQuery;
+    }
+
+    public void setShowInQuery(Boolean showInQuery) {
+        this.showInQuery = showInQuery;
+    }
+
+    public Boolean isShowInTable() {
+        return showInTable;
+    }
+
+    public void setShowInTable(Boolean showInTable) {
+        this.showInTable = showInTable;
+    }
+
+    public Boolean isIncludeInSelect() {
+        return includeInSelect;
+    }
+
+    public void setIncludeInSelect(Boolean includeInSelect) {
+        this.includeInSelect = includeInSelect;
+    }
+
+    public Integer getOrderInQuery() {
+        return orderInQuery;
+    }
+
+    public void setOrderInQuery(Integer orderInQuery) {
+        this.orderInQuery = orderInQuery;
+    }
+
+    public Integer getOrderInTable() {
+        return orderInTable;
+    }
+
+    public void setOrderInTable(Integer orderInTable) {
+        this.orderInTable = orderInTable;
+    }
 
     public Integer getEnabledByDefault() {
         return enabledByDefault;

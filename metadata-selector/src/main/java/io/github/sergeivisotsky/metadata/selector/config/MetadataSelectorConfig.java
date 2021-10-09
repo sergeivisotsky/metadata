@@ -39,6 +39,7 @@ import io.github.sergeivisotsky.metadata.selector.domain.Layout;
 import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.domain.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.Navigation;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.chart.ChartMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormField;
@@ -70,11 +71,12 @@ public class MetadataSelectorConfig {
     }
 
     @Bean("simpleMetadataDao")
-    public ViewMetadataDao simpleMetadataDao(MetadataMapper<ViewMetadata> formMetadataMapper,
+    public ViewMetadataDao simpleMetadataDao(MetadataMapper<ViewField> viewFieldMetadataMapper,
+                                             MetadataMapper<ViewMetadata> formMetadataMapper,
                                              ComboBoxMetadataDao comboBoxMetadataDao,
                                              LayoutMetadataDao layoutMetadataDao,
                                              NavigationMetadataDao navigationMetadataDao) {
-        return new ViewMetadataDaoImpl(formMetadataMapper, comboBoxMetadataDao, layoutMetadataDao, navigationMetadataDao);
+        return new ViewMetadataDaoImpl(viewFieldMetadataMapper, formMetadataMapper, comboBoxMetadataDao, layoutMetadataDao, navigationMetadataDao);
     }
 
     @Bean

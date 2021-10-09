@@ -30,7 +30,7 @@ public class ViewMetadata extends BaseMetadata {
     private String font;
     private Integer fontSize;
     private String description;
-    private ViewField viewField;
+    private List<ViewField> viewField;
     private List<Layout> layouts;
     private List<ComboBox> comboBoxes;
     private Navigation navigation;
@@ -91,11 +91,11 @@ public class ViewMetadata extends BaseMetadata {
         this.description = description;
     }
 
-    public ViewField getViewField() {
+    public List<ViewField> getViewField() {
         return viewField;
     }
 
-    public void setViewField(ViewField viewField) {
+    public void setViewField(List<ViewField> viewField) {
         this.viewField = viewField;
     }
 
