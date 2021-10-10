@@ -16,8 +16,14 @@
 
 package io.github.sergeivisotsky.metadata.selector.rest;
 
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.rest.dto.ViewQueryResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,5 +46,14 @@ public class ViewMetadataController {
     public ViewMetadata getViewMetadata(@PathVariable("viewName") String viewName,
                                         @PathVariable("lang") String lang) {
         return metadataDao.getViewMetadata(viewName, lang);
+    }
+
+    @GetMapping("/{viewName}/query")
+    public ResponseEntity<ViewQueryResult> query(@PathVariable("viewName") String viewName, HttpServletRequest req) {
+        Map<String, String[]> params = req.getParameterMap();
+
+        // TODO
+
+        return new ResponseEntity<>(new ViewQueryResult(), HttpStatus.OK);
     }
 }
