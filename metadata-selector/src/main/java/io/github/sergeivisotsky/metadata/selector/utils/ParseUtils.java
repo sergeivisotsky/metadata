@@ -28,6 +28,13 @@ public final class ParseUtils {
         // noop
     }
 
+    /**
+     * Splits string using delimiter specified.
+     *
+     * @param str   to split.
+     * @param delim delimiter.
+     * @return string parts split.
+     */
     public static List<String> splitEscaped(String str, char delim) {
         List<String> result = new ArrayList<>();
 
