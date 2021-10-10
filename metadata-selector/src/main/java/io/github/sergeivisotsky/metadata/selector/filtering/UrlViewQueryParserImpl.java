@@ -24,6 +24,7 @@ import com.google.common.collect.ImmutableMap;
 import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.exception.UrlParseException;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.AndFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.BetweenFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.EqualsFilter;
@@ -33,7 +34,6 @@ import io.github.sergeivisotsky.metadata.selector.filtering.dto.GreaterFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LessFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LikeFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
-import io.github.sergeivisotsky.metadata.selector.exception.UrlParseException;
 import io.github.sergeivisotsky.metadata.selector.filtering.parser.DateTimeTypeParser;
 import io.github.sergeivisotsky.metadata.selector.filtering.parser.DateTypeParser;
 import io.github.sergeivisotsky.metadata.selector.filtering.parser.DecimalTypeParser;
@@ -47,7 +47,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @author Sergei Visotsky
  */
-public class QueryFilterService {
+public class UrlViewQueryParserImpl implements UrlViewQueryParser {
 
     private static final String DELIMITER = ":";
     private static final char MULTI_VALUE_DELIMITER = ',';
@@ -61,6 +61,7 @@ public class QueryFilterService {
             .put(FieldType.TIME, new TimeTypeParser())
             .build();
 
+    @Override
     public ViewQuery constructViewQuery(ViewMetadata metadata, Map<String, String[]> params) throws UrlParseException {
         return ViewQuery.builder()
                 .filter(parseFilter(metadata, params))

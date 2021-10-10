@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.exception.UrlParseException;
-import io.github.sergeivisotsky.metadata.selector.filtering.QueryFilterService;
+import io.github.sergeivisotsky.metadata.selector.filtering.UrlViewQueryParser;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import io.github.sergeivisotsky.metadata.selector.rest.dto.ViewQueryResult;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -45,9 +45,10 @@ public class ViewMetadataController {
     private static final Logger LOG = LoggerFactory.getLogger(ViewMetadataController.class);
 
     private final ViewMetadataDao metadataDao;
-    private final QueryFilterService filterService;
+    private final UrlViewQueryParser filterService;
 
-    public ViewMetadataController(ViewMetadataDao metadataDao, QueryFilterService filterService) {
+    public ViewMetadataController(ViewMetadataDao metadataDao,
+                                  UrlViewQueryParser filterService) {
         this.metadataDao = metadataDao;
         this.filterService = filterService;
     }
