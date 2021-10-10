@@ -21,6 +21,8 @@ package io.github.sergeivisotsky.metadata.selector.exception;
  */
 public class MetadataStorageException extends RuntimeException {
 
+    private static final long serialVersionUID = 7120862327018623860L;
+
     public MetadataStorageException() {
         super();
     }
