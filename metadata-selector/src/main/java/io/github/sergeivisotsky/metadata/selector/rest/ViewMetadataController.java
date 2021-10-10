@@ -21,7 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.exception.UrlParseException;
+import io.github.sergeivisotsky.metadata.selector.filtering.QueryFilterService;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import io.github.sergeivisotsky.metadata.selector.rest.dto.ViewQueryResult;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,10 +42,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/view")
 public class ViewMetadataController {
 
-    private final ViewMetadataDao metadataDao;
+    private static final Logger LOG = LoggerFactory.getLogger(ViewMetadataController.class);
 
-    public ViewMetadataController(ViewMetadataDao metadataDao) {
+    private final ViewMetadataDao metadataDao;
+    private final QueryFilterService filterService;
+
+    public ViewMetadataController(ViewMetadataDao metadataDao, QueryFilterService filterService) {
         this.metadataDao = metadataDao;
+        this.filterService = filterService;
     }
 
     @GetMapping("/metadata/{viewName}/{lang}")
@@ -48,11 +58,24 @@ public class ViewMetadataController {
         return metadataDao.getViewMetadata(viewName, lang);
     }
 
-    @GetMapping("/{viewName}/query")
-    public ResponseEntity<ViewQueryResult> query(@PathVariable("viewName") String viewName, HttpServletRequest req) {
+    @GetMapping("/{viewName}/{lang}/query")
+    public ResponseEntity<ViewQueryResult> query(@PathVariable("viewName") String viewName,
+                                                 @PathVariable("lang") String lang,
+                                                 HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
 
-        // TODO
+        ViewMetadata metadata = metadataDao.getViewMetadata(viewName, lang);
+
+        ViewQuery query;
+        try {
+            query = filterService.constructViewQuery(metadata, params);
+        } catch (UrlParseException e) {
+            LOG.error("Invalid query: {}, StackTrace: {}", req.getRequestURI(),
+                    ExceptionUtils.getStackTrace(e));
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // TODO: Invoke query API
 
         return new ResponseEntity<>(new ViewQueryResult(), HttpStatus.OK);
     }

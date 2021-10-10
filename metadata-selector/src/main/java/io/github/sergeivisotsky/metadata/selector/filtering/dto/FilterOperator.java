@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.filtering;
+package io.github.sergeivisotsky.metadata.selector.filtering.dto;
+
+import java.util.stream.Stream;
 
 /**
  * @author Sergei Visotsky
  */
-public enum FilterEnum {
+public enum FilterOperator {
 
     BETWEEN("bt", BetweenFilter.class),
     EQUALS("eq", GreaterFilter.class),
@@ -30,7 +32,7 @@ public enum FilterEnum {
     private final String code;
     private final Class<? extends LeafFilter> filter;
 
-    FilterEnum(String code, Class<? extends LeafFilter> filter) {
+    FilterOperator(String code, Class<? extends LeafFilter> filter) {
         this.code = code;
         this.filter = filter;
     }
@@ -41,5 +43,12 @@ public enum FilterEnum {
 
     public Class<? extends LeafFilter> getFilter() {
         return filter;
+    }
+
+    public static FilterOperator getByCode(String code) {
+        return Stream.of(values())
+                .filter(op -> code.equals(op.code))
+                .findFirst()
+                .orElseThrow();
     }
 }

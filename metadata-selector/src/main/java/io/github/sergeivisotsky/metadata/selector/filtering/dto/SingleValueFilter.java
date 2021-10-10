@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.filtering;
+package io.github.sergeivisotsky.metadata.selector.filtering.dto;
 
 import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 
 /**
  * @author Sergei Visotsky
  */
-public class EqualsFilter extends SingleValueFilter {
+public class SingleValueFilter extends LeafFilter {
 
-    public EqualsFilter(FieldType type, String attributeName, Object value) {
-        super(type, attributeName, value);
+    private final Object value;
+
+    public SingleValueFilter(FieldType type, String attributeName, Object value) {
+        super(type, attributeName);
+        this.value = value;
+    }
+
+    public Object getValue() {
+        return value;
     }
 }

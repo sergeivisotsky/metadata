@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.filtering;
+package io.github.sergeivisotsky.metadata.selector.filtering.parser;
 
-import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 
 /**
  * @author Sergei Visotsky
  */
-public class SingleValueFilter extends LeafFilter {
+public interface UrlParameterParser {
 
-    private final Object value;
-
-    public SingleValueFilter(FieldType type, String attributeName, Object value) {
-        super(type, attributeName);
-        this.value = value;
-    }
-
-    public Object getValue() {
-        return value;
-    }
+    /**
+     * Parses a typed value.
+     *
+     * @param field      view field which holds a possible view field types.
+     * @param paramValue parameter value to transform to another type.
+     * @return parsed typed value object.
+     */
+    Object parseTypedValue(ViewField field, String paramValue);
 }

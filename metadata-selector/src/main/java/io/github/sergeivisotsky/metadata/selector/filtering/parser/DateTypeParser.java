@@ -14,28 +14,19 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.filtering;
+package io.github.sergeivisotsky.metadata.selector.filtering.parser;
 
-import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
+import java.time.LocalDate;
+
+import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 
 /**
  * @author Sergei Visotsky
  */
-public class LeafFilter implements Filter {
+public class DateTypeParser implements UrlParameterParser {
 
-    private final FieldType type;
-    private final String attributeName;
-
-    public LeafFilter(FieldType type, String attributeName) {
-        this.type = type;
-        this.attributeName = attributeName;
-    }
-
-    public FieldType getType() {
-        return type;
-    }
-
-    public String getAttributeName() {
-        return attributeName;
+    @Override
+    public Object parseTypedValue(ViewField field, String paramValue) {
+        return LocalDate.parse(paramValue);
     }
 }

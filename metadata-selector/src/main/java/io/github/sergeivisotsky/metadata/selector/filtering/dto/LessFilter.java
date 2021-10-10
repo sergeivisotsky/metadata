@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.filtering;
+package io.github.sergeivisotsky.metadata.selector.filtering.dto;
 
 import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 
 /**
  * @author Sergei Visotsky
  */
-public class LikeFilter extends LeafFilter {
+public class LessFilter extends SingleValueFilter {
 
-    private final String likeMask;
-
-    public LikeFilter(FieldType type, String attributeName, String likeMask) {
-        super(type, attributeName);
-        this.likeMask = likeMask;
-    }
-
-    public String getLikeMask() {
-        return likeMask;
+    public LessFilter(FieldType type, String attributeName, Object value) {
+        super(type, attributeName, value);
     }
 }

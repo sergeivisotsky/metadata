@@ -14,29 +14,17 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.filtering;
+package io.github.sergeivisotsky.metadata.selector.filtering.parser;
 
-import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 
 /**
  * @author Sergei Visotsky
  */
-public class BetweenFilter extends LeafFilter {
+public class IntegerTypeParser implements UrlParameterParser {
 
-    private final Object from;
-    private final Object to;
-
-    public BetweenFilter(FieldType type, String attributeName, Object from, Object to) {
-        super(type, attributeName);
-        this.from = from;
-        this.to = to;
-    }
-
-    public Object getFrom() {
-        return from;
-    }
-
-    public Object getTo() {
-        return to;
+    @Override
+    public Object parseTypedValue(ViewField field, String paramValue) {
+        return Integer.parseInt(paramValue);
     }
 }

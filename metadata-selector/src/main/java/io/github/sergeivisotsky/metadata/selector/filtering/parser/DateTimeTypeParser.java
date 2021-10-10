@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.filtering;
+package io.github.sergeivisotsky.metadata.selector.filtering.parser;
 
-import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
+import java.time.LocalDateTime;
+
+import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 
 /**
  * @author Sergei Visotsky
  */
-public class GreaterFilter extends SingleValueFilter {
+public class DateTimeTypeParser implements UrlParameterParser {
 
-    public GreaterFilter(FieldType type, String attributeName, Object value) {
-        super(type, attributeName, value);
+    @Override
+    public Object parseTypedValue(ViewField field, String paramValue) {
+        return LocalDateTime.parse(paramValue);
     }
 }

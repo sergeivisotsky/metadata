@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.filtering;
+package io.github.sergeivisotsky.metadata.selector.filtering.dto;
 
 /**
  * @author Sergei Visotsky

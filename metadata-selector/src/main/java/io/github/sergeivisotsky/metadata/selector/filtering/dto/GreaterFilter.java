@@ -14,10 +14,16 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain.filtering;
+package io.github.sergeivisotsky.metadata.selector.filtering.dto;
+
+import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 
 /**
  * @author Sergei Visotsky
  */
-public interface Filter {
+public class GreaterFilter extends SingleValueFilter {
+
+    public GreaterFilter(FieldType type, String attributeName, Object value) {
+        super(type, attributeName, value);
+    }
 }
