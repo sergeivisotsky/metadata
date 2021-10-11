@@ -94,6 +94,12 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
                 operator = FilterOperator.EQUALS;
             }
 
+            // _ is a special character which is not used for
+            // the other operators not related to filtering.
+            if (StringUtils.contains(paramKey, "_")) {
+                continue;
+            }
+
             ViewField field = metadata.getViewField()
                     .stream()
                     .filter(fld -> paramName.equals(fld.getName()))
