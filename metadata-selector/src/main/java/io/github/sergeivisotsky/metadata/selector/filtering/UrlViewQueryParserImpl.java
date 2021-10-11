@@ -19,7 +19,6 @@ package io.github.sergeivisotsky.metadata.selector.filtering;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableMap;
 import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
@@ -47,9 +46,6 @@ import io.github.sergeivisotsky.metadata.selector.filtering.parser.UrlParameterP
 import io.github.sergeivisotsky.metadata.selector.utils.ParseUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import static io.github.sergeivisotsky.metadata.selector.domain.SortDirection.ASC;
-import static io.github.sergeivisotsky.metadata.selector.domain.SortDirection.DESC;
-
 /**
  * @author Sergei Visotsky
  */
@@ -76,7 +72,7 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
                 .filter(parseFilter(metadata, params))
                 .offset(parseOffset(params))
                 .limit(parseLimit(params))
-                .sort(parseSort(params))
+                .sort(parseSort(metadata, params))
                 .build();
     }
 
@@ -110,13 +106,7 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
                 continue;
             }
 
-            ViewField field = metadata.getViewField()
-                    .stream()
-                    .filter(fld -> paramName.equals(fld.getName()))
-                    .findFirst()
-                    .orElseThrow(() -> new UrlParseException("Field " + paramName +
-                            " is not supported for a view " + metadata.getViewName()));
-
+            ViewField field = getViewFieldByName(metadata, paramName);
             filterList.add(createFilter(field, operator, paramKey, paramValue));
         }
 
@@ -204,7 +194,7 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
         return Integer.parseInt(strArray[0]);
     }
 
-    public List<SortFilter> parseSort(Map<String, String[]> params) throws UrlParseException {
+    public List<SortFilter> parseSort(ViewMetadata metadata, Map<String, String[]> params) throws UrlParseException {
         String[] strArray = params.get(SORT);
 
         if (strArray == null) {
@@ -215,28 +205,31 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
         }
         String sortExpr = strArray[0];
 
+        String[] splitResult = StringUtils.split(sortExpr, MULTI_VALUE_DELIMITER);
+
         List<SortFilter> result = new ArrayList<>();
+        for (String order : splitResult) {
 
-        List<String> splitResult = ParseUtils.splitEscaped(sortExpr, MULTI_VALUE_DELIMITER);
+            String directionName = StringUtils.substringBefore(order, "(").toUpperCase();
+            String fieldName = StringUtils.substringBetween(order, "(", ")");
 
-        constructSortFilter(result, splitResult, ASC);
-        constructSortFilter(result, splitResult, DESC);
+            ViewField field = getViewFieldByName(metadata, fieldName);
+            if (field == null) {
+                throw new UrlParseException("Sort field " + fieldName + " is not supported by this view.");
+            }
+
+            SortDirection direction;
+
+            try {
+                direction = SortDirection.valueOf(directionName);
+            } catch (IllegalArgumentException e) {
+                throw new UrlParseException("Invalid sort direction definition passed " + directionName);
+            }
+
+            result.add(new SortFilter(direction, fieldName));
+        }
 
         return result;
-    }
-
-    private void constructSortFilter(List<SortFilter> result, List<String> splitResult, SortDirection sort) {
-        List<String> directions = splitResult.stream()
-                .filter(res -> StringUtils.contains(res, sort.getCode()))
-                .collect(Collectors.toList());
-        if (!directions.isEmpty()) {
-            for (String direction : directions) {
-                String afterBracket = StringUtils.substringAfter(direction, "(");
-                String sortResult = StringUtils.substringBefore(afterBracket, ")");
-
-                result.add(new SortFilter(sort, sortResult));
-            }
-        }
     }
 
     private Object parseTypedValue(ViewField field, String paramValue) {
@@ -254,6 +247,15 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
             throw new UrlParseException("Only one parameter " + paramName + " is allowed in view query URL");
         }
         return array[0];
+    }
+
+    private ViewField getViewFieldByName(ViewMetadata metadata, String fieldName) throws UrlParseException {
+        return metadata.getViewField()
+                .stream()
+                .filter(field -> fieldName.equals(field.getName()))
+                .findFirst()
+                .orElseThrow(() -> new UrlParseException("Field " + fieldName +
+                        " is not supported for a view " + metadata.getViewName()));
     }
 
 }
