@@ -24,6 +24,7 @@ public class ViewQuery {
     private final Filter filter;
     private final Long offset;
     private final Integer limit;
+    // TODO: Here should also be _sort
 
     ViewQuery(Filter filter, Long offset, Integer limit) {
         this.filter = filter;

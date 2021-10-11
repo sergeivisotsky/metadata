@@ -69,6 +69,7 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
                 .filter(parseFilter(metadata, params))
                 .offset(parseOffset(params))
                 .limit(parseLimit(params))
+                // TODO: Here should also be _sort
                 .build();
     }
 
@@ -195,6 +196,8 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
         }
         return Integer.parseInt(strArray[0]);
     }
+
+    // TODO: Here should also be parseSort e.g. _sort
 
     private Object parseTypedValue(ViewField field, String paramValue) {
         return PARAMETER_PARSER_MAP
