@@ -26,6 +26,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.ViewQueryDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.CacheableMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.ChartMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.ComboBoxMetadataDaoImpl;
@@ -34,6 +35,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.impl.LayoutMetadataDaoImpl
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LookupMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.NavigationMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.ViewMetadataDaoImpl;
+import io.github.sergeivisotsky.metadata.selector.dao.impl.ViewQueryDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.domain.Layout;
 import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
@@ -112,5 +114,10 @@ public class MetadataSelectorConfig {
     @Bean
     public ChartMetadataDao chartMetadataDao(MetadataMapper<ChartMetadata> chartMetadataMapper) {
         return new ChartMetadataDaoImpl(chartMetadataMapper);
+    }
+
+    @Bean
+    public ViewQueryDao viewQueryDao() {
+        return new ViewQueryDaoImpl();
     }
 }

@@ -14,31 +14,24 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.rest.dto;
+package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
-import java.util.List;
+import io.github.sergeivisotsky.metadata.selector.dao.ViewQueryDao;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewQueryResult;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 
 /**
  * @author Sergei Visotsky
  */
-public class ViewQueryResult {
+public class ViewQueryDaoImpl implements ViewQueryDao {
 
-    private List<String> fieldNames;
-    private List<List<Object>> content;
-
-    public List<String> getFieldNames() {
-        return fieldNames;
-    }
-
-    public void setFieldNames(List<String> fieldNames) {
-        this.fieldNames = fieldNames;
-    }
-
-    public List<List<Object>> getContent() {
-        return content;
-    }
-
-    public void setContent(List<List<Object>> content) {
-        this.content = content;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ViewQueryResult query(ViewMetadata metadata, ViewQuery query) {
+        // TODO
+        return null;
     }
 }

@@ -19,9 +19,21 @@ package io.github.sergeivisotsky.metadata.selector.domain;
 /**
  * @author Sergei Visotsky
  */
-public enum SortDirection {
+public class Order {
 
-    ASC,
-    DESC
+    private final String fieldName;
+    private final SortDirection direction;
 
+    public Order(String fieldName, SortDirection direction) {
+        this.fieldName = fieldName;
+        this.direction = direction;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public SortDirection getDirection() {
+        return direction;
+    }
 }

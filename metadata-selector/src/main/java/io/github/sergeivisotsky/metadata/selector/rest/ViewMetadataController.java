@@ -20,11 +20,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.ViewQueryDao;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewQueryResult;
 import io.github.sergeivisotsky.metadata.selector.exception.UrlParseException;
 import io.github.sergeivisotsky.metadata.selector.filtering.UrlViewQueryParser;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
-import io.github.sergeivisotsky.metadata.selector.rest.dto.ViewQueryResult;
+import io.github.sergeivisotsky.metadata.selector.rest.dto.ViewQueryResultResponse;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,11 +47,14 @@ public class ViewMetadataController {
     private static final Logger LOG = LoggerFactory.getLogger(ViewMetadataController.class);
 
     private final ViewMetadataDao metadataDao;
+    private final ViewQueryDao queryDao;
     private final UrlViewQueryParser filterService;
 
     public ViewMetadataController(ViewMetadataDao metadataDao,
+                                  ViewQueryDao queryDao,
                                   UrlViewQueryParser filterService) {
         this.metadataDao = metadataDao;
+        this.queryDao = queryDao;
         this.filterService = filterService;
     }
 
@@ -60,9 +65,9 @@ public class ViewMetadataController {
     }
 
     @GetMapping("/{viewName}/{lang}/query")
-    public ResponseEntity<ViewQueryResult> query(@PathVariable("viewName") String viewName,
-                                                 @PathVariable("lang") String lang,
-                                                 HttpServletRequest req) {
+    public ResponseEntity<ViewQueryResultResponse> query(@PathVariable("viewName") String viewName,
+                                                         @PathVariable("lang") String lang,
+                                                         HttpServletRequest req) {
         Map<String, String[]> params = req.getParameterMap();
 
         ViewMetadata metadata = metadataDao.getViewMetadata(viewName, lang);
@@ -76,8 +81,9 @@ public class ViewMetadataController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        // TODO: Invoke query API
+        ViewQueryResult queryResult = queryDao.query(metadata, query);
 
-        return new ResponseEntity<>(new ViewQueryResult(), HttpStatus.OK);
+        ViewQueryResultResponse response = new ViewQueryResultResponse(queryResult);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
