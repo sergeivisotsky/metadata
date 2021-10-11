@@ -22,12 +22,10 @@ import io.github.sergeivisotsky.metadata.selector.rest.dto.ChartMetadataRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Sergei Visotsky
  */
-@RestController
 @RequestMapping("/api/v1/chart")
 public class ChartMetadataController {
 
