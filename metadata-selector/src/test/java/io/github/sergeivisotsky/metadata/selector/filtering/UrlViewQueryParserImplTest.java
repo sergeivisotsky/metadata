@@ -28,6 +28,9 @@ import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.exception.UrlParseException;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.AndFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.BetweenFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.GreaterFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.LessFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.LikeFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -89,6 +92,78 @@ public class UrlViewQueryParserImplTest {
         ViewQuery query = parser.constructViewQuery(metadata, params);
         assertTrue(query.getFilter() instanceof AndFilter);
         assertTrue(((AndFilter) query.getFilter()).getLeftFilter() instanceof BetweenFilter);
+        assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
+        assertEquals((Long) 200L, query.getOffset());
+        assertEquals((Integer) 100, query.getLimit());
+    }
+
+    @Test
+    public void shouldConstructViewQueryWithGreaterFilter() throws UrlParseException {
+        Map<String, String[]> params = ImmutableMap.<String, String[]>builder()
+                .put("someField", new String[]{"value1"})
+                .put("fieldName2", new String[]{"value1"})
+                .put("fieldName3:gt", new String[]{"value3,value4"})
+                .put("_sort", new String[]{"desc(fieldName1),asc(fieldName2)"})
+                .put("_offset", new String[]{"200"})
+                .put("_limit", new String[]{"100"})
+                .build();
+        ViewQuery query = parser.constructViewQuery(metadata, params);
+        assertTrue(query.getFilter() instanceof AndFilter);
+        assertTrue(((AndFilter) query.getFilter()).getLeftFilter() instanceof GreaterFilter);
+        assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
+        assertEquals((Long) 200L, query.getOffset());
+        assertEquals((Integer) 100, query.getLimit());
+    }
+
+    @Test
+    public void shouldConstructViewQueryWithLessFilter() throws UrlParseException {
+        Map<String, String[]> params = ImmutableMap.<String, String[]>builder()
+                .put("someField", new String[]{"value1"})
+                .put("fieldName2", new String[]{"value1"})
+                .put("fieldName3:ls", new String[]{"value3,value4"})
+                .put("_sort", new String[]{"desc(fieldName1),asc(fieldName2)"})
+                .put("_offset", new String[]{"200"})
+                .put("_limit", new String[]{"100"})
+                .build();
+        ViewQuery query = parser.constructViewQuery(metadata, params);
+        assertTrue(query.getFilter() instanceof AndFilter);
+        assertTrue(((AndFilter) query.getFilter()).getLeftFilter() instanceof LessFilter);
+        assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
+        assertEquals((Long) 200L, query.getOffset());
+        assertEquals((Integer) 100, query.getLimit());
+    }
+
+    @Test
+    public void shouldConstructViewQueryWithLikeFilter() throws UrlParseException {
+        Map<String, String[]> params = ImmutableMap.<String, String[]>builder()
+                .put("someField", new String[]{"value1"})
+                .put("fieldName2", new String[]{"value1"})
+                .put("fieldName3:lk", new String[]{"value3,value4"})
+                .put("_sort", new String[]{"desc(fieldName1),asc(fieldName2)"})
+                .put("_offset", new String[]{"200"})
+                .put("_limit", new String[]{"100"})
+                .build();
+        ViewQuery query = parser.constructViewQuery(metadata, params);
+        assertTrue(query.getFilter() instanceof AndFilter);
+        assertTrue(((AndFilter) query.getFilter()).getLeftFilter() instanceof LikeFilter);
+        assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
+        assertEquals((Long) 200L, query.getOffset());
+        assertEquals((Integer) 100, query.getLimit());
+    }
+
+    @Test(expected = UrlParseException.class)
+    public void shouldConstructViewQueryThrowUrlParseException() throws UrlParseException {
+        Map<String, String[]> params = ImmutableMap.<String, String[]>builder()
+                .put("someField", new String[]{"value1"})
+                .put("fieldName2", new String[]{"value1"})
+                .put("fieldName3:mm", new String[]{"value3,value4"})
+                .put("_sort", new String[]{"desc(fieldName1),asc(fieldName2)"})
+                .put("_offset", new String[]{"200"})
+                .put("_limit", new String[]{"100"})
+                .build();
+        ViewQuery query = parser.constructViewQuery(metadata, params);
+        assertTrue(query.getFilter() instanceof AndFilter);
+        assertTrue(((AndFilter) query.getFilter()).getLeftFilter() instanceof LikeFilter);
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
