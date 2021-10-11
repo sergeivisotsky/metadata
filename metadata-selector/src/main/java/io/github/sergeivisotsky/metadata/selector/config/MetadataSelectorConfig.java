@@ -19,7 +19,6 @@ package io.github.sergeivisotsky.metadata.selector.config;
 import java.util.List;
 
 import io.github.sergeivisotsky.metadata.selector.config.properties.CacheConfigProperties;
-import io.github.sergeivisotsky.metadata.selector.dao.ChartMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.FormMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
@@ -28,7 +27,6 @@ import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewQueryDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.CacheableMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dao.impl.ChartMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.ComboBoxMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.FormMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LayoutMetadataDaoImpl;
@@ -43,7 +41,6 @@ import io.github.sergeivisotsky.metadata.selector.domain.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.Navigation;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
-import io.github.sergeivisotsky.metadata.selector.domain.chart.ChartMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormField;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormSection;
@@ -110,11 +107,6 @@ public class MetadataSelectorConfig {
                                            MetadataMapper<FormField> formFieldMapper,
                                            ModelMapper<FormSection, FormSection> formSectionModelMapper) {
         return new FormMetadataDaoImpl(formMetadataMapper, formSectionMapper, formFieldMapper, formSectionModelMapper);
-    }
-
-    @Bean
-    public ChartMetadataDao chartMetadataDao(MetadataMapper<ChartMetadata> chartMetadataMapper) {
-        return new ChartMetadataDaoImpl(chartMetadataMapper);
     }
 
     @Bean
