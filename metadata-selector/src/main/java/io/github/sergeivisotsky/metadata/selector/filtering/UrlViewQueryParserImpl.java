@@ -51,6 +51,8 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
 
     private static final String DELIMITER = ":";
     private static final char MULTI_VALUE_DELIMITER = ',';
+    private static final String OFFSET = "_offset";
+    private static final String LIMIT = "_limit";
 
     private static final Map<FieldType, UrlParameterParser> PARAMETER_PARSER_MAP = ImmutableMap.<FieldType, UrlParameterParser>builder()
             .put(FieldType.STRING, new StringTypeParser())
@@ -172,14 +174,26 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
         return new LikeFilter(field.getFieldType(), field.getName(), likeMask);
     }
 
-    private Long parseOffset(Map<String, String[]> params) {
-        // TODO
-        return null;
+    private Long parseOffset(Map<String, String[]> params) throws UrlParseException {
+        String[] strArray = params.get(OFFSET);
+        if (strArray == null) {
+            return null;
+        }
+        if (strArray.length > 1) {
+            throw new UrlParseException("Only one _offset parameter allowed");
+        }
+        return Long.parseLong(strArray[0]);
     }
 
-    private Integer parseLimit(Map<String, String[]> params) {
-        // TODO
-        return null;
+    private Integer parseLimit(Map<String, String[]> params) throws UrlParseException {
+        String[] strArray = params.get(LIMIT);
+        if (strArray == null) {
+            return null;
+        }
+        if (strArray.length > 1) {
+            throw new UrlParseException("Only one _limit parameter allowed");
+        }
+        return Integer.parseInt(strArray[0]);
     }
 
     private Object parseTypedValue(ViewField field, String paramValue) {

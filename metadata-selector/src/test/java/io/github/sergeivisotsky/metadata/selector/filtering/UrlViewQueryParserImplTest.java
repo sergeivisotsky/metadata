@@ -32,6 +32,7 @@ import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -89,5 +90,7 @@ public class UrlViewQueryParserImplTest {
         assertTrue(query.getFilter() instanceof AndFilter);
         assertTrue(((AndFilter) query.getFilter()).getLeftFilter() instanceof BetweenFilter);
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
+        assertEquals((Long) 200L, query.getOffset());
+        assertEquals((Integer) 100, query.getLimit());
     }
 }
