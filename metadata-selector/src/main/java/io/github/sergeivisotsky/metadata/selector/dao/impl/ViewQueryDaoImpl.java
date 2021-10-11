@@ -16,22 +16,56 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewQueryDao;
+import io.github.sergeivisotsky.metadata.selector.domain.Paging;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewQueryResult;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
+import io.github.sergeivisotsky.metadata.selector.sqlgen.SQLDialect;
 
 /**
  * @author Sergei Visotsky
  */
-public class ViewQueryDaoImpl implements ViewQueryDao {
+public class ViewQueryDaoImpl extends AbstractMetadataDao implements ViewQueryDao {
+
+    private final SQLDialect sqlDialect;
+
+    public ViewQueryDaoImpl(SQLDialect sqlDialect) {
+        this.sqlDialect = sqlDialect;
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
     public ViewQueryResult query(ViewMetadata metadata, ViewQuery query) {
-        // TODO
-        return null;
+        String sqlTemplate = metadata.getDefinition();
+
+        String sql = sqlDialect.createSelectQuery(sqlTemplate, query);
+
+        List<ViewField> fieldList = metadata.getViewField();
+        List<List<Object>> rowList = jdbcTemplate.query(sql, (rs, rowNum) -> {
+            List<Object> row = new ArrayList<>(fieldList.size());
+            for (ViewField field : fieldList) {
+                Object value = sqlDialect.getValueFromResultSet(rs, field);
+                row.add(value);
+            }
+            return row;
+        });
+
+        // TODO: Add total elements and plus one row.
+
+        return ViewQueryResult.builder()
+                .fieldList(fieldList)
+                .rowList(rowList)
+                .paging(Paging.builder()
+                        .offset(query.getOffset())
+                        .build())
+                .build();
     }
 }

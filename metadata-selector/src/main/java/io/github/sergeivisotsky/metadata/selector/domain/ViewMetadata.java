@@ -25,6 +25,7 @@ public class ViewMetadata extends BaseMetadata {
 
     private Language lang;
     private String viewName;
+    private String definition;
     private Integer offset;
     private Integer padding;
     private String font;
@@ -49,6 +50,14 @@ public class ViewMetadata extends BaseMetadata {
 
     public void setViewName(String viewName) {
         this.viewName = viewName;
+    }
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
     }
 
     public Integer getOffset() {

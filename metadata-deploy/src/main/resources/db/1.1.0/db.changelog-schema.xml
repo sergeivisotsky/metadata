@@ -53,5 +53,10 @@
             <column name="order_in_table" type="java.sql.Types.INTEGER"/>
         </addColumn>
     </changeSet>
+    <changeSet id="38" author="svisockis">
+        <addColumn tableName="view_metadata">
+            <column name="definition" type="java.sql.Types.CLOB"/>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
