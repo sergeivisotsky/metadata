@@ -41,13 +41,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit test for {@link UrlViewQueryParserImpl}.
+ * Unit test for {@link UrlViewQueryParser}.
  *
  * @author Sergei Visotsky
  */
-public class UrlViewQueryParserImplTest {
+public class UrlViewQueryParserTest {
 
-    private final UrlViewQueryParserImpl parser = new UrlViewQueryParserImpl();
+    private final UrlViewQueryParser parser = new UrlViewQueryParser();
 
     private static ViewMetadata metadata;
 

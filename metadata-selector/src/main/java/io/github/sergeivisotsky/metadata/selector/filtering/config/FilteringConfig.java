@@ -17,7 +17,6 @@
 package io.github.sergeivisotsky.metadata.selector.filtering.config;
 
 import io.github.sergeivisotsky.metadata.selector.filtering.UrlViewQueryParser;
-import io.github.sergeivisotsky.metadata.selector.filtering.UrlViewQueryParserImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,6 +28,6 @@ public class FilteringConfig {
 
     @Bean
     public UrlViewQueryParser queryFilterService() {
-        return new UrlViewQueryParserImpl();
+        return new UrlViewQueryParser();
     }
 }
