@@ -19,9 +19,11 @@ package io.github.sergeivisotsky.metadata.selector.filtering;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableMap;
 import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
+import io.github.sergeivisotsky.metadata.selector.domain.SortDirection;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.exception.UrlParseException;
@@ -33,6 +35,7 @@ import io.github.sergeivisotsky.metadata.selector.filtering.dto.FilterOperator;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.GreaterFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LessFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LikeFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.SortFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import io.github.sergeivisotsky.metadata.selector.filtering.parser.DateTimeTypeParser;
 import io.github.sergeivisotsky.metadata.selector.filtering.parser.DateTypeParser;
@@ -44,6 +47,9 @@ import io.github.sergeivisotsky.metadata.selector.filtering.parser.UrlParameterP
 import io.github.sergeivisotsky.metadata.selector.utils.ParseUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import static io.github.sergeivisotsky.metadata.selector.domain.SortDirection.ASC;
+import static io.github.sergeivisotsky.metadata.selector.domain.SortDirection.DESC;
+
 /**
  * @author Sergei Visotsky
  */
@@ -53,6 +59,7 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
     private static final char MULTI_VALUE_DELIMITER = ',';
     private static final String OFFSET = "_offset";
     private static final String LIMIT = "_limit";
+    private static final String SORT = "_sort";
 
     private static final Map<FieldType, UrlParameterParser> PARAMETER_PARSER_MAP = ImmutableMap.<FieldType, UrlParameterParser>builder()
             .put(FieldType.STRING, new StringTypeParser())
@@ -69,7 +76,7 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
                 .filter(parseFilter(metadata, params))
                 .offset(parseOffset(params))
                 .limit(parseLimit(params))
-                // TODO: Here should also be _sort
+                .sort(parseSort(params))
                 .build();
     }
 
@@ -197,7 +204,40 @@ public class UrlViewQueryParserImpl implements UrlViewQueryParser {
         return Integer.parseInt(strArray[0]);
     }
 
-    // TODO: Here should also be parseSort e.g. _sort
+    public List<SortFilter> parseSort(Map<String, String[]> params) throws UrlParseException {
+        String[] strArray = params.get(SORT);
+
+        if (strArray == null) {
+            return null;
+        }
+        if (strArray.length > 1) {
+            throw new UrlParseException("Only one _sort parameter allowed");
+        }
+        String sortExpr = strArray[0];
+
+        List<SortFilter> result = new ArrayList<>();
+
+        List<String> splitResult = ParseUtils.splitEscaped(sortExpr, MULTI_VALUE_DELIMITER);
+
+        constructSortFilter(result, splitResult, ASC);
+        constructSortFilter(result, splitResult, DESC);
+
+        return result;
+    }
+
+    private void constructSortFilter(List<SortFilter> result, List<String> splitResult, SortDirection sort) {
+        List<String> directions = splitResult.stream()
+                .filter(res -> StringUtils.contains(res, sort.getCode()))
+                .collect(Collectors.toList());
+        if (!directions.isEmpty()) {
+            for (String direction : directions) {
+                String afterBracket = StringUtils.substringAfter(direction, "(");
+                String sortResult = StringUtils.substringBefore(afterBracket, ")");
+
+                result.add(new SortFilter(sort, sortResult));
+            }
+        }
+    }
 
     private Object parseTypedValue(ViewField field, String paramValue) {
         return PARAMETER_PARSER_MAP

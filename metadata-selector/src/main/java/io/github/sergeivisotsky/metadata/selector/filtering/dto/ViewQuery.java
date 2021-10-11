@@ -16,6 +16,8 @@
 
 package io.github.sergeivisotsky.metadata.selector.filtering.dto;
 
+import java.util.List;
+
 /**
  * @author Sergei Visotsky
  */
@@ -24,12 +26,14 @@ public class ViewQuery {
     private final Filter filter;
     private final Long offset;
     private final Integer limit;
+    private final List<SortFilter> sort;
     // TODO: Here should also be _sort
 
-    ViewQuery(Filter filter, Long offset, Integer limit) {
+    ViewQuery(Filter filter, Long offset, Integer limit, List<SortFilter> sort) {
         this.filter = filter;
         this.offset = offset;
         this.limit = limit;
+        this.sort = sort;
     }
 
     public static ViewQueryBuilder builder() {
@@ -48,10 +52,15 @@ public class ViewQuery {
         return limit;
     }
 
+    public List<SortFilter> getSort() {
+        return sort;
+    }
+
     public static class ViewQueryBuilder {
         private Filter filter;
         private Long offset;
         private Integer limit;
+        private List<SortFilter> sort;
 
         ViewQueryBuilder() {
         }
@@ -71,8 +80,13 @@ public class ViewQuery {
             return this;
         }
 
+        public ViewQueryBuilder sort(List<SortFilter> sort) {
+            this.sort = sort;
+            return this;
+        }
+
         public ViewQuery build() {
-            return new ViewQuery(filter, offset, limit);
+            return new ViewQuery(filter, offset, limit, sort);
         }
     }
 }

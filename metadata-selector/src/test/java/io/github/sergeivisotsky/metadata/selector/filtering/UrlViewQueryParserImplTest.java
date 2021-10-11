@@ -35,6 +35,8 @@ import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static io.github.sergeivisotsky.metadata.selector.domain.SortDirection.ASC;
+import static io.github.sergeivisotsky.metadata.selector.domain.SortDirection.DESC;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -95,6 +97,10 @@ public class UrlViewQueryParserImplTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
+        assertEquals(ASC, query.getSort().get(0).getDirection());
+        assertEquals("fieldName2", query.getSort().get(0).getValue());
+        assertEquals(DESC, query.getSort().get(1).getDirection());
+        assertEquals("fieldName1", query.getSort().get(1).getValue());
     }
 
     @Test
@@ -113,6 +119,10 @@ public class UrlViewQueryParserImplTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
+        assertEquals(ASC, query.getSort().get(0).getDirection());
+        assertEquals("fieldName2", query.getSort().get(0).getValue());
+        assertEquals(DESC, query.getSort().get(1).getDirection());
+        assertEquals("fieldName1", query.getSort().get(1).getValue());
     }
 
     @Test
@@ -131,6 +141,10 @@ public class UrlViewQueryParserImplTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
+        assertEquals(ASC, query.getSort().get(0).getDirection());
+        assertEquals("fieldName2", query.getSort().get(0).getValue());
+        assertEquals(DESC, query.getSort().get(1).getDirection());
+        assertEquals("fieldName1", query.getSort().get(1).getValue());
     }
 
     @Test
@@ -149,6 +163,10 @@ public class UrlViewQueryParserImplTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
+        assertEquals(ASC, query.getSort().get(0).getDirection());
+        assertEquals("fieldName2", query.getSort().get(0).getValue());
+        assertEquals(DESC, query.getSort().get(1).getDirection());
+        assertEquals("fieldName1", query.getSort().get(1).getValue());
     }
 
     @Test(expected = UrlParseException.class)
@@ -167,5 +185,9 @@ public class UrlViewQueryParserImplTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
+        assertEquals(ASC, query.getSort().get(0).getDirection());
+        assertEquals("fieldName2", query.getSort().get(0).getValue());
+        assertEquals(DESC, query.getSort().get(1).getDirection());
+        assertEquals("fieldName1", query.getSort().get(1).getValue());
     }
 }
