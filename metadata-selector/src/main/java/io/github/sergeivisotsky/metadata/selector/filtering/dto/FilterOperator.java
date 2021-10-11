@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  */
 public enum FilterOperator {
 
-    BETWEEN("bt", BetweenFilter.class),
+    BETWEEN("bw", BetweenFilter.class),
     EQUALS("eq", GreaterFilter.class),
     LIKE("lk", LikeFilter.class),
     LESS("ls", LessFilter.class),
