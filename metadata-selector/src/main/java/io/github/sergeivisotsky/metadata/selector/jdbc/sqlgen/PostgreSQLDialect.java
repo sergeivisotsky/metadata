@@ -14,18 +14,41 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
+import com.google.common.collect.ImmutableMap;
+import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.SelectParser;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DATE;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DATETIME;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DECIMAL;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.INTEGER;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.STRING;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.TIME;
 
 /**
  * @author Sergei Visotsky
  */
 public class PostgreSQLDialect implements SQLDialect {
+
+    private static final Map<FieldType, Formatter> FORMATTER_MAP = ImmutableMap.<FieldType, Formatter>builder()
+            .put(TIME, new TimeFormatter())
+            .put(DATETIME, new DateTimeFormatter())
+            .put(DATE, new DateFormatter())
+            .put(INTEGER, new IntegerFormatter())
+            .put(STRING, new StringFormatter())
+            .put(DECIMAL, new DecimalFormatter())
+            .build();
+
+    private SelectParser selectParser;
 
     @Override
     public String createSelectQuery(String sqlTemplate, ViewQuery query) {
@@ -52,5 +75,10 @@ public class PostgreSQLDialect implements SQLDialect {
         }
         throw new IllegalArgumentException("Field " + field.getName() +
                 " of type " + field.getFieldType() + " is not supported");
+    }
+
+    @Autowired
+    public void setSelectParser(SelectParser selectParser) {
+        this.selectParser = selectParser;
     }
 }
