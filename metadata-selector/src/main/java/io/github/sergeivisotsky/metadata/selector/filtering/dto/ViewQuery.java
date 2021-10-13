@@ -18,6 +18,8 @@ package io.github.sergeivisotsky.metadata.selector.filtering.dto;
 
 import java.util.List;
 
+import io.github.sergeivisotsky.metadata.selector.domain.Order;
+
 /**
  * @author Sergei Visotsky
  */
@@ -27,12 +29,14 @@ public class ViewQuery {
     private final Long offset;
     private final Integer limit;
     private final List<SortFilter> sort;
+    private final List<Order> orderList;
 
-    ViewQuery(Filter filter, Long offset, Integer limit, List<SortFilter> sort) {
+    ViewQuery(Filter filter, Long offset, Integer limit, List<SortFilter> sort, List<Order> orderList) {
         this.filter = filter;
         this.offset = offset;
         this.limit = limit;
         this.sort = sort;
+        this.orderList = orderList;
     }
 
     public static ViewQueryBuilder builder() {
@@ -55,11 +59,16 @@ public class ViewQuery {
         return sort;
     }
 
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
     public static class ViewQueryBuilder {
         private Filter filter;
         private Long offset;
         private Integer limit;
         private List<SortFilter> sort;
+        private List<Order> orderList;
 
         ViewQueryBuilder() {
         }
@@ -84,8 +93,13 @@ public class ViewQuery {
             return this;
         }
 
+        public ViewQueryBuilder orderList(List<Order> orderList) {
+            this.orderList = orderList;
+            return this;
+        }
+
         public ViewQuery build() {
-            return new ViewQuery(filter, offset, limit, sort);
+            return new ViewQuery(filter, offset, limit, sort, orderList);
         }
     }
 }
