@@ -88,7 +88,7 @@
     </changeSet>
     <changeSet id="37" author="svisockis">
         <update tableName="view_field">
-            <column name="name" value="somePrettyCombo"/>
+            <column name="name" value="a_column_one"/>
             <column name="field_type" value="STRING"/>
             <column name="ui_description" value="some ui description"/>
             <column name="ui_query_name" value="SOME_QUERY_NAME"/>

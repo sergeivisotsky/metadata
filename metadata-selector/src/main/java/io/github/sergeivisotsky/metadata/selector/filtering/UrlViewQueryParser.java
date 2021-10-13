@@ -109,6 +109,10 @@ public class UrlViewQueryParser {
             filterList.add(createFilter(field, operator, paramKey, paramValue));
         }
 
+        if (filterList.isEmpty()) {
+            return null;
+        }
+
         if (filterList.size() == 1) {
             return filterList.get(0);
         }
