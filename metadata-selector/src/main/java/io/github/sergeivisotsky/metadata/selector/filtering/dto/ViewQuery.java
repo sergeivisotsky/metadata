@@ -28,14 +28,12 @@ public class ViewQuery {
     private final Filter filter;
     private final Long offset;
     private final Integer limit;
-    private final List<SortFilter> sort;
     private final List<Order> orderList;
 
-    ViewQuery(Filter filter, Long offset, Integer limit, List<SortFilter> sort, List<Order> orderList) {
+    ViewQuery(Filter filter, Long offset, Integer limit, List<Order> orderList) {
         this.filter = filter;
         this.offset = offset;
         this.limit = limit;
-        this.sort = sort;
         this.orderList = orderList;
     }
 
@@ -55,10 +53,6 @@ public class ViewQuery {
         return limit;
     }
 
-    public List<SortFilter> getSort() {
-        return sort;
-    }
-
     public List<Order> getOrderList() {
         return orderList;
     }
@@ -67,7 +61,6 @@ public class ViewQuery {
         private Filter filter;
         private Long offset;
         private Integer limit;
-        private List<SortFilter> sort;
         private List<Order> orderList;
 
         ViewQueryBuilder() {
@@ -88,18 +81,13 @@ public class ViewQuery {
             return this;
         }
 
-        public ViewQueryBuilder sort(List<SortFilter> sort) {
-            this.sort = sort;
-            return this;
-        }
-
         public ViewQueryBuilder orderList(List<Order> orderList) {
             this.orderList = orderList;
             return this;
         }
 
         public ViewQuery build() {
-            return new ViewQuery(filter, offset, limit, sort, orderList);
+            return new ViewQuery(filter, offset, limit, orderList);
         }
     }
 }

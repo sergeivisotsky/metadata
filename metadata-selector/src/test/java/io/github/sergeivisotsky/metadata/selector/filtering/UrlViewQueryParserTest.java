@@ -102,10 +102,10 @@ public class UrlViewQueryParserTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
-        assertEquals(DESC, query.getSort().get(0).getDirection());
-        assertEquals("fieldName1", query.getSort().get(0).getValue());
-        assertEquals(ASC, query.getSort().get(1).getDirection());
-        assertEquals("fieldName2", query.getSort().get(1).getValue());
+        assertEquals(DESC, query.getOrderList().get(0).getDirection());
+        assertEquals("fieldName1", query.getOrderList().get(0).getFieldName());
+        assertEquals(ASC, query.getOrderList().get(1).getDirection());
+        assertEquals("fieldName2", query.getOrderList().get(1).getFieldName());
     }
 
     @Test
@@ -124,10 +124,10 @@ public class UrlViewQueryParserTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
-        assertEquals(DESC, query.getSort().get(0).getDirection());
-        assertEquals("fieldName1", query.getSort().get(0).getValue());
-        assertEquals(ASC, query.getSort().get(1).getDirection());
-        assertEquals("fieldName2", query.getSort().get(1).getValue());
+        assertEquals(DESC, query.getOrderList().get(0).getDirection());
+        assertEquals("fieldName1", query.getOrderList().get(0).getFieldName());
+        assertEquals(ASC, query.getOrderList().get(1).getDirection());
+        assertEquals("fieldName2", query.getOrderList().get(1).getFieldName());
     }
 
     @Test
@@ -146,10 +146,10 @@ public class UrlViewQueryParserTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
-        assertEquals(DESC, query.getSort().get(0).getDirection());
-        assertEquals("fieldName1", query.getSort().get(0).getValue());
-        assertEquals(ASC, query.getSort().get(1).getDirection());
-        assertEquals("fieldName2", query.getSort().get(1).getValue());
+        assertEquals(DESC, query.getOrderList().get(0).getDirection());
+        assertEquals("fieldName1", query.getOrderList().get(0).getFieldName());
+        assertEquals(ASC, query.getOrderList().get(1).getDirection());
+        assertEquals("fieldName2", query.getOrderList().get(1).getFieldName());
     }
 
     @Test
@@ -168,10 +168,10 @@ public class UrlViewQueryParserTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
-        assertEquals(DESC, query.getSort().get(0).getDirection());
-        assertEquals("fieldName1", query.getSort().get(0).getValue());
-        assertEquals(ASC, query.getSort().get(1).getDirection());
-        assertEquals("fieldName2", query.getSort().get(1).getValue());
+        assertEquals(DESC, query.getOrderList().get(0).getDirection());
+        assertEquals("fieldName1", query.getOrderList().get(0).getFieldName());
+        assertEquals(ASC, query.getOrderList().get(1).getDirection());
+        assertEquals("fieldName2", query.getOrderList().get(1).getFieldName());
     }
 
     @Test(expected = UrlParseException.class)
@@ -190,9 +190,9 @@ public class UrlViewQueryParserTest {
         assertTrue(((AndFilter) query.getFilter()).getRightFilter() instanceof AndFilter);
         assertEquals((Long) 200L, query.getOffset());
         assertEquals((Integer) 100, query.getLimit());
-        assertEquals(DESC, query.getSort().get(0).getDirection());
-        assertEquals("fieldName1", query.getSort().get(0).getValue());
-        assertEquals(ASC, query.getSort().get(1).getDirection());
-        assertEquals("fieldName2", query.getSort().get(1).getValue());
+        assertEquals(DESC, query.getOrderList().get(0).getDirection());
+        assertEquals("fieldName1", query.getOrderList().get(0).getFieldName());
+        assertEquals(ASC, query.getOrderList().get(1).getDirection());
+        assertEquals("fieldName2", query.getOrderList().get(1).getFieldName());
     }
 }

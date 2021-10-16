@@ -22,7 +22,6 @@ import io.github.sergeivisotsky.metadata.selector.domain.Order;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.AndFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.EqualsFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LessFilter;
-import io.github.sergeivisotsky.metadata.selector.filtering.dto.SortFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.PrimitiveSelectParser;
 import org.junit.BeforeClass;
@@ -75,7 +74,7 @@ public class PostgreSQLDialectTest {
     public void shouldCreateSelectQuery() {
         ViewQuery viewQuery = ViewQuery.builder()
                 .orderList(List.of(new Order("someField", ASC)))
-                .sort(List.of(new SortFilter(DESC, "some_value")))
+                .orderList(List.of(new Order("some_value", DESC)))
                 .filter(new AndFilter(
                         new EqualsFilter(STRING, "COLUMN_ONE", "someMysteriousValue"),
                         new LessFilter(INTEGER, "COLUMN_FOUR", "someMask")))

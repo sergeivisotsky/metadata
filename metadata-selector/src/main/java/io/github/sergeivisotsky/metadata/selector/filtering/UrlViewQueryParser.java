@@ -22,6 +22,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
+import io.github.sergeivisotsky.metadata.selector.domain.Order;
 import io.github.sergeivisotsky.metadata.selector.domain.SortDirection;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
@@ -34,7 +35,6 @@ import io.github.sergeivisotsky.metadata.selector.filtering.dto.FilterOperator;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.GreaterFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LessFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LikeFilter;
-import io.github.sergeivisotsky.metadata.selector.filtering.dto.SortFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import io.github.sergeivisotsky.metadata.selector.filtering.parser.DateTimeTypeParser;
 import io.github.sergeivisotsky.metadata.selector.filtering.parser.DateTypeParser;
@@ -71,7 +71,7 @@ public class UrlViewQueryParser {
                 .filter(parseFilter(metadata, params))
                 .offset(parseOffset(params))
                 .limit(parseLimit(params))
-                .sort(parseSort(metadata, params))
+                .orderList(parseSort(metadata, params))
                 .build();
     }
 
@@ -197,7 +197,7 @@ public class UrlViewQueryParser {
         return Integer.parseInt(strArray[0]);
     }
 
-    public List<SortFilter> parseSort(ViewMetadata metadata, Map<String, String[]> params) throws UrlParseException {
+    public List<Order> parseSort(ViewMetadata metadata, Map<String, String[]> params) throws UrlParseException {
         String[] strArray = params.get(SORT);
 
         if (strArray == null) {
@@ -210,7 +210,7 @@ public class UrlViewQueryParser {
 
         String[] splitResult = StringUtils.split(sortExpr, MULTI_VALUE_DELIMITER);
 
-        List<SortFilter> result = new ArrayList<>();
+        List<Order> result = new ArrayList<>();
         for (String order : splitResult) {
 
             String directionName = StringUtils.substringBefore(order, "(").toUpperCase();
@@ -229,7 +229,7 @@ public class UrlViewQueryParser {
                 throw new UrlParseException("Invalid sort direction definition passed " + directionName);
             }
 
-            result.add(new SortFilter(direction, fieldName));
+            result.add(new Order(fieldName, direction));
         }
 
         return result;
