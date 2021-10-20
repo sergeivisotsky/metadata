@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect;
 
 import java.util.List;
 
@@ -34,11 +34,11 @@ import static io.github.sergeivisotsky.metadata.selector.domain.SortDirection.DE
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit test for {@link PostgreSQLDialect}.
+ * Unit test for {@link MySQLDialect}.
  *
  * @author Sergei Visotsky
  */
-public class PostgreSQLDialectTest {
+public class MySQLDialectTest {
 
     private static final String QUERY = "SELECT sst.column_one,\n" +
             "sst.column_two,\n" +
@@ -59,14 +59,14 @@ public class PostgreSQLDialectTest {
             "ON sst.id = sstt.some_sample_table_one_id\n" +
             "WHERE {filter}\n" +
             "{order}\n" +
-            "{offset}\n" +
-            "{limit}";
+            "{limit}\n" +
+            "{offset}";
 
-    private static PostgreSQLDialect dialect;
+    private static MySQLDialect dialect;
 
     @BeforeClass
     public static void beforeClass() {
-        dialect = new PostgreSQLDialect();
+        dialect = new MySQLDialect();
         dialect.setSelectParser(new PrimitiveSelectParser());
     }
 
@@ -84,7 +84,7 @@ public class PostgreSQLDialectTest {
 
         String result = dialect.createSelectQuery(QUERY, viewQuery);
 
-        final String actualSQL = "SELECT sst.column_one,\n" +
+        final String expectedSQL = "SELECT sst.column_one,\n" +
                 "sst.column_two,\n" +
                 "sst.column_three,\n" +
                 "sst.column_four,\n" +
@@ -102,10 +102,10 @@ public class PostgreSQLDialectTest {
                 "LEFT JOIN some_sample_table_two sstt\n" +
                 "ON sst.id = sstt.some_sample_table_one_id\n" +
                 "WHERE  AND (SST.COLUMN_ONE='someMysteriousValue') AND (SST.COLUMN_FOUR < someMask)\n" +
-                "ORDER BY null ASC\n" +
-                " OFFSET 3000 ROWS \n" +
-                " FETCH NEXT 3 ROWS ONLY";
+                "ORDER BY null DESC\n" +
+                " LIMIT 3\n" +
+                " OFFSET 3000";
 
-        assertEquals(actualSQL, result);
+        assertEquals(expectedSQL, result);
     }
 }

@@ -26,7 +26,7 @@ import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewQueryResult;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
-import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.SQLDialect;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect.SQLDialect;
 
 /**
  * @author Sergei Visotsky

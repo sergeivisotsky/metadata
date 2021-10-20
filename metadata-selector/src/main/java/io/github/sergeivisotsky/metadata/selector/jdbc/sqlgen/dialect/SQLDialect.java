@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
