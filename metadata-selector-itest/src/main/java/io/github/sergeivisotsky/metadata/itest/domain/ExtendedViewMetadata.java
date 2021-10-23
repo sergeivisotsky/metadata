@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.itest.dto;
+package io.github.sergeivisotsky.metadata.itest.domain;
 
-import io.github.sergeivisotsky.metadata.selector.domain.LookupMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 
-/**
- * @author Sergei Visotsky
- */
-public class ExtendedLookupMetadata extends LookupMetadata {
+public class ExtendedViewMetadata extends ViewMetadata {
+
+    private String facet;
+
+    public String getFacet() {
+        return facet;
+    }
+
+    public void setFacet(String facet) {
+        this.facet = facet;
+    }
 }

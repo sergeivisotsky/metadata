@@ -3,16 +3,14 @@ package io.github.sergeivisotsky.metadata.itest.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedFormField;
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedLookupInfo;
-import io.github.sergeivisotsky.metadata.selector.domain.form.FieldType;
+import io.github.sergeivisotsky.metadata.itest.domain.ExtendedFormField;
+import io.github.sergeivisotsky.metadata.itest.domain.ExtendedLookupInfo;
+import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormField;
 import io.github.sergeivisotsky.metadata.selector.domain.form.LookupType;
 import io.github.sergeivisotsky.metadata.selector.domain.form.UIControlType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.springframework.stereotype.Component;
 
-@Component
 public class FormFieldMapper implements MetadataMapper<FormField> {
 
     @Override

@@ -1,4 +1,4 @@
-package io.github.sergeivisotsky.metadata.itest.dto;
+package io.github.sergeivisotsky.metadata.itest.domain;
 
 import io.github.sergeivisotsky.metadata.selector.domain.form.LookupInfo;
 

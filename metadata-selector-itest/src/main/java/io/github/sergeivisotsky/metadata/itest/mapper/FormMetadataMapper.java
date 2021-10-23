@@ -3,12 +3,10 @@ package io.github.sergeivisotsky.metadata.itest.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedFormMetadata;
+import io.github.sergeivisotsky.metadata.itest.domain.ExtendedFormMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.springframework.stereotype.Component;
 
-@Component
 public class FormMetadataMapper implements MetadataMapper<FormMetadata> {
 
     @Override

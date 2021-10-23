@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.itest.dto;
+package io.github.sergeivisotsky.metadata.itest.domain;
 
-import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
 
-/**
- * @author Sergei Visotsky
- */
-public class ExtendedViewMetadata extends ViewMetadata {
+public class ExtendedLookupHolder extends LookupHolder {
 }

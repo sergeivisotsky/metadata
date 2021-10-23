@@ -19,15 +19,10 @@ package io.github.sergeivisotsky.metadata.itest.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedLookupHolder;
+import io.github.sergeivisotsky.metadata.itest.domain.ExtendedLookupHolder;
 import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.springframework.stereotype.Component;
 
-/**
- * @author Sergei Visotsky
- */
-@Component
 public class LookupHolderMapper implements MetadataMapper<LookupHolder> {
 
     @Override

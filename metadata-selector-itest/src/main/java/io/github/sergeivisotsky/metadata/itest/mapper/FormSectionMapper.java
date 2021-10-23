@@ -3,13 +3,11 @@ package io.github.sergeivisotsky.metadata.itest.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedFormSection;
+import io.github.sergeivisotsky.metadata.itest.domain.ExtendedFormSection;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormSection;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormSectionCardinality;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.springframework.stereotype.Component;
 
-@Component
 public class FormSectionMapper implements MetadataMapper<FormSection> {
 
     @Override
@@ -22,8 +20,9 @@ public class FormSectionMapper implements MetadataMapper<FormSection> {
                 "       tr.ui_name,\n" +
                 "       tr.ui_description\n" +
                 "FROM form_section fs\n" +
-                "         LEFT JOIN form_section ParentSection ON fs.id = ParentSection.parent_section_id\n" +
+                "         LEFT JOIN form_section ParentSection ON fs.parent_section_id = ParentSection.id\n" +
                 "         JOIN amd_translation tr ON tr.form_name = fs.name\n" +
+                "         JOIN form_metadata fm on fs.form_metadata_id = fm.id\n" +
                 "WHERE fs.name = :formName\n" +
                 "  AND tr.lang = :lang";
     }
