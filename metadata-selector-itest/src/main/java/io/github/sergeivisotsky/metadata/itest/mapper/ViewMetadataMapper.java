@@ -33,7 +33,7 @@ public class ViewMetadataMapper implements MetadataMapper<ViewMetadata> {
                 "       fm.view_name,\n" +
                 "       fm.definition,\n" +
                 "       fm.language,\n" +
-                "       fm.offset,\n" +
+                "       fm.\"offset\",\n" +
                 "       fm.padding,\n" +
                 "       fm.font,\n" +
                 "       fm.font_size,\n" +

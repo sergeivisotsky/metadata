@@ -51,7 +51,7 @@ public class ViewMetadataRestTest {
 
     @Test
     public void testGetViewMetadata() throws IOException {
-        InputStream jsonStream = CLASS_LOADER.getResourceAsStream("json/testFormMetadata.json");
+        InputStream jsonStream = CLASS_LOADER.getResourceAsStream("json/testViewMetadata.json");
         Optional.ofNullable(jsonStream).orElseThrow(IllegalStateException::new);
 
         TestRestTemplate restTemplate = new TestRestTemplate();

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="38-1" author="svisockis">
+        <createTable tableName="some_sample_table">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="column_one" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="column_two" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="column_three" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="column_four" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="column_five" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="column_six" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="column_seven" type="java.sql.Types.VARCHAR(45)"/>
+        </createTable>
+        <createTable tableName="some_sample_table_two">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="a_column_one" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="b_column_two" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="c_column_three" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="d_column_four" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="e_column_five" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="f_column_six" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="g_column_seven" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="some_sample_table_one_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="some_sample_table_two" baseColumnNames="some_sample_table_one_id"
+                                 constraintName="sample_table_one_fk"
+                                 referencedTableName="some_sample_table"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
