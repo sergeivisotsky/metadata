@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.1
+### Buf fixes
+* [#54] - Queried view_field with name a_column_one does not exist
+* [#55] - ui_description column does not allow to insert value which length is more than 25 characters
+* [#56] - SQL syntax exception when query API is executed
+
 ## 1.1.0
 ### Features
 * [#30] - Introduce charts metadata

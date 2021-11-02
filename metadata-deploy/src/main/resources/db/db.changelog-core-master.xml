@@ -21,4 +21,8 @@
     <include file="./1.1.0/db.changelog-schema.xml" relativeToChangelogFile="true"/>
     <include file="./1.1.0/db.changelog-data.xml" relativeToChangelogFile="true"/>
 
+    <!-- 1.1.1 version -->
+    <include file="./1.1.1/db.changelog-schema.xml" relativeToChangelogFile="true"/>
+    <include file="./1.1.1/db.changelog-data.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

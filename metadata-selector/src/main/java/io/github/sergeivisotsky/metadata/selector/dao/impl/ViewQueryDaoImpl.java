@@ -21,6 +21,7 @@ import java.util.List;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewQueryDao;
+import io.github.sergeivisotsky.metadata.selector.domain.Order;
 import io.github.sergeivisotsky.metadata.selector.domain.Paging;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
@@ -63,6 +64,7 @@ public class ViewQueryDaoImpl extends AbstractMetadataDao implements ViewQueryDa
         return ViewQueryResult.builder()
                 .fieldList(fieldList)
                 .rowList(rowList)
+                .orderList(query.getOrderList())
                 .paging(Paging.builder()
                         .offset(query.getOffset())
                         .build())

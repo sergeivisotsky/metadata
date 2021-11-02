@@ -109,7 +109,7 @@ abstract class AbstractSQLDialect implements SQLDialect {
         String strFilter = createFilterClause(query.getFilter(), fieldNameToFilterColumnMap);
         String strOrder = createOrderClause(query.getOrderList(), fieldNameToFilterColumnMap);
 
-        sql = StringUtils.replace(sql, FILTER_PLACEHOLDER, " AND " + strFilter);
+        sql = StringUtils.replace(sql, FILTER_PLACEHOLDER, strFilter);
         sql = StringUtils.replace(sql, FILTER_PLACEHOLDER, "");
         sql = StringUtils.replace(sql, ORDER_PLACEHOLDER, strOrder);
 
