@@ -17,11 +17,11 @@
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewQueryDao;
-import io.github.sergeivisotsky.metadata.selector.domain.Order;
 import io.github.sergeivisotsky.metadata.selector.domain.Paging;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
@@ -59,7 +59,10 @@ public class ViewQueryDaoImpl extends AbstractMetadataDao implements ViewQueryDa
             return row;
         });
 
-        // TODO: Add total elements and plus one row.
+        // TODO: Add plus one row functionality.
+
+        boolean hasMoreElements = !fieldList.isEmpty() && query.getOffset() < fieldList.size();
+        long totalElements = rowList.stream().mapToLong(Collection::size).sum();
 
         return ViewQueryResult.builder()
                 .fieldList(fieldList)
@@ -67,6 +70,8 @@ public class ViewQueryDaoImpl extends AbstractMetadataDao implements ViewQueryDa
                 .orderList(query.getOrderList())
                 .paging(Paging.builder()
                         .offset(query.getOffset())
+                        .hasMoreElements(hasMoreElements)
+                        .totalElements(totalElements)
                         .build())
                 .build();
     }
