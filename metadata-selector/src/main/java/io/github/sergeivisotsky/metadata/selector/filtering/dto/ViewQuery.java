@@ -41,6 +41,15 @@ public class ViewQuery {
         return new ViewQueryBuilder();
     }
 
+    public ViewQuery plusOneRowQuery() {
+        return ViewQuery.builder()
+                .filter(getFilter())
+                .limit(getLimit() == null ? null : getLimit() + 1)
+                .offset(getOffset())
+                .orderList(getOrderList())
+                .build();
+    }
+
     public Filter getFilter() {
         return filter;
     }

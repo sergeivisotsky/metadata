@@ -47,7 +47,8 @@ public class ViewQueryDaoImpl extends AbstractMetadataDao implements ViewQueryDa
     public ViewQueryResult query(ViewMetadata metadata, ViewQuery query) {
         String sqlTemplate = metadata.getDefinition();
 
-        String sql = sqlDialect.createSelectQuery(sqlTemplate, query);
+        ViewQuery plusOneRowQuery = query.plusOneRowQuery();
+        String sql = sqlDialect.createSelectQuery(sqlTemplate, plusOneRowQuery);
 
         List<ViewField> fieldList = metadata.getViewField();
         List<List<Object>> rowList = jdbcTemplate.query(sql, (rs, rowNum) -> {
@@ -59,19 +60,20 @@ public class ViewQueryDaoImpl extends AbstractMetadataDao implements ViewQueryDa
             return row;
         });
 
-        // TODO: Add plus one row functionality.
-
-        boolean hasMoreElements = !fieldList.isEmpty() && query.getOffset() < fieldList.size();
-        long totalElements = rowList.stream().mapToLong(Collection::size).sum();
+        boolean hasMoreElements = false;
+        if (plusOneRowQuery.getLimit() != null && rowList.size() == plusOneRowQuery.getLimit()) {
+            rowList.remove(rowList.size() - 1);
+            hasMoreElements = true;
+        }
 
         return ViewQueryResult.builder()
                 .fieldList(fieldList)
                 .rowList(rowList)
-                .orderList(query.getOrderList())
+                .orderList(plusOneRowQuery.getOrderList())
                 .paging(Paging.builder()
                         .offset(query.getOffset())
                         .hasMoreElements(hasMoreElements)
-                        .totalElements(totalElements)
+                        .totalElements(rowList.stream().mapToLong(Collection::size).sum())
                         .build())
                 .build();
     }
