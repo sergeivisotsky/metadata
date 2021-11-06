@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <insert tableName="view_field">
+            <column name="id" value="2"/>
+            <column name="name" value="b_column_two"/>
+            <column name="enabled_by_default" value="1"/>
+            <column name="ui_control" value="control_secondary"/>
+            <column name="view_metadata_id" value="1"/>
+            <column name="field_type" value="STRING"/>
+            <column name="ui_description" value="some ui description second"/>
+            <column name="ui_query_name" value="SOME_QUERY_NAME_TWO"/>
+            <column name="ui_query_from_text" value="some query from text"/>
+            <column name="ui_query_to_text" value="some query to text"/>
+            <column name="ui_column_name" value="some_name_two"/>
+            <column name="ui_column_renderer" value="some renderer"/>
+            <column name="can_show_in_query" value="true"/>
+            <column name="can_show_in_table" value="true"/>
+            <column name="show_in_query" value="true"/>
+            <column name="show_in_table" value="false"/>
+            <column name="include_in_select" value="true"/>
+            <column name="order_in_query" value="2"/>
+            <column name="order_in_table" value="5"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

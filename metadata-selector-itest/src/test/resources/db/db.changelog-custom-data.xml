@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="38-2" author="svisockis">
+        <insert tableName="some_sample_table">
+            <column name="id" value="1"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some_value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="1"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="1"/>
+        </insert>
+        <insert tableName="some_sample_table">
+            <column name="id" value="2"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some_value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="2"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="2"/>
+        </insert>
+        <insert tableName="some_sample_table">
+            <column name="id" value="3"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some_value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="3"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="3"/>
+        </insert>
+        <insert tableName="some_sample_table">
+            <column name="id" value="4"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some_value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="4"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="4"/>
+        </insert>
+        <insert tableName="some_sample_table">
+            <column name="id" value="5"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some_value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="5"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="5"/>
+        </insert>
+        <insert tableName="some_sample_table">
+            <column name="id" value="6"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some_value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="6"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="6"/>
+        </insert>
+        <insert tableName="some_sample_table">
+            <column name="id" value="7"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some_value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="7"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="7"/>
+        </insert>
+        <insert tableName="some_sample_table">
+            <column name="id" value="8"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some_value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="8"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="8"/>
+        </insert>
+        <insert tableName="some_sample_table">
+            <column name="id" value="9"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="9"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="9"/>
+        </insert>
+        <insert tableName="some_sample_table">
+            <column name="id" value="10"/>
+            <column name="column_one" value="some_value_one"/>
+            <column name="column_two" value="some_value_two"/>
+            <column name="column_three" value="some_value_three"/>
+            <column name="column_four" value="some_value_four"/>
+            <column name="column_five" value="some_value_five"/>
+            <column name="column_six" value="some_value_six"/>
+            <column name="column_seven" value="some_value_seven"/>
+        </insert>
+        <insert tableName="some_sample_table_two">
+            <column name="id" value="10"/>
+            <column name="a_column_one" value="some_seven"/>
+            <column name="b_column_two" value="some_six"/>
+            <column name="c_column_three" value="some_five"/>
+            <column name="d_column_four" value="some_four"/>
+            <column name="e_column_five" value="some_three"/>
+            <column name="f_column_six" value="some_two"/>
+            <column name="g_column_seven" value="some_one"/>
+            <column name="some_sample_table_one_id" value="10"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="38-3" author="svisockis">
+        <update tableName="view_metadata">
+            <column name="definition" value="SELECT sst.column_one,
+                                                   sst.column_two,
+                                                   sst.column_three,
+                                                   sst.column_four,
+                                                   sst.column_five,
+                                                   sst.column_six,
+                                                   sst.column_seven,
+                                                   sstt.a_column_one,
+                                                   sstt.b_column_two,
+                                                   sstt.c_column_three,
+                                                   sstt.d_column_four,
+                                                   sstt.e_column_five,
+                                                   sstt.f_column_six,
+                                                   sstt.g_column_seven
+                                            FROM some_sample_table sst
+                                                     LEFT JOIN some_sample_table_two sstt
+                                                               ON sst.id = sstt.some_sample_table_one_id
+                                            WHERE {filter}
+                                                  {order}
+                                                  {offset}
+                                                  {limit}"/>
+            <where>id = 1</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

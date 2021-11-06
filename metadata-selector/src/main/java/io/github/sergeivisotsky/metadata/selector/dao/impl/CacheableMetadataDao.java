@@ -21,55 +21,57 @@ import java.util.concurrent.ExecutionException;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import io.github.sergeivisotsky.metadata.selector.config.properties.CacheConfigProperties;
-import io.github.sergeivisotsky.metadata.selector.dao.MetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.FormMetadata;
-import io.github.sergeivisotsky.metadata.selector.exception.DataAccessException;
+import io.github.sergeivisotsky.metadata.selector.dao.FormMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.key.FormMetadataCacheKey;
+import io.github.sergeivisotsky.metadata.selector.dao.key.MetadataCacheKey;
+import io.github.sergeivisotsky.metadata.selector.dao.key.ViewMetadataCacheKey;
+import io.github.sergeivisotsky.metadata.selector.domain.BaseMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
+import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 
 /**
  * @author Sergei Visotsky
  */
-public class CacheableMetadataDao implements MetadataDao {
+public class CacheableMetadataDao implements ViewMetadataDao, FormMetadataDao {
 
-    private final Cache<MetadataCacheKey, FormMetadata> cache;
-    private final MetadataDao metadataDao;
+    private final Cache<MetadataCacheKey, BaseMetadata> cache;
+    private final ViewMetadataDao viewMetadata;
+    private final FormMetadataDao formMetadataDao;
 
-    public CacheableMetadataDao(MetadataDao metadataDao,
-                                CacheConfigProperties cacheConfigProperties) {
-        this.metadataDao = metadataDao;
+    public CacheableMetadataDao(ViewMetadataDao viewMetadata,
+                                CacheConfigProperties cacheConfigProperties,
+                                FormMetadataDao formMetadataDao) {
+        this.viewMetadata = viewMetadata;
         cache = CacheBuilder.newBuilder()
                 .initialCapacity(cacheConfigProperties.getInitialCapacity())
                 .maximumSize(cacheConfigProperties.getMaximumSize())
                 .expireAfterAccess(cacheConfigProperties.getExpireAfterAccess(),
                         cacheConfigProperties.getExpirationAfterAccessUnits())
                 .build();
+        this.formMetadataDao = formMetadataDao;
     }
 
     @Override
-    public FormMetadata getFormMetadata(String formName, String lang) {
+    public ViewMetadata getViewMetadata(String viewName, String lang) {
         try {
-            MetadataCacheKey cacheKey = new MetadataCacheKey(formName, lang);
-            return cache.get(cacheKey, () -> metadataDao.getFormMetadata(formName, lang));
+            ViewMetadataCacheKey cacheKey = new ViewMetadataCacheKey(viewName, lang);
+            return (ViewMetadata) cache.get(cacheKey, () -> viewMetadata.getViewMetadata(viewName, lang));
         } catch (ExecutionException e) {
-            throw new DataAccessException(e, "Unable to get a metadata from cache for " +
-                    "formName={} with lang={}", formName, lang);
+            throw new MetadataStorageException(e, "Unable to get a metadata from cache for " +
+                    "viewName={} with lang={}", viewName, lang);
         }
     }
 
-    private static final class MetadataCacheKey {
-        private final String formName;
-        private final String lang;
-
-        private MetadataCacheKey(String formName, String lang) {
-            this.formName = formName;
-            this.lang = lang;
-        }
-
-        public String getFormName() {
-            return formName;
-        }
-
-        public String getLang() {
-            return lang;
+    @Override
+    public FormMetadata getFormMetadata(String lang, String formName) {
+        try {
+            FormMetadataCacheKey cacheKey = new FormMetadataCacheKey(formName, lang);
+            return (FormMetadata) cache.get(cacheKey, () -> formMetadataDao.getFormMetadata(formName, lang));
+        } catch (ExecutionException e) {
+            throw new MetadataStorageException(e, "Unable to get a metadata from cache for " +
+                    "formName={} with lang={}", formName, lang);
         }
     }
 }

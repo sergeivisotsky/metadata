@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <addColumn tableName="view_metadata">
+            <column name="facet" type="java.sql.Types.VARCHAR(20)"/>
+        </addColumn>
+
+        <update tableName="view_metadata">
+            <column name="facet" value="front"/>
+            <where>id = 1</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

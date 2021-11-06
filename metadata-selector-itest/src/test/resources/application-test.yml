@@ -6,13 +6,13 @@ spring:
     change-log: classpath:db/db.changelog-master.xml
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/test
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
     username: sa
     password: sa
 
 datasource:
   driverClassName: org.h2.Driver
-  url: jdbc:h2:~/test
+  url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
   username: sa
   password: sa
 

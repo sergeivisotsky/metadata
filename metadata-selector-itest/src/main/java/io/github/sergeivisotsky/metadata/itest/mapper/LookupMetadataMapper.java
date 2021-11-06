@@ -19,18 +19,12 @@ package io.github.sergeivisotsky.metadata.itest.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedLookupMetadata;
-import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
-import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
+import io.github.sergeivisotsky.metadata.itest.domain.ExtendedLookupMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.springframework.stereotype.Component;
 
 import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
 
-/**
- * @author Sergei Visotsky
- */
-@Component
 public class LookupMetadataMapper implements MetadataMapper<LookupMetadata> {
 
     @Override

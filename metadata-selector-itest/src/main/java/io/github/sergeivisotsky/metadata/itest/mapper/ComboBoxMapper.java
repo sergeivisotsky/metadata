@@ -3,18 +3,15 @@ package io.github.sergeivisotsky.metadata.itest.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import io.github.sergeivisotsky.metadata.itest.domain.ExtendedComboBox;
+import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
 import io.github.sergeivisotsky.metadata.itest.dto.ExtendedComboBox;
 import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.springframework.stereotype.Component;
 
 import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
 
-/**
- * @author Sergei Visotsky
- */
-@Component
 public class ComboBoxMapper implements MetadataMapper<ComboBox> {
 
     @Override
@@ -33,7 +30,7 @@ public class ComboBoxMapper implements MetadataMapper<ComboBox> {
                 "FROM combo_box cb\n" +
                 "         JOIN combo_box_and_content_relation cbacr ON cb.id = cbacr.box_id\n" +
                 "         JOIN combo_box_content cbc ON cbacr.box_content_id = cbc.id\n" +
-                "WHERE cb.form_metadata_id = :formMetadataId";
+                "WHERE cb.view_metadata_id = :viewMetadataId";
     }
 
     @Override
@@ -51,7 +48,7 @@ public class ComboBoxMapper implements MetadataMapper<ComboBox> {
             return comboBox;
         } catch (SQLException e) {
             throw new RuntimeException("Unable to get value from ResultSet for Mapper: {}" +
-                    FormMetadataMapper.class.getSimpleName(), e);
+                    ViewMetadataMapper.class.getSimpleName(), e);
         }
     }
 

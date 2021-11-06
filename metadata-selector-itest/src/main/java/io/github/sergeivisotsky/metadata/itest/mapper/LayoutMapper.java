@@ -19,19 +19,17 @@ package io.github.sergeivisotsky.metadata.itest.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import io.github.sergeivisotsky.metadata.itest.domain.ExtendedLayout;
+import io.github.sergeivisotsky.metadata.selector.domain.Area;
+import io.github.sergeivisotsky.metadata.selector.domain.Layout;
 import io.github.sergeivisotsky.metadata.itest.dto.ExtendedLayout;
 import io.github.sergeivisotsky.metadata.selector.dto.Area;
 import io.github.sergeivisotsky.metadata.selector.dto.Layout;
 import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.springframework.stereotype.Component;
 
 import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
 
-/**
- * @author Sergei Visotsky
- */
-@Component
 public class LayoutMapper implements MetadataMapper<Layout> {
 
     @Override
@@ -42,7 +40,7 @@ public class LayoutMapper implements MetadataMapper<Layout> {
                 "       l.font,\n" +
                 "       l.font_size\n" +
                 "FROM layout l\n" +
-                "WHERE l.form_name = :formName";
+                "WHERE l.view_name = :viewName";
     }
 
     @Override

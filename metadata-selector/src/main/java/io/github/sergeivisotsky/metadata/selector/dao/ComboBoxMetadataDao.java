@@ -18,7 +18,7 @@ package io.github.sergeivisotsky.metadata.selector.dao;
 
 import java.util.List;
 
-import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
+import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
 
 /**
  * A combo box metadata access object.

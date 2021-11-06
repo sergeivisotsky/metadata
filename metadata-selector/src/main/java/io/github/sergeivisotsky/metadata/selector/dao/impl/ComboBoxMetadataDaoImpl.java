@@ -23,9 +23,11 @@ import java.util.stream.Collectors;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
-import io.github.sergeivisotsky.metadata.selector.dto.ComboBoxContent;
+import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
+import io.github.sergeivisotsky.metadata.selector.domain.ComboBoxContent;
+import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import org.springframework.dao.DataAccessException;
 
 /**
  * @author Sergei Visotsky
@@ -42,26 +44,24 @@ public class ComboBoxMetadataDaoImpl extends AbstractMetadataDao implements Comb
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings({"unchecked"})
     public List<ComboBox> getComboBoxesByFormMetadataId(Long id) {
-        Map<String, Object> params = Map.of("formMetadataId", id);
-        List<ComboBox> combos = (List<ComboBox>) checkLogicType(
-                comboBoxMapper::logicType,
-                () -> jdbcTemplate.query(comboBoxMapper.getSql(), params, (rs, index) -> {
-                    ComboBox comboBox = comboBoxMapper.map(rs);
-                    List<ComboBoxContent> comboContent = new ArrayList<>();
-                    comboContent.add(new ComboBoxContent(
-                            rs.getString("content_key"),
-                            rs.getString("content_value"),
-                            rs.getLong("id")));
-                    comboBox.setComboContent(comboContent);
-                    return comboBox;
-                }),
-                () -> {
-                    throw new UnsupportedOperationException(); // TODO
-                }
-        );
-        return normalizeCombos(combos);
+        try {
+            Map<String, Object> params = Map.of("viewMetadataId", id);
+            List<ComboBox> combos = jdbcTemplate.query(comboBoxMapper.getSql(), params, (rs, index) -> {
+                ComboBox comboBox = comboBoxMapper.map(rs);
+                List<ComboBoxContent> comboContent = new ArrayList<>();
+                comboContent.add(new ComboBoxContent(
+                        rs.getString("content_key"),
+                        rs.getString("content_value"),
+                        rs.getLong("id")));
+                comboBox.setComboContent(comboContent);
+                return comboBox;
+            });
+            return normalizeCombos(combos);
+        } catch (DataAccessException e) {
+            throw new MetadataStorageException(e, "Unable to get a combo box metadata by the " +
+                    "following parameters: id={}", id);
+        }
     }
 
     protected List<ComboBox> normalizeCombos(List<ComboBox> combos) {

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <createTable tableName="form_metadata">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(20)"/>
+        </createTable>
+        <createTable tableName="form_section">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(20)"/>
+            <column name="order_in_form" type="java.sql.Types.INTEGER"/>
+            <column name="cardinality" type="java.sql.Types.VARCHAR(8)"/>
+            <column name="form_metadata_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="form_field">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(20)"/>
+            <column name="type" type="java.sql.Types.VARCHAR(8)"/>
+            <column name="length" type="java.sql.Types.INTEGER"/>
+            <column name="decimal_scale" type="java.sql.Types.INTEGER"/>
+            <column name="editable" type="java.sql.Types.BOOLEAN"/>
+            <column name="form_section_name" type="java.sql.Types.VARCHAR(20)"/>
+            <column name="ui_control_type" type="java.sql.Types.VARCHAR(8)"/>
+            <column name="has_language" type="java.sql.Types.BOOLEAN"/>
+            <column name="order" type="java.sql.Types.INTEGER"/>
+            <column name="controls_dynamic_change" type="java.sql.Types.BOOLEAN"/>
+            <column name="lookup_info_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="form_metadata_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="lookup_info">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="lookup_type" type="java.sql.Types.VARCHAR(5)"/>
+            <column name="view_name" type="java.sql.Types.VARCHAR(20)"/>
+            <column name="value_field" type="java.sql.Types.VARCHAR(20)"/>
+            <column name="text_in_field" type="java.sql.Types.VARCHAR(100)"/>
+            <column name="is_text_enabled" type="java.sql.Types.BOOLEAN"/>
+            <column name="combo_text_template" type="java.sql.Types.VARCHAR(100)"/>
+        </createTable>
+        <createTable tableName="amd_translation">
+            <column name="form_name" type="java.sql.Types.VARCHAR(20)"/>
+            <column name="lang" type="java.sql.Types.VARCHAR(3)"/>
+            <column name="ui_name" type="java.sql.Types.VARCHAR(20)"/>
+            <column name="ui_description" type="java.sql.Types.VARCHAR(100)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="form_section" baseColumnNames="form_metadata_id"
+                                 constraintName="form_section_form_metadata_fk"
+                                 referencedTableName="form_metadata"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="form_field" baseColumnNames="form_metadata_id"
+                                 constraintName="form_field_form_metadata_fk"
+                                 referencedTableName="form_metadata"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="form_field" baseColumnNames="lookup_info_id"
+                                 constraintName="form_field_lookup_info_fk"
+                                 referencedTableName="lookup_info"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="3" author="svisockis">
+        <addColumn tableName="form_section">
+            <column name="parent_section_id" type="java.sql.Types.BIGINT"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="form_section" baseColumnNames="parent_section_id"
+                                 constraintName="parent_section_form_section_fk"
+                                 referencedTableName="form_section"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

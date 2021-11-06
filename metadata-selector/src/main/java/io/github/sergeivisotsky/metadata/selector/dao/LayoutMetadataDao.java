@@ -18,7 +18,7 @@ package io.github.sergeivisotsky.metadata.selector.dao;
 
 import java.util.List;
 
-import io.github.sergeivisotsky.metadata.selector.dto.Layout;
+import io.github.sergeivisotsky.metadata.selector.domain.Layout;
 
 /**
  * A layout metadata access object.
@@ -30,8 +30,8 @@ public interface LayoutMetadataDao {
     /**
      * Performs the main logic of getting a layout metadata.
      *
-     * @param formName form for which a metadata is being queried.
+     * @param viewName view for which a metadata is being queried.
      * @return a collection of all layouts containing a metadata for each.
      */
-    List<Layout> getLayoutMetadata(String formName);
+    List<Layout> getLayoutMetadata(String viewName);
 }

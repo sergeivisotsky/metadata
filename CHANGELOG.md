@@ -1,0 +1,37 @@
+# Changelog
+
+## 1.2.0
+### Features
+* [#60] - Add a support for hasMoreElements and totalElements and estimated elements
+
+## 1.1.1
+### Bug fixes
+* [#54] - Queried view_field with name a_column_one does not exist
+* [#55] - ui_description column does not allow to insert value which length is more than 25 characters
+* [#56] - SQL syntax exception when query API is executed
+
+## 1.1.0
+### Features
+* [#30] - Introduce charts metadata
+* [#37] - Enhance a view metadata fields
+* [#38] - Introduce a query API with a proper filtering which will fetch an initial content
+* [#41] - Implement an Oracle dialect
+* [#42] - Implement a MSSQL dialect
+* [#45] - Implement a MySQL dialect
+
+### Improvements
+* [#35] - Remove redundant cardinality field for a view metadata
+* [#41] - Remove a chart metadata auto-configuration
+
+### Bug fixes
+* [#46] - Filtering functionality lacks order list parsing logic
+* [#47] - Fix ordering logic
+* [#48] - Generated query SQL is syntactically incorrect
+* [#49] - Column names and aliases are always supposed to be uppercase
+
+## 1.0.0
+### Features
+* View metadata
+* Form metadata
+* ComboBox metadata
+* Lookup metadata

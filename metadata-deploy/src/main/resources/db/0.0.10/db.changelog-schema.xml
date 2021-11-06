@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <createTable tableName="navigation">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="type" type="java.sql.Types.VARCHAR(7)"/>
+            <column name="number_of_elements" type="java.sql.Types.INTEGER"/>
+            <column name="fixed" type="java.sql.Types.BOOLEAN"/>
+            <column name="resizable" type="java.sql.Types.BOOLEAN"/>
+            <column name="view_metadata_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="navigation_element">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="java.sql.Types.VARCHAR(6)"/>
+            <column name="value" type="java.sql.Types.VARCHAR(45)"/>
+            <column name="is_active" type="java.sql.Types.BOOLEAN"/>
+            <column name="navigation_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="navigation"
+                                 baseColumnNames="view_metadata_id"
+                                 constraintName="navigation_view_metadata_fk"
+                                 referencedTableName="view_metadata"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="navigation_element"
+                                 baseColumnNames="navigation_id"
+                                 constraintName="navigation_fk"
+                                 referencedTableName="navigation"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="2" author="svisockis">
+        <addColumn tableName="navigation">
+            <column name="view_name" type="java.sql.Types.VARCHAR(45)"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

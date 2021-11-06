@@ -19,8 +19,8 @@ package io.github.sergeivisotsky.metadata.selector.dao.impl;
 import java.util.List;
 
 import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
-import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
-import io.github.sergeivisotsky.metadata.selector.dto.LookupMetadata;
+import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
+import io.github.sergeivisotsky.metadata.selector.domain.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +37,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
+ * Unit test for {@link LookupMetadataDaoImpl}.
+ *
  * @author Sergei Visotsky
  */
 public class LookupMetadataDaoImplTest extends AbstractMetadataDao {

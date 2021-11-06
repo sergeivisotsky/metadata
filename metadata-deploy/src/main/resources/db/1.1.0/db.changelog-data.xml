@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <insert tableName="chart">
+            <column name="id" value="1"/>
+            <column name="name" value="somePie"/>
+            <column name="type" value="PIE"/>
+            <column name="inactive_opacity" value="0.3"/>
+            <column name="gap" value="2"/>
+            <column name="spacing" value="0.1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="1"/>
+            <column name="key" value="JAN"/>
+            <column name="value" value="January"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="2"/>
+            <column name="key" value="FEB"/>
+            <column name="value" value="February"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="3"/>
+            <column name="key" value="MAR"/>
+            <column name="value" value="March"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="4"/>
+            <column name="key" value="APR"/>
+            <column name="value" value="April"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="5"/>
+            <column name="key" value="MAY"/>
+            <column name="value" value="May"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="6"/>
+            <column name="key" value="JUN"/>
+            <column name="value" value="June"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="7"/>
+            <column name="key" value="JUL"/>
+            <column name="value" value="July"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="8"/>
+            <column name="key" value="AUG"/>
+            <column name="value" value="August"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="9"/>
+            <column name="key" value="SEP"/>
+            <column name="value" value="September"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="10"/>
+            <column name="key" value="OCT"/>
+            <column name="value" value="October"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="11"/>
+            <column name="key" value="NOV"/>
+            <column name="value" value="November"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" value="12"/>
+            <column name="key" value="DEC"/>
+            <column name="value" value="December"/>
+            <column name="chart_id" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet id="37" author="svisockis">
+        <update tableName="view_field">
+            <column name="name" value="a_column_one"/>
+            <column name="field_type" value="STRING"/>
+            <column name="ui_description" value="some ui description"/>
+            <column name="ui_query_name" value="SOME_QUERY_NAME"/>
+            <column name="ui_query_from_text" value="some query from text"/>
+            <column name="ui_query_to_text" value="some query to text"/>
+            <column name="ui_column_name" value="some_name"/>
+            <column name="ui_column_renderer" value="some renderer"/>
+            <column name="can_show_in_query" value="true"/>
+            <column name="can_show_in_table" value="false"/>
+            <column name="show_in_query" value="true"/>
+            <column name="show_in_table" value="false"/>
+            <column name="include_in_select" value="true"/>
+            <column name="order_in_query" value="1"/>
+            <column name="order_in_table" value="3"/>
+            <where>id = 1</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>
