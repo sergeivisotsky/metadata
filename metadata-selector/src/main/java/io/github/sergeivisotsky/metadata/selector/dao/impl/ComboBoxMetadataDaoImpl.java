@@ -27,6 +27,7 @@ import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.domain.ComboBoxContent;
 import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.SQLMetadataMapper;
 import org.springframework.dao.DataAccessException;
 
 /**
@@ -48,7 +49,7 @@ public class ComboBoxMetadataDaoImpl extends AbstractMetadataDao implements Comb
         try {
             Map<String, Object> params = Map.of("viewMetadataId", id);
             List<ComboBox> combos = jdbcTemplate.query(comboBoxMapper.getSql(), params, (rs, index) -> {
-                ComboBox comboBox = comboBoxMapper.map(rs);
+                ComboBox comboBox = ((SQLMetadataMapper<ComboBox>) comboBoxMapper).map(rs);
                 List<ComboBoxContent> comboContent = new ArrayList<>();
                 comboContent.add(new ComboBoxContent(
                         rs.getString("content_key"),

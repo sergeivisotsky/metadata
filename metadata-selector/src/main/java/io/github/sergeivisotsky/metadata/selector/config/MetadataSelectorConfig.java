@@ -44,9 +44,9 @@ import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormField;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormSection;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect.SQLDialect;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import io.github.sergeivisotsky.metadata.selector.mapper.ModelMapper;
-import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect.SQLDialect;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -76,7 +76,8 @@ public class MetadataSelectorConfig {
                                              ComboBoxMetadataDao comboBoxMetadataDao,
                                              LayoutMetadataDao layoutMetadataDao,
                                              NavigationMetadataDao navigationMetadataDao) {
-        return new ViewMetadataDaoImpl(viewFieldMetadataMapper, formMetadataMapper, comboBoxMetadataDao, layoutMetadataDao, navigationMetadataDao);
+        return new ViewMetadataDaoImpl(viewFieldMetadataMapper, formMetadataMapper, comboBoxMetadataDao,
+                layoutMetadataDao, navigationMetadataDao);
     }
 
     @Bean

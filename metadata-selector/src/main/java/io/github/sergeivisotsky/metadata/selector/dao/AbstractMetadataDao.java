@@ -21,14 +21,11 @@ import java.util.Map;
 import java.util.function.Supplier;
 import javax.sql.DataSource;
 
-import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.ProcedureMetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.SQLMetadataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
-
-import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.FUNCTION;
-import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
 
 /**
  * An abstract class to hold a common methods and beans for all metadata provider DAOs.
@@ -38,36 +35,29 @@ import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
 public abstract class AbstractMetadataDao {
 
     protected DataSource dataSource;
-    protected SimpleJdbcCall jdbcCall;
     protected NamedParameterJdbcTemplate jdbcTemplate;
 
     protected <T> List<T> executeQuery(Map<String, Object> params, MetadataMapper<T> mapper) {
-        return jdbcTemplate.query(mapper.getSql(), params, (rs, index) -> mapper.map(rs));
+        return jdbcTemplate.query(mapper.getSql(), params, (rs, index) -> ((SQLMetadataMapper<T>) mapper).map(rs));
     }
 
-    protected <T> T checkLogicType(Supplier<LogicType> logicType,
-                                   Supplier<T> sql,
-                                   Supplier<T> functionCall) {
-        LogicType logicTypeAsString = logicType.get();
-        if (SQL.equals(logicTypeAsString)) {
+    protected <T> List<T> checkLogicType(Supplier<MetadataMapper<T>> mapperSupplier,
+                                         Supplier<List<T>> sql,
+                                         Supplier<List<T>> procCall) {
+        MetadataMapper<T> mapper = mapperSupplier.get();
+        if (mapper instanceof SQLMetadataMapper) {
             return sql.get();
-        }
-        if (FUNCTION.equals(logicTypeAsString)) {
-            return functionCall.get();
+        } else if (mapper instanceof ProcedureMetadataMapper) {
+            return procCall.get();
         }
         throw new IllegalStateException(
-                String.format("Provided LogicType: %s is not supported", logicTypeAsString)
+                String.format("Provided LogicType: %s is not supported", mapper.getClass())
         );
     }
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
-    }
-
-    @Autowired
-    public void setJdbcCall(SimpleJdbcCall jdbcCall) {
-        this.jdbcCall = jdbcCall;
     }
 
     @Autowired

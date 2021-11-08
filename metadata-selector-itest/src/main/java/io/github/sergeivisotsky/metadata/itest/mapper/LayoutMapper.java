@@ -22,13 +22,10 @@ import java.sql.SQLException;
 import io.github.sergeivisotsky.metadata.itest.domain.ExtendedLayout;
 import io.github.sergeivisotsky.metadata.selector.domain.Area;
 import io.github.sergeivisotsky.metadata.selector.domain.Layout;
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedLayout;
-import io.github.sergeivisotsky.metadata.selector.dto.Area;
-import io.github.sergeivisotsky.metadata.selector.dto.Layout;
-import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
+import io.github.sergeivisotsky.metadata.selector.domain.LogicType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
-import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
+import static io.github.sergeivisotsky.metadata.selector.domain.LogicType.SQL;
 
 public class LayoutMapper implements MetadataMapper<Layout> {
 

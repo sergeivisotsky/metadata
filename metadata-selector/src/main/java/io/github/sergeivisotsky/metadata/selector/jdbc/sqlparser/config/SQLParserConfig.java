@@ -16,8 +16,10 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.config;
 
-import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.PrimitiveSelectParser;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.ProcedureParser;
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.SelectParser;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.impl.PrimitiveProcedureParser;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.impl.PrimitiveSelectParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,6 +28,11 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SQLParserConfig {
+
+    @Bean
+    public ProcedureParser procedureParser() {
+        return new PrimitiveProcedureParser();
+    }
 
     @Bean
     public SelectParser selectParser() {

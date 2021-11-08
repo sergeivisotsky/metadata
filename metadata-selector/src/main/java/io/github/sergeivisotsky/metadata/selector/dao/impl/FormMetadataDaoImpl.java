@@ -30,6 +30,7 @@ import io.github.sergeivisotsky.metadata.selector.domain.form.FormSection;
 import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 import io.github.sergeivisotsky.metadata.selector.mapper.ModelMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.SQLMetadataMapper;
 
 /**
  * @author Sergei Visotsky
@@ -63,11 +64,11 @@ public class FormMetadataDaoImpl extends AbstractMetadataDao implements FormMeta
             );
 
             List<FormField> formFields = jdbcTemplate.query(formFieldMapper.getSql(), params,
-                    (rs, index) -> formFieldMapper.map(rs));
+                    (rs, index) -> ((SQLMetadataMapper<FormField>) formFieldMapper).map(rs));
 
             List<FormSection> formSections = jdbcTemplate.query(formSectionMapper.getSql(), params,
                     (rs, index) -> {
-                        FormSection section = formSectionMapper.map(rs);
+                        FormSection section = ((SQLMetadataMapper<FormSection>) formSectionMapper).map(rs);
                         section.setFields(formFields
                                 .stream()
                                 .collect(Collectors.groupingBy(FormField::getFormSectionName))
@@ -82,7 +83,7 @@ public class FormMetadataDaoImpl extends AbstractMetadataDao implements FormMeta
 
             return jdbcTemplate.queryForObject(formMetadataMapper.getSql(), params,
                     (rs, index) -> {
-                        FormMetadata metadata = formMetadataMapper.map(rs);
+                        FormMetadata metadata = ((SQLMetadataMapper<FormMetadata>) formMetadataMapper).map(rs);
                         metadata.setSections(hierarchicalSections);
                         return metadata;
                     });

@@ -23,8 +23,7 @@ import io.github.sergeivisotsky.metadata.selector.filtering.dto.AndFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.EqualsFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LessFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
-import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect.PostgreSQLDialect;
-import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.PrimitiveSelectParser;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.impl.PrimitiveSelectParser;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

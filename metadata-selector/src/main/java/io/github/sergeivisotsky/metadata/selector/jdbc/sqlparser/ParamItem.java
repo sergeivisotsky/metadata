@@ -14,23 +14,12 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.mapper;
-
-import java.sql.ResultSet;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser;
 
 /**
- * An interface to be implemented by mappers from {@link ResultSet} to DTO.
+ * PArent of input param item.
  *
- * @param <T> type to extract a {@link ResultSet} to.
  * @author Sergei Visotsky
  */
-public interface MetadataMapper<T> {
-
-    /**
-     * Get an SQL or stored function containing a new fields added during customization.
-     *
-     * @return SQL or function to execute.
-     */
-    String getSql();
-
+public interface ParamItem {
 }

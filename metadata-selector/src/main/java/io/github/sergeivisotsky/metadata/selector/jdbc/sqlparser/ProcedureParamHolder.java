@@ -14,17 +14,31 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser;
+
+import java.util.List;
 
 /**
- * Represents a type how metadata aggregation logic is
- * accessed/organized/stored rather an SQL or stored database function.
+ * Holds a stored procedure or function input or output parameters.
  *
  * @author Sergei Visotsky
  */
-public enum LogicType {
+public class ProcedureParamHolder {
 
-    SQL,
-    FUNCTION
+    private final List<ParamItem> inputItems;
+    private final List<ParamItem> outputItems;
 
+    public ProcedureParamHolder(List<ParamItem> inputItems,
+                                List<ParamItem> outputItems) {
+        this.inputItems = inputItems;
+        this.outputItems = outputItems;
+    }
+
+    public List<ParamItem> getInputItems() {
+        return inputItems;
+    }
+
+    public List<ParamItem> getOutputItems() {
+        return outputItems;
+    }
 }

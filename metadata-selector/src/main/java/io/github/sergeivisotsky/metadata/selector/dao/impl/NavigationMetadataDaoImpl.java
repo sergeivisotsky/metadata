@@ -26,6 +26,7 @@ import io.github.sergeivisotsky.metadata.selector.domain.Navigation;
 import io.github.sergeivisotsky.metadata.selector.domain.NavigationElement;
 import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.SQLMetadataMapper;
 
 /**
  * @author Sergei Visotsky
@@ -46,7 +47,7 @@ public class NavigationMetadataDaoImpl extends AbstractMetadataDao implements Na
         try {
             Map<String, Object> params = Map.of("viewName", viewName);
             return jdbcTemplate.queryForObject(navigationMapper.getSql(), params,
-                    (rs, index) -> normalizeNavigationMetadata(navigationMapper.map(rs)));
+                    (rs, index) -> normalizeNavigationMetadata(((SQLMetadataMapper<List<Navigation>>) navigationMapper).map(rs)));
         } catch (Exception e) {
             throw new MetadataStorageException(e, "Unable to get a navigation metadata ny invocation " +
                     "of DAO with the following parameters: viewName={}", viewName);

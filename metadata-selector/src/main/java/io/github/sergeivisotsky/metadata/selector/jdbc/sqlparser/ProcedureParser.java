@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.mapper;
-
-import java.sql.ResultSet;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser;
 
 /**
- * An interface to be implemented by mappers from {@link ResultSet} to DTO.
+ * Parses procedure or function input or output parameters.
  *
- * @param <T> type to extract a {@link ResultSet} to.
  * @author Sergei Visotsky
  */
-public interface MetadataMapper<T> {
+public interface ProcedureParser {
 
     /**
-     * Get an SQL or stored function containing a new fields added during customization.
+     * Parses a procedure or function method to extract an input and output parameter names.
      *
-     * @return SQL or function to execute.
+     * @param proc procedure/function method with parameters
+     * @return procedure/function input/output parameter holder.
      */
-    String getSql();
+    ProcedureParamHolder parseProcedure(String proc) throws SQLParseException;
 
 }

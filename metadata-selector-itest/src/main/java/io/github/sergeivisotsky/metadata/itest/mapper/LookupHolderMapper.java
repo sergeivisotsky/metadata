@@ -20,13 +20,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import io.github.sergeivisotsky.metadata.itest.domain.ExtendedLookupHolder;
+import io.github.sergeivisotsky.metadata.selector.domain.LogicType;
 import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedLookupHolder;
-import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
-import io.github.sergeivisotsky.metadata.selector.dto.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
-import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
+import static io.github.sergeivisotsky.metadata.selector.domain.LogicType.SQL;
 
 public class LookupHolderMapper implements MetadataMapper<LookupHolder> {
 

@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.impl;
 
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.SQLParseException;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.Select;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.SelectItem;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.SelectParser;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.impl.PrimitiveSelectParser;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

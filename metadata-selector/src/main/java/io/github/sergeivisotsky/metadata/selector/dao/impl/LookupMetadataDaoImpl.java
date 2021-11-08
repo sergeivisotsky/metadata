@@ -25,6 +25,7 @@ import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.domain.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.SQLMetadataMapper;
 
 /**
  * @author Sergei Visotsky
@@ -46,7 +47,7 @@ public class LookupMetadataDaoImpl extends AbstractMetadataDao implements Lookup
             Map<String, Object> params = Map.of("lookupName", lookupName);
             return jdbcTemplate.queryForObject(lookupHolderMapper.getSql(), params,
                     (rs, index) -> {
-                        LookupHolder holder = lookupHolderMapper.map(rs);
+                        LookupHolder holder = ((SQLMetadataMapper<LookupHolder>) lookupHolderMapper).map(rs);
                         holder.setMetadata(getMetadataForLookupHolder(lang, rs.getLong("id")));
                         return holder;
                     });
@@ -62,7 +63,7 @@ public class LookupMetadataDaoImpl extends AbstractMetadataDao implements Lookup
                     "holderId", holderId,
                     "lang", lang);
             return jdbcTemplate.query(lookupMetadataMapper.getSql(), metadataParams,
-                    (rs, index) -> lookupMetadataMapper.map(rs));
+                    (rs, index) -> ((SQLMetadataMapper<LookupMetadata>) lookupMetadataMapper).map(rs));
         } catch (Exception e) {
             throw new MetadataStorageException(e, "Unable to get metadata for a lookup holder with the " +
                     "following holder parameters: lang={}, holderId={}", lang, holderId);

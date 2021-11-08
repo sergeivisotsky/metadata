@@ -14,23 +14,28 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.mapper;
-
-import java.sql.ResultSet;
+package io.github.sergeivisotsky.metadata.selector.domain;
 
 /**
- * An interface to be implemented by mappers from {@link ResultSet} to DTO.
+ * Simple DTO to hold a pair of {@link LogicType} and
+ * SQL statement or stored function/procedure method name.
  *
- * @param <T> type to extract a {@link ResultSet} to.
  * @author Sergei Visotsky
  */
-public interface MetadataMapper<T> {
+public class LogicHolder {
+    private final LogicType logicType;
+    private final String sql;
 
-    /**
-     * Get an SQL or stored function containing a new fields added during customization.
-     *
-     * @return SQL or function to execute.
-     */
-    String getSql();
+    public LogicHolder(LogicType logicType, String sql) {
+        this.logicType = logicType;
+        this.sql = sql;
+    }
 
+    public LogicType getLogicType() {
+        return logicType;
+    }
+
+    public String getSql() {
+        return sql;
+    }
 }

@@ -5,12 +5,10 @@ import java.sql.SQLException;
 
 import io.github.sergeivisotsky.metadata.itest.domain.ExtendedComboBox;
 import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
-import io.github.sergeivisotsky.metadata.itest.dto.ExtendedComboBox;
-import io.github.sergeivisotsky.metadata.selector.dto.ComboBox;
-import io.github.sergeivisotsky.metadata.selector.dto.LogicType;
+import io.github.sergeivisotsky.metadata.selector.domain.LogicType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
 
-import static io.github.sergeivisotsky.metadata.selector.dto.LogicType.SQL;
+import static io.github.sergeivisotsky.metadata.selector.domain.LogicType.SQL;
 
 public class ComboBoxMapper implements MetadataMapper<ComboBox> {
 

@@ -16,21 +16,23 @@
 
 package io.github.sergeivisotsky.metadata.selector.mapper;
 
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 
 /**
- * An interface to be implemented by mappers from {@link ResultSet} to DTO.
+ * An interface to be implemented by a procedure mappers from {@link ResultSet} to DTO.
  *
  * @param <T> type to extract a {@link ResultSet} to.
  * @author Sergei Visotsky
  */
-public interface MetadataMapper<T> {
+public interface ProcedureMetadataMapper<T> extends MetadataMapper<T> {
 
     /**
-     * Get an SQL or stored function containing a new fields added during customization.
+     * Maps an extracted metadata from {@link ResultSet} to a Java DTO.
      *
-     * @return SQL or function to execute.
+     * @param stmt callable statement.
+     * @return mapped type.
      */
-    String getSql();
+    T executeAndMap(CallableStatement stmt);
 
 }

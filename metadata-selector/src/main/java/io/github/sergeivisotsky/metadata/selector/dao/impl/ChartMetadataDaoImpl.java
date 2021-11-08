@@ -24,6 +24,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.ChartMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.domain.chart.Category;
 import io.github.sergeivisotsky.metadata.selector.domain.chart.ChartMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.SQLMetadataMapper;
 
 /**
  * @author Sergei Visotsky
@@ -46,7 +47,7 @@ public class ChartMetadataDaoImpl extends AbstractMetadataDao implements ChartMe
         Map<String, Object> params = Map.of("chartName", chartName);
         return jdbcTemplate.queryForObject(chartMetadataMapper.getSql(), params,
                 (rs, index) -> {
-                    ChartMetadata metadata = chartMetadataMapper.map(rs);
+                    ChartMetadata metadata = ((SQLMetadataMapper<ChartMetadata>) chartMetadataMapper).map(rs);
                     metadata.setCategories(getChartCategoryMetadata(rs.getLong("id")));
                     return metadata;
                 });

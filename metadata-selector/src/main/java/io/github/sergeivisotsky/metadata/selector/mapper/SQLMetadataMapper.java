@@ -17,20 +17,22 @@
 package io.github.sergeivisotsky.metadata.selector.mapper;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
- * An interface to be implemented by mappers from {@link ResultSet} to DTO.
+ * An interface to be implemented by an SQL mappers from {@link ResultSet} to DTO.
  *
  * @param <T> type to extract a {@link ResultSet} to.
  * @author Sergei Visotsky
  */
-public interface MetadataMapper<T> {
+public interface SQLMetadataMapper<T> extends MetadataMapper<T> {
 
     /**
-     * Get an SQL or stored function containing a new fields added during customization.
+     * Maps an extracted metadata from {@link ResultSet} to a Java DTO.
      *
-     * @return SQL or function to execute.
+     * @param rs database result set.
+     * @return resulting metadata aggregate DTO.
      */
-    String getSql();
+    T map(ResultSet rs) throws SQLException;
 
 }
