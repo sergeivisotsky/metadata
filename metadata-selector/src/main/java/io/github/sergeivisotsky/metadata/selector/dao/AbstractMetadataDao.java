@@ -41,14 +41,15 @@ public abstract class AbstractMetadataDao {
         return jdbcTemplate.query(mapper.getSql(), params, (rs, index) -> ((SQLMetadataMapper<T>) mapper).map(rs));
     }
 
-    protected <T> List<T> checkLogicType(Supplier<MetadataMapper<T>> mapperSupplier,
-                                         Supplier<List<T>> sql,
-                                         Supplier<List<T>> procCall) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    protected <T> T checkLogicType(Supplier<MetadataMapper> mapperSupplier,
+                                   Supplier sql,
+                                   Supplier procCall) {
         MetadataMapper<T> mapper = mapperSupplier.get();
         if (mapper instanceof SQLMetadataMapper) {
-            return sql.get();
+            return (T) sql.get();
         } else if (mapper instanceof ProcedureMetadataMapper) {
-            return procCall.get();
+            return (T) procCall.get();
         }
         throw new IllegalStateException(
                 String.format("Provided LogicType: %s is not supported", mapper.getClass())

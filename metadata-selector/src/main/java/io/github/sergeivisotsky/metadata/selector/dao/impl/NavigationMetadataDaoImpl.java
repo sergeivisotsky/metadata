@@ -16,6 +16,8 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,6 +28,7 @@ import io.github.sergeivisotsky.metadata.selector.domain.Navigation;
 import io.github.sergeivisotsky.metadata.selector.domain.NavigationElement;
 import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.ProcedureMetadataMapper;
 import io.github.sergeivisotsky.metadata.selector.mapper.SQLMetadataMapper;
 
 /**
@@ -46,11 +49,32 @@ public class NavigationMetadataDaoImpl extends AbstractMetadataDao implements Na
     public Navigation getNavigationMetadata(String viewName) {
         try {
             Map<String, Object> params = Map.of("viewName", viewName);
-            return jdbcTemplate.queryForObject(navigationMapper.getSql(), params,
-                    (rs, index) -> normalizeNavigationMetadata(((SQLMetadataMapper<List<Navigation>>) navigationMapper).map(rs)));
+            return checkLogicType(
+                    () -> navigationMapper,
+                    () -> List.of(executeNavigationMetadataQuery(params)),
+                    () -> List.of(executeNavigationMetadataProcedure(viewName))
+            );
         } catch (Exception e) {
             throw new MetadataStorageException(e, "Unable to get a navigation metadata ny invocation " +
                     "of DAO with the following parameters: viewName={}", viewName);
+        }
+    }
+
+    private Navigation executeNavigationMetadataQuery(Map<String, Object> params) {
+        return jdbcTemplate.queryForObject(navigationMapper.getSql(), params,
+                (rs, index) -> normalizeNavigationMetadata(((SQLMetadataMapper<List<Navigation>>) navigationMapper).map(rs)));
+    }
+
+    private Navigation executeNavigationMetadataProcedure(String viewName) {
+        String procedure = navigationMapper.getSql();
+        try (Connection connection = dataSource.getConnection();
+             CallableStatement stmt = connection.prepareCall(procedure)) {
+
+            stmt.setString(0, viewName);
+            return ((ProcedureMetadataMapper<List<Navigation>>) navigationMapper).executeAndMap(stmt).get(0);
+        } catch (Exception e) {
+            throw new MetadataStorageException(e, "Failure to get view metadata with the following " +
+                    "parameters: viewName={}", viewName);
         }
     }
 

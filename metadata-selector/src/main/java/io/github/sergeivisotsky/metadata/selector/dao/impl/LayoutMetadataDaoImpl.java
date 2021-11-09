@@ -16,6 +16,8 @@
 
 package io.github.sergeivisotsky.metadata.selector.dao.impl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,7 @@ import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.domain.Layout;
 import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
+import io.github.sergeivisotsky.metadata.selector.mapper.ProcedureMetadataMapper;
 
 /**
  * @author Sergei Visotsky
@@ -43,7 +46,20 @@ public class LayoutMetadataDaoImpl extends AbstractMetadataDao implements Layout
     public List<Layout> getLayoutMetadata(String viewName) {
         try {
             Map<String, Object> params = Map.of("viewName", viewName);
-            return executeQuery(params, layoutMapper);
+            return checkLogicType(
+                    () -> layoutMapper,
+                    () -> executeQuery(params, layoutMapper),
+                    () -> {
+                        try (Connection connection = dataSource.getConnection();
+                             CallableStatement stmt = connection.prepareCall(layoutMapper.getSql())) {
+
+                            stmt.setString(0, viewName);
+                            return ((ProcedureMetadataMapper<Layout>) layoutMapper).executeAndMap(stmt);
+                        } catch (Exception e) {
+                            throw new MetadataStorageException(e, "Failure to get view metadata with the following " +
+                                    "parameters: viewName={}", viewName);
+                        }
+                    });
         } catch (Exception e) {
             throw new MetadataStorageException(e, "Unable to get a layout metadata with the " +
                     "following parameters: viewName={}", viewName);

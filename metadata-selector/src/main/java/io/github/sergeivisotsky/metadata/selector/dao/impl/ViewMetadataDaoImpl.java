@@ -70,7 +70,7 @@ public class ViewMetadataDaoImpl extends AbstractMetadataDao implements ViewMeta
                 () -> formMetadataMapper,
                 () -> List.of(executeViewQuery(params)),
                 () -> List.of(executeViewProcedure(params))
-        ).get(0);
+        );
     }
 
     private ViewMetadata executeViewProcedure(Map<String, Object> params) {
