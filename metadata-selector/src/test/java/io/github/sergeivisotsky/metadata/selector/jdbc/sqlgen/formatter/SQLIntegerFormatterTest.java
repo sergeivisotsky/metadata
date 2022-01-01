@@ -14,17 +14,30 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter;
 
-import javax.annotation.Nonnull;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
+ * Unit test for {@link SQLIntegerFormatter}.
+ *
  * @author Sergei Visotsky
  */
-public class StringSQLFormatter implements SQLFormatter {
+public class SQLIntegerFormatterTest {
 
-    @Override
-    public String formatWhereValue(@Nonnull Object value) {
-        return "'" + value + "'";
+    private final SQLFormatter formatter = new SQLIntegerFormatter();
+
+    @Test
+    public void shouldFormatWhereValueWithDecimalProperly() {
+        //given
+        Integer someInt = 123;
+
+        //when
+        String result = formatter.formatWhereValue(someInt);
+
+        //then
+        assertEquals("123", result);
     }
 }

@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
-
-import org.junit.Test;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.time;
 
 import java.sql.Time;
+
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit test for {@link TimeSQLFormatter}.
+ * Unit test for {@link SQLTimeFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class TimeSQLFormatterTest {
+public class SQLTimeFormatterTest {
 
-    private final SQLFormatter formatter = new TimeSQLFormatter();
+    private final SQLFormatter formatter = new SQLTimeFormatter();
 
     @Test
     public void shouldFormatWhereValueWithTimeProperly() {
@@ -40,7 +41,7 @@ public class TimeSQLFormatterTest {
         String result = formatter.formatWhereValue(time);
 
         //then
-        assertEquals("to_char('110003'::time,'HH:MI AM')", result);
+        assertEquals("TO_CHAR('110003'::time,'HH:MI AM')", result);
     }
 
     @Test(expected = IllegalArgumentException.class)

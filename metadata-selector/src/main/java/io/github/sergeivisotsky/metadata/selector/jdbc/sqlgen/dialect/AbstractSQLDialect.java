@@ -16,13 +16,20 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect;
 
-import com.google.common.collect.ImmutableMap;
 import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 import io.github.sergeivisotsky.metadata.selector.domain.Order;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.exception.MetadataStorageException;
-import io.github.sergeivisotsky.metadata.selector.filtering.dto.*;
-import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.*;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.AndFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.BetweenFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.BinaryFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.EqualsFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.Filter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.GreaterFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.LessFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.OrFilter;
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.SQLParseException;
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.Select;
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.SelectItem;
@@ -35,8 +42,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.*;
 
 /**
  * An abstract implementation of an SQL dialect which aimed
@@ -51,14 +56,11 @@ abstract class AbstractSQLDialect implements SQLDialect {
     protected static final String LIMIT_PLACEHOLDER = "{limit}";
     protected static final String OFFSET_PLACEHOLDER = "{offset}";
 
-    protected static final Map<FieldType, SQLFormatter> FORMATTER_MAP = ImmutableMap.<FieldType, SQLFormatter>builder()
-            .put(TIME, new TimeSQLFormatter())
-            .put(DATETIME, new DateTimeSQLFormatter())
-            .put(DATE, new DateSQLFormatter())
-            .put(INTEGER, new IntegerSQLFormatter())
-            .put(STRING, new StringSQLFormatter())
-            .put(DECIMAL, new DecimalSQLFormatter())
-            .build();
+    private Map<FieldType, SQLFormatter> formatterMap;
+
+    public AbstractSQLDialect(Map<FieldType, SQLFormatter> formatterMap) {
+        this.formatterMap = formatterMap;
+    }
 
     protected SelectParser selectParser;
 
@@ -162,7 +164,7 @@ abstract class AbstractSQLDialect implements SQLDialect {
     }
 
     protected String formatWhereValue(FieldType fieldType, Object value) {
-        SQLFormatter formatter = FORMATTER_MAP.get(fieldType);
+        SQLFormatter formatter = formatterMap.get(fieldType);
         return formatter.formatWhereValue(value);
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 the original author or authors.
+ * Copyright 2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
-
-import org.junit.Test;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.date;
 
 import java.util.Date;
+
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit test for {@link DateSQLFormatter}.
+ * Unit test for {@link MSSQLDateFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class DateSQLFormatterTest {
+public class MSSQLDateFormatterTest {
 
-    private final SQLFormatter formatter = new DateSQLFormatter();
+    private final SQLFormatter formatter = new MSSQLDateFormatter();
 
     @Test
     public void shouldFormatWhereValueWithDateProperly() {
@@ -40,7 +41,7 @@ public class DateSQLFormatterTest {
         String result = formatter.formatWhereValue(date);
 
         //then
-        assertEquals("to_date('1970-01-01','YYYY-MM-DD')", result);
+        assertEquals("CONVERT(VARCHAR(10), '1970-01-01', 32)", result);
     }
 
     @Test(expected = IllegalArgumentException.class)

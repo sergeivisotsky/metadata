@@ -16,8 +16,26 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect;
 
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
+import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLDecimalFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLIntegerFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLStringFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.date.SQLDateFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.datetime.SQLDateTimeFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.time.SQLTimeFormatter;
 import org.apache.commons.lang3.StringUtils;
+
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DATE;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DATETIME;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DECIMAL;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.INTEGER;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.STRING;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.TIME;
 
 /**
  * A PostgreSQL dialect to construct an SQL from template.
@@ -25,6 +43,19 @@ import org.apache.commons.lang3.StringUtils;
  * @author Sergei Visotsky
  */
 public class PostgreSQLDialect extends AbstractSQLDialect {
+
+    private static final Map<FieldType, SQLFormatter> FORMATTER_MAP = ImmutableMap.<FieldType, SQLFormatter>builder()
+            .put(TIME, new SQLTimeFormatter())
+            .put(DATETIME, new SQLDateTimeFormatter())
+            .put(DATE, new SQLDateFormatter())
+            .put(INTEGER, new SQLIntegerFormatter())
+            .put(STRING, new SQLStringFormatter())
+            .put(DECIMAL, new SQLDecimalFormatter())
+            .build();
+
+    public PostgreSQLDialect() {
+        super(FORMATTER_MAP);
+    }
 
     @Override
     @SuppressWarnings("Duplicates") // really same as an Oracle in these terms,

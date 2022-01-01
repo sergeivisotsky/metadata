@@ -14,41 +14,42 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.time;
 
+import java.sql.Time;
+
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
 import org.junit.Test;
-
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit test for {@link DateTimeSQLFormatter}.
+ * Unit test for {@link SQLTimeFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class DateTimeFormatterTest {
+public class MySQLTimeFormatterTest {
 
-    private final SQLFormatter formatter = new DateTimeSQLFormatter();
+    private final SQLFormatter formatter = new MySQLTimeFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithDateTimeProperly() {
+    public void shouldFormatWhereValueWithTimeProperly() {
         //given
-        final Date date = new Date(19700102);
+        final Time time = Time.valueOf("12:00:03");
 
         //when
-        String result = formatter.formatWhereValue(date);
+        String result = formatter.formatWhereValue(time);
 
         //then
-        assertEquals("to_timestamp('1970-01-01T05:28:20.102','YYYY-MM-DD HH24:MI:SS')", result);
+        assertEquals("STR_TO_DATE(110003', '%H:%i')", result);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldFailWithIllegalArgumentException() {
         //given
-        final String date = "19700102";
+        final String timeAsString = "12:00:03";
 
         //when
-        formatter.formatWhereValue(date);
+        formatter.formatWhereValue(timeAsString);
     }
 }

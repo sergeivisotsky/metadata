@@ -14,30 +14,23 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.date;
 
-import org.junit.Test;
+import javax.annotation.Nonnull;
 
-import static org.junit.Assert.assertEquals;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
+
+import static io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.TimeUnitFormatter.formatDate;
 
 /**
- * Unit test for {@link IntegerSQLFormatter}.
+ * MySQL's dialect Date formatter according.
  *
  * @author Sergei Visotsky
  */
-public class IntegerSQLFormatterTest {
+public class MySQLDateFormatter implements SQLFormatter {
 
-    private final SQLFormatter formatter = new IntegerSQLFormatter();
-
-    @Test
-    public void shouldFormatWhereValueWithDecimalProperly() {
-        //given
-        Integer someInt = 123;
-
-        //when
-        String result = formatter.formatWhereValue(someInt);
-
-        //then
-        assertEquals("123", result);
+    @Override
+    public String formatWhereValue(@Nonnull Object value) {
+        return "STR_TO_DATE('" + formatDate(value) + "', '%d,%m,%Y')";
     }
 }

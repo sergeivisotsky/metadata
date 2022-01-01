@@ -14,20 +14,31 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * Formatter to execute a typed value formatting depending on WHERE clause needs.
+ * Unit test for {@link SQLStringFormatter}.
  *
  * @author Sergei Visotsky
  */
-public interface SQLFormatter {
+public class SQLStringFormatterTest {
 
-    /**
-     * Executes the main WHERE clause value formatting.
-     *
-     * @param value the value to be formatted.
-     * @return formatted WHERE clause value.
-     */
-    String formatWhereValue(Object value);
+    private final SQLFormatter formatter = new SQLStringFormatter();
+
+    @Test
+    public void shouldFormatWhereValueWithStringProperly() {
+        //given
+        String someString = "abcdefghijklmnopqrstuvwxyz";
+
+        //when
+        String result = formatter.formatWhereValue(someString);
+
+        //then
+        assertEquals("'abcdefghijklmnopqrstuvwxyz'", result);
+    }
+
 }

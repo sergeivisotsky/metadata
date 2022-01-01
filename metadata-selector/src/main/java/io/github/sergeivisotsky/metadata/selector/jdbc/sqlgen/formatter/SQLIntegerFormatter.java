@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter;
 
 import javax.annotation.Nonnull;
-
-import static io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.TimeUnitFormatter.formatTime;
 
 /**
  * @author Sergei Visotsky
  */
-public class TimeSQLFormatter implements SQLFormatter {
+public class SQLIntegerFormatter implements SQLFormatter {
 
     @Override
     public String formatWhereValue(@Nonnull Object value) {
-        return "to_char('" + formatTime(value) + "'::time,'HH:MI AM')";
+        return value.toString();
     }
 }

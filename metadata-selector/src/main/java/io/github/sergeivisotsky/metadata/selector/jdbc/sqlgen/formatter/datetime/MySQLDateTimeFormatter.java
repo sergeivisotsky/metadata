@@ -14,31 +14,23 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.datetime;
 
-import org.junit.Test;
+import javax.annotation.Nonnull;
 
-import static org.junit.Assert.assertEquals;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
+
+import static io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.TimeUnitFormatter.formatDateTime;
 
 /**
- * Unit test for {@link StringSQLFormatter}.
+ * MySQL's dialect date and time formatter.
  *
  * @author Sergei Visotsky
  */
-public class StringSQLFormatterTest {
+public class MySQLDateTimeFormatter implements SQLFormatter {
 
-    private final SQLFormatter formatter = new StringSQLFormatter();
-
-    @Test
-    public void shouldFormatWhereValueWithStringProperly() {
-        //given
-        String someString = "abcdefghijklmnopqrstuvwxyz";
-
-        //when
-        String result = formatter.formatWhereValue(someString);
-
-        //then
-        assertEquals("'abcdefghijklmnopqrstuvwxyz'", result);
+    @Override
+    public String formatWhereValue(@Nonnull Object value) {
+        return "STR_TO_DATE(" + formatDateTime(value) + "', '%Y-%m-%d %H:%i:%s')";
     }
-
 }

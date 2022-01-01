@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.datetime;
 
 import javax.annotation.Nonnull;
 
-import static io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.TimeUnitFormatter.formatDate;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
+
+import static io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.TimeUnitFormatter.formatDateTime;
 
 /**
+ * MSSQL dialect date and time formatter.
+ *
  * @author Sergei Visotsky
  */
-public class DateSQLFormatter implements SQLFormatter {
+public class MSSQLDateTimeFormatter implements SQLFormatter {
 
     @Override
     public String formatWhereValue(@Nonnull Object value) {
-        return "to_date('" + formatDate(value) + "','YYYY-MM-DD')";
+        return "CONVERT(VARCHAR(10), '" + formatDateTime(value) + "', 26)";
     }
 }

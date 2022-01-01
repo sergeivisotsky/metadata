@@ -14,17 +14,32 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter;
 
-import javax.annotation.Nonnull;
+import java.math.BigDecimal;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
+ * Unit test for {@link SQLDecimalFormatter}.
+ *
  * @author Sergei Visotsky
  */
-public class IntegerSQLFormatter implements SQLFormatter {
+public class SQLDecimalFormatterTest {
 
-    @Override
-    public String formatWhereValue(@Nonnull Object value) {
-        return value.toString();
+    private final SQLFormatter formatter = new SQLDecimalFormatter();
+
+    @Test
+    public void shouldFormatWhereValueWithDecimalProperly() {
+        //given
+        BigDecimal amount = BigDecimal.valueOf(12300123123123123L);
+
+        //when
+        String result = formatter.formatWhereValue(amount);
+
+        //then
+        assertEquals("12300123123123123", result);
     }
 }

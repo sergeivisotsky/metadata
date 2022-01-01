@@ -16,8 +16,26 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect;
 
+import com.google.common.collect.ImmutableMap;
+import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLDecimalFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLIntegerFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLStringFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.date.MySQLDateFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.datetime.MySQLDateTimeFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.time.MySQLTimeFormatter;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.Map;
+
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DATE;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DATETIME;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DECIMAL;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.INTEGER;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.STRING;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.TIME;
 
 /**
  * A PostgreSQL dialect to construct an SQL from template.
@@ -25,6 +43,19 @@ import org.apache.commons.lang3.StringUtils;
  * @author Sergei Visotsky
  */
 public class MySQLDialect extends AbstractSQLDialect {
+
+    private static final Map<FieldType, SQLFormatter> FORMATTER_MAP = ImmutableMap.<FieldType, SQLFormatter>builder()
+            .put(TIME, new MySQLTimeFormatter())
+            .put(DATETIME, new MySQLDateTimeFormatter())
+            .put(DATE, new MySQLDateFormatter())
+            .put(INTEGER, new SQLIntegerFormatter())
+            .put(STRING, new SQLStringFormatter())
+            .put(DECIMAL, new SQLDecimalFormatter())
+            .build();
+
+    public MySQLDialect() {
+        super(FORMATTER_MAP);
+    }
 
     @Override
     public String createSelectQuery(String sqlTemplate, ViewQuery query) {

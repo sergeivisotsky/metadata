@@ -16,12 +16,12 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import org.springframework.context.annotation.Bean;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * A public API which represents an  SQL dialect related functionality

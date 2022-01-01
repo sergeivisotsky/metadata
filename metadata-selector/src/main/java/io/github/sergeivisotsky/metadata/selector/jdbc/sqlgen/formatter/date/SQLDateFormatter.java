@@ -14,32 +14,23 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.date;
 
-import org.junit.Test;
+import javax.annotation.Nonnull;
 
-import java.math.BigDecimal;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
 
-import static org.junit.Assert.assertEquals;
+import static io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.TimeUnitFormatter.formatDate;
 
 /**
- * Unit test for {@link DecimalSQLFormatter}.
+ * Wraps a date to Oracle and PostgreSQL to_date() function.
  *
  * @author Sergei Visotsky
  */
-public class DecimalSQLFormatterTest {
+public class SQLDateFormatter implements SQLFormatter {
 
-    private final SQLFormatter formatter = new DecimalSQLFormatter();
-
-    @Test
-    public void shouldFormatWhereValueWithDecimalProperly() {
-        //given
-        BigDecimal amount = BigDecimal.valueOf(12300123123123123L);
-
-        //when
-        String result = formatter.formatWhereValue(amount);
-
-        //then
-        assertEquals("12300123123123123", result);
+    @Override
+    public String formatWhereValue(@Nonnull Object value) {
+        return "TO_DATE('" + formatDate(value) + "','YYYY-MM-DD')";
     }
 }

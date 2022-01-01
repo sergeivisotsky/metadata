@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
+package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter;
 
 import javax.annotation.Nonnull;
 
 /**
  * @author Sergei Visotsky
  */
-public class DecimalSQLFormatter implements SQLFormatter {
+public class SQLStringFormatter implements SQLFormatter {
 
     @Override
     public String formatWhereValue(@Nonnull Object value) {
-        return value.toString();
+        return "'" + value + "'";
     }
 }

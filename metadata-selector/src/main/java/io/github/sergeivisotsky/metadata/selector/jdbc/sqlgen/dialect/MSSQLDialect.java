@@ -16,8 +16,26 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect;
 
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
+import io.github.sergeivisotsky.metadata.selector.domain.FieldType;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLDecimalFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLIntegerFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLStringFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.date.MSSQLDateFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.datetime.MSSQLDateTimeFormatter;
+import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.time.MSSQLTimeFormatter;
 import org.apache.commons.lang3.StringUtils;
+
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DATE;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DATETIME;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.DECIMAL;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.INTEGER;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.STRING;
+import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.TIME;
 
 /**
  * An Oracle dialect to construct an SQL from template.
@@ -25,6 +43,19 @@ import org.apache.commons.lang3.StringUtils;
  * @author Sergei Visotsky
  */
 public class MSSQLDialect extends AbstractSQLDialect {
+
+    private static final Map<FieldType, SQLFormatter> FORMATTER_MAP = ImmutableMap.<FieldType, SQLFormatter>builder()
+            .put(TIME, new MSSQLTimeFormatter())
+            .put(DATETIME, new MSSQLDateTimeFormatter())
+            .put(DATE, new MSSQLDateFormatter())
+            .put(INTEGER, new SQLIntegerFormatter())
+            .put(STRING, new SQLStringFormatter())
+            .put(DECIMAL, new SQLDecimalFormatter())
+            .build();
+
+    public MSSQLDialect() {
+        super(FORMATTER_MAP);
+    }
 
     @Override
     @SuppressWarnings("Duplicates") // really same as an Oracle and PostgreSQL in these terms,
