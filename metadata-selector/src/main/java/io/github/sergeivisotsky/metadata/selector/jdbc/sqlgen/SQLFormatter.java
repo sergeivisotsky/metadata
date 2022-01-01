@@ -16,15 +16,18 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
-import javax.annotation.Nonnull;
-
 /**
+ * Formatter to execute a typed value formatting depending on WHERE clause needs.
+ *
  * @author Sergei Visotsky
  */
-public class IntegerFormatter implements Formatter {
+public interface SQLFormatter {
 
-    @Override
-    public String formatWhereValue(@Nonnull Object value) {
-        return value.toString();
-    }
+    /**
+     * Executes the main WHERE clause value formatting.
+     *
+     * @param value the value to be formatted.
+     * @return formatted WHERE clause value.
+     */
+    String formatWhereValue(Object value);
 }

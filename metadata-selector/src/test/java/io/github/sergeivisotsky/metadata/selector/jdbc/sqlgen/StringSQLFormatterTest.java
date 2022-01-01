@@ -16,15 +16,29 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
-import javax.annotation.Nonnull;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
+ * Unit test for {@link StringSQLFormatter}.
+ *
  * @author Sergei Visotsky
  */
-public class StringFormatter implements Formatter {
+public class StringSQLFormatterTest {
 
-    @Override
-    public String formatWhereValue(@Nonnull Object value) {
-        return "'" + value + "'";
+    private final SQLFormatter formatter = new StringSQLFormatter();
+
+    @Test
+    public void shouldFormatWhereValueWithStringProperly() {
+        //given
+        String someString = "abcdefghijklmnopqrstuvwxyz";
+
+        //when
+        String result = formatter.formatWhereValue(someString);
+
+        //then
+        assertEquals("'abcdefghijklmnopqrstuvwxyz'", result);
     }
+
 }

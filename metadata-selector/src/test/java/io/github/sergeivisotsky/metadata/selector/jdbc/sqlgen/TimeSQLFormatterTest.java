@@ -18,26 +18,37 @@ package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
 import org.junit.Test;
 
+import java.sql.Time;
+
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit test for {@link IntegerFormatter}.
+ * Unit test for {@link TimeSQLFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class IntegerFormatterTest {
+public class TimeSQLFormatterTest {
 
-    private final Formatter formatter = new IntegerFormatter();
+    private final SQLFormatter formatter = new TimeSQLFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithDecimalProperly() {
+    public void shouldFormatWhereValueWithTimeProperly() {
         //given
-        Integer someInt = 123;
+        final Time time = Time.valueOf("12:00:03");
 
         //when
-        String result = formatter.formatWhereValue(someInt);
+        String result = formatter.formatWhereValue(time);
 
         //then
-        assertEquals("123", result);
+        assertEquals("to_char('110003'::time,'HH:MI AM')", result);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldFailWithIllegalArgumentException() {
+        //given
+        final String timeAsString = "12:00:03";
+
+        //when
+        formatter.formatWhereValue(timeAsString);
     }
 }

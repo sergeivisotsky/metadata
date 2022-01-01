@@ -16,39 +16,30 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
-import java.util.Date;
-
 import org.junit.Test;
+
+import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit test for {@link DateFormatter}.
+ * Unit test for {@link DecimalSQLFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class DateFormatterTest {
+public class DecimalSQLFormatterTest {
 
-    private final Formatter formatter = new DateFormatter();
+    private final SQLFormatter formatter = new DecimalSQLFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithDateProperly() {
+    public void shouldFormatWhereValueWithDecimalProperly() {
         //given
-        final Date date = new Date(19700102);
+        BigDecimal amount = BigDecimal.valueOf(12300123123123123L);
 
         //when
-        String result = formatter.formatWhereValue(date);
+        String result = formatter.formatWhereValue(amount);
 
         //then
-        assertEquals("to_date('1970-01-01','YYYY-MM-DD')", result);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailWithIllegalArgumentExceptionException() {
-        //given
-        final String date = "19700102";
-
-        //when
-        formatter.formatWhereValue(date);
+        assertEquals("12300123123123123", result);
     }
 }

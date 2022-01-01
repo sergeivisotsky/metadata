@@ -16,32 +16,17 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import javax.annotation.Nonnull;
+
+import static io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.TimeUnitFormatter.formatTime;
 
 /**
  * @author Sergei Visotsky
  */
-public class DateFormatter implements Formatter {
+public class TimeSQLFormatter implements SQLFormatter {
 
     @Override
     public String formatWhereValue(@Nonnull Object value) {
-        return "to_date('" + formatDate(value) + "','YYYY-MM-DD')";
-    }
-
-    private String formatDate(Object value) {
-        if (!(value instanceof Date)) {
-            throw new IllegalArgumentException("Formatter does not support " +
-                    value.getClass().getName() + "instead it only supports java.util.Date");
-        }
-
-        Date date = (Date) value;
-        LocalDate localDate = Instant.ofEpochMilli(date.getTime())
-                .atZone(ZoneId.of("UTC"))
-                .toLocalDate();
-        return localDate.toString();
+        return "to_char('" + formatTime(value) + "'::time,'HH:MI AM')";
     }
 }

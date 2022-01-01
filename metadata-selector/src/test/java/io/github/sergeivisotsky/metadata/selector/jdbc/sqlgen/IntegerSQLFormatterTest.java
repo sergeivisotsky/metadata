@@ -16,30 +16,28 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
-import java.math.BigDecimal;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit test for {@link DecimalFormatter}.
+ * Unit test for {@link IntegerSQLFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class DecimalFormatterTest {
+public class IntegerSQLFormatterTest {
 
-    private final Formatter formatter = new DecimalFormatter();
+    private final SQLFormatter formatter = new IntegerSQLFormatter();
 
     @Test
     public void shouldFormatWhereValueWithDecimalProperly() {
         //given
-        BigDecimal amount = BigDecimal.valueOf(12300123123123123L);
+        Integer someInt = 123;
 
         //when
-        String result = formatter.formatWhereValue(amount);
+        String result = formatter.formatWhereValue(someInt);
 
         //then
-        assertEquals("12300123123123123", result);
+        assertEquals("123", result);
     }
 }

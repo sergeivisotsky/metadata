@@ -16,40 +16,39 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
-import java.sql.Time;
-
 import org.junit.Test;
+
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit test for {@link TimeFormatter}.
+ * Unit test for {@link DateSQLFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class TimeFormatterTest {
+public class DateSQLFormatterTest {
 
-    private final Formatter formatter = new TimeFormatter();
+    private final SQLFormatter formatter = new DateSQLFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithTimeProperly() {
+    public void shouldFormatWhereValueWithDateProperly() {
         //given
-        final String timeAsString = "12:00:03";
+        final Date date = new Date(19700102);
 
         //when
-        String result = formatter.formatWhereValue(Time.valueOf(timeAsString));
+        String result = formatter.formatWhereValue(date);
 
         //then
-        assertEquals("to_char('110003'::time,'HH:MI AM')", result);
+        assertEquals("to_date('1970-01-01','YYYY-MM-DD')", result);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldFailWithIllegalArgumentExceptionException() {
+    public void shouldFailWithIllegalArgumentException() {
         //given
-        final String timeAsString = "12:00:03";
+        final String date = "19700102";
 
         //when
-        formatter.formatWhereValue(timeAsString);
-
+        formatter.formatWhereValue(date);
     }
 }

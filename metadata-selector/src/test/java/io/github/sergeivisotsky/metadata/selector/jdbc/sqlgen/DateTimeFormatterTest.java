@@ -16,20 +16,20 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
-import java.util.Date;
-
 import org.junit.Test;
+
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit test for {@link DateTimeFormatter}.
+ * Unit test for {@link DateTimeSQLFormatter}.
  *
  * @author Sergei Visotsky
  */
 public class DateTimeFormatterTest {
 
-    private final Formatter formatter = new DateTimeFormatter();
+    private final SQLFormatter formatter = new DateTimeSQLFormatter();
 
     @Test
     public void shouldFormatWhereValueWithDateTimeProperly() {
@@ -44,7 +44,7 @@ public class DateTimeFormatterTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldFailWithIllegalArgumentExceptionException() {
+    public void shouldFailWithIllegalArgumentException() {
         //given
         final String date = "19700102";
 

@@ -18,13 +18,15 @@ package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
 import javax.annotation.Nonnull;
 
+import static io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.TimeUnitFormatter.formatDate;
+
 /**
  * @author Sergei Visotsky
  */
-public class DecimalFormatter implements Formatter {
+public class DateSQLFormatter implements SQLFormatter {
 
     @Override
     public String formatWhereValue(@Nonnull Object value) {
-        return value.toString();
+        return "to_date('" + formatDate(value) + "','YYYY-MM-DD')";
     }
 }

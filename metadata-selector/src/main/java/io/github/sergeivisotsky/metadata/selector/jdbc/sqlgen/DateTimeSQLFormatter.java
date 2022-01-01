@@ -16,18 +16,17 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen;
 
+import javax.annotation.Nonnull;
+
+import static io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.TimeUnitFormatter.formatDateTime;
+
 /**
- * Formatter to execute a typed value formatting depending on WHERE clause needs.
- *
  * @author Sergei Visotsky
  */
-public interface Formatter {
+public class DateTimeSQLFormatter implements SQLFormatter {
 
-    /**
-     * Executes the main WHERE clause value formatting.
-     *
-     * @param value the value to be formatted.
-     * @return formatted WHERE clause value.
-     */
-    String formatWhereValue(Object value);
+    @Override
+    public String formatWhereValue(@Nonnull Object value) {
+        return "to_timestamp('" + formatDateTime(value) + "','YYYY-MM-DD HH24:MI:SS')";
+    }
 }

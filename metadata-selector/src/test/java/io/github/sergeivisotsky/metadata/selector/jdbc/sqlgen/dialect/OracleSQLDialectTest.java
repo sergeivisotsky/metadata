@@ -16,8 +16,6 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.dialect;
 
-import java.util.List;
-
 import io.github.sergeivisotsky.metadata.selector.domain.Order;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.AndFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.EqualsFilter;
@@ -26,6 +24,8 @@ import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.PrimitiveSelectParser;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.List;
 
 import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.INTEGER;
 import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.STRING;
