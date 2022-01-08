@@ -47,7 +47,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <spring-boot.version>2.4.4</spring-boot.version>
-        <guava.version>27.1-jre</guava.version>
+        <guava.version>31.0.1-jre</guava.version>
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
     </properties>
 
