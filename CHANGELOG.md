@@ -1,6 +1,10 @@
 # Changelog
 
-### 1.1.3
+## 1.1.4
+### Vulnerability fixes
+* [#70] - Eliminate CVE-2020-8908 produced by Guava
+
+## 1.1.3
 ### Bug fixes
 * [#63] - Add missing time formatter realization
 
