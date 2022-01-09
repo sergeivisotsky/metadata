@@ -4,6 +4,12 @@
       "name": "datasource.sqlDialect",
       "type": "java.lang.String",
       "description": "Defines which SQL dialect should be used."
+    },
+    {
+      "name": "metadata.active.chart",
+      "type": "java.lang.Boolean",
+      "description": "Defines on whether Chart metadata beans should be activated or not.",
+      "defaultValue": false
     }
   ]
 }
