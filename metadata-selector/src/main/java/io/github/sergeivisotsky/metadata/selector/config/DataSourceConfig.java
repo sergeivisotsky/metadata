@@ -29,11 +29,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  * @author Sergei Visotsky
  */
 @Configuration
-public class DatasourceConfig {
+public class DataSourceConfig {
 
     private final DataSourceConfigProperties configProperties;
 
-    public DatasourceConfig(DataSourceConfigProperties configProperties) {
+    public DataSourceConfig(DataSourceConfigProperties configProperties) {
         this.configProperties = configProperties;
     }
 

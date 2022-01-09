@@ -1,6 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   io.github.sergeivisotsky.metadata.selector.config.MetadataSelectorConfig,\
-  io.github.sergeivisotsky.metadata.selector.config.DatasourceConfig,\
+  io.github.sergeivisotsky.metadata.selector.config.DataSourceConfig,\
+  io.github.sergeivisotsky.metadata.selector.config.DataSourceDialectConfig,\
   io.github.sergeivisotsky.metadata.selector.config.SelectorConfig,\
   io.github.sergeivisotsky.metadata.selector.filtering.config.FilteringConfig,\
   io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.config.SQLParserConfig
