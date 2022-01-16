@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="svisockis">
+        <createTable tableName="chart">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(10)"/>
+            <column name="type" type="java.sql.Types.VARCHAR(6)"/>
+            <column name="inactive_opacity" type="java.sql.Types.DECIMAL"/>
+            <column name="gap" type="java.sql.Types.INTEGER"/>
+            <column name="spacing" type="java.sql.Types.DECIMAL"/>
+        </createTable>
+        <createTable tableName="category">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(10)"/>
+            <column name="key" type="java.sql.Types.VARCHAR(15)"/>
+            <column name="value" type="java.sql.Types.VARCHAR(15)"/>
+            <column name="chart_id" type="java.sql.Types.BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="category" baseColumnNames="chart_id"
+                                 constraintName="chart_id_fk"
+                                 referencedTableName="chart"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

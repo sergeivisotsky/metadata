@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="37" author="svisockis">
+        <addColumn tableName="view_field">
+            <column name="name" type="java.sql.Types.VARCHAR(15)"/>
+            <column name="field_type" type="java.sql.Types.VARCHAR(8)"/>
+            <column name="ui_description" type="java.sql.Types.VARCHAR(25)"/>
+            <column name="ui_query_name" type="java.sql.Types.VARCHAR(25)"/>
+            <column name="ui_query_from_text" type="java.sql.Types.VARCHAR(25)"/>
+            <column name="ui_query_to_text" type="java.sql.Types.VARCHAR(25)"/>
+            <column name="ui_column_name" type="java.sql.Types.VARCHAR(25)"/>
+            <column name="ui_column_renderer" type="java.sql.Types.VARCHAR(25)"/>
+            <column name="can_show_in_query" type="java.sql.Types.BOOLEAN"/>
+            <column name="can_show_in_table" type="java.sql.Types.BOOLEAN"/>
+            <column name="show_in_query" type="java.sql.Types.BOOLEAN"/>
+            <column name="show_in_table" type="java.sql.Types.BOOLEAN"/>
+            <column name="include_in_select" type="java.sql.Types.BOOLEAN"/>
+            <column name="order_in_query" type="java.sql.Types.INTEGER"/>
+            <column name="order_in_table" type="java.sql.Types.INTEGER"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="38" author="svisockis">
+        <addColumn tableName="view_metadata">
+            <column name="definition" type="java.sql.Types.CLOB"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
