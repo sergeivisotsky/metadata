@@ -8,6 +8,7 @@
 * [#73] - Make SQL dialect activation by property
 * [#75] - Initialise chart metadata beans by a single property using @ConditionalOnProperty
 * [#77] - Restructure Liquibase scripts so that Chart metadata related schema be included/excluded when needed
+* [#79] - Bring up Swagger
 
 ### Bug fixes
 * [#62] - Add missing conditional annotations for metadata provisioning beans
