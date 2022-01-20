@@ -4,12 +4,12 @@ cd ../
 if [ "$1" == "version" ]; then
   mvn clean install
   mvn deploy
-  git checkout -b release/"$1"
+  git checkout -b release/"$2"
   git add .
-  git commit -m "release $1"
-  git tag v"$1"
-  git push --set-upstream origin release/"$1"
-  git push origin v"$1"
+  git commit -m "release $2"
+  git tag v"$2"
+  git push --set-upstream origin release/"$2"
+  git push origin v"$2"
   git checkout master
 fi
 
