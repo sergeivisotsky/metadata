@@ -45,6 +45,11 @@
             <id>svisockis</id>
             <name>Sergei Visotsky</name>
             <email>sergei.visotsky@gmail.com</email>
+            <roles>
+                <role>Owner</role>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
         </developer>
     </developers>
 
