@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+### Miscellaneous
+* [#85] - Rename metadata-provider -> metadata
+
 ## 1.2.0
 ### Features
 * [#60] - Add a support for hasMoreElements and totalElements and estimated elements
