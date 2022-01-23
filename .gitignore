@@ -81,3 +81,5 @@ dependency-reduced-pom.xml
 */xtend-gen/*
 */xtext-gen/*
 */src-gen/*
+
+.flattened-pom.xml
