@@ -18,21 +18,21 @@ package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter;
 
 import java.math.BigDecimal;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for {@link SQLDecimalFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class SQLDecimalFormatterTest {
+class SQLDecimalFormatterTest {
 
     private final SQLFormatter formatter = new SQLDecimalFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithDecimalProperly() {
+    void shouldFormatWhereValueWithDecimalProperly() {
         //given
         BigDecimal amount = BigDecimal.valueOf(12300123123123123L);
 

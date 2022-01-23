@@ -23,8 +23,8 @@ import io.github.sergeivisotsky.metadata.selector.domain.Navigation;
 import io.github.sergeivisotsky.metadata.selector.domain.NavigationElement;
 import io.github.sergeivisotsky.metadata.selector.domain.NavigationType;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -43,7 +43,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Sergei Visotsky
  */
-public class NavigationMetadataDaoImplTest extends AbstractMetadataDao {
+class NavigationMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -54,13 +54,13 @@ public class NavigationMetadataDaoImplTest extends AbstractMetadataDao {
     @InjectMocks
     private NavigationMetadataDaoImpl dao;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void shouldGetNavigationMetadata() {
+    void shouldGetNavigationMetadata() {
         //given
         Navigation navigation = new Navigation();
         navigation.setType(NavigationType.NAV_BAR);

@@ -22,8 +22,8 @@ import io.github.sergeivisotsky.metadata.selector.dao.AbstractMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.domain.LookupHolder;
 import io.github.sergeivisotsky.metadata.selector.domain.LookupMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -40,7 +40,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Sergei Visotsky
  */
-public class LookupMetadataDaoImplTest extends AbstractMetadataDao {
+class LookupMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -54,13 +54,13 @@ public class LookupMetadataDaoImplTest extends AbstractMetadataDao {
     @InjectMocks
     private LookupMetadataDaoImpl dao;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void shouldGetLookupMetadata() {
+    void shouldGetLookupMetadata() {
         //given
         LookupHolder lookupHolder = new LookupHolder();
         lookupHolder.setName("someHolder");

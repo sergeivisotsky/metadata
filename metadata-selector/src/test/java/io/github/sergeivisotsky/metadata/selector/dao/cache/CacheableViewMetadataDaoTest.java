@@ -6,25 +6,25 @@ import io.github.sergeivisotsky.metadata.selector.config.properties.CacheConfigP
 import io.github.sergeivisotsky.metadata.selector.config.properties.RootCacheConfigProperties;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class CacheableViewMetadataDaoTest {
+class CacheableViewMetadataDaoTest {
 
     @Mock
     private ViewMetadataDao viewMetadataDao;
 
     private CacheableViewMetadataDao cacheableViewMetadataDao;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
         RootCacheConfigProperties rootCacheProps = new RootCacheConfigProperties();
 
@@ -40,7 +40,7 @@ public class CacheableViewMetadataDaoTest {
     }
 
     @Test
-    public void shouldGetFormMetadata() {
+    void shouldGetFormMetadata() {
         //given
         ViewMetadata expectedMetadata = new ViewMetadata();
         expectedMetadata.setDescription("some description");

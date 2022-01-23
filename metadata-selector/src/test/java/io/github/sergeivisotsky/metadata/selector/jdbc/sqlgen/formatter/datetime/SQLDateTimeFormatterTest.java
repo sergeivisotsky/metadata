@@ -19,21 +19,22 @@ package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.datetim
 import java.util.Date;
 
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for {@link SQLDateTimeFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class SQLDateTimeFormatterTest {
+class SQLDateTimeFormatterTest {
 
     private final SQLFormatter formatter = new SQLDateTimeFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithDateTimeProperly() {
+    void shouldFormatWhereValueWithDateTimeProperly() {
         //given
         final Date date = new Date(19700102);
 
@@ -44,12 +45,14 @@ public class SQLDateTimeFormatterTest {
         assertEquals("TO_TIMESTAMP('1970-01-01T05:28:20.102','YYYY-MM-DD HH24:MI:SS')", result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailWithIllegalArgumentException() {
-        //given
-        final String date = "19700102";
+    @Test
+    void shouldFailWithIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            //given
+            final String date = "19700102";
 
-        //when
-        formatter.formatWhereValue(date);
+            //when
+            formatter.formatWhereValue(date);
+        });
     }
 }

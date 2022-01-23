@@ -19,21 +19,22 @@ package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.time;
 import java.sql.Time;
 
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for {@link SQLTimeFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class SQLTimeFormatterTest {
+class SQLTimeFormatterTest {
 
     private final SQLFormatter formatter = new SQLTimeFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithTimeProperly() {
+    void shouldFormatWhereValueWithTimeProperly() {
         //given
         final Time time = Time.valueOf("12:00:03");
 
@@ -44,12 +45,14 @@ public class SQLTimeFormatterTest {
         assertEquals("TO_CHAR('110003'::time,'HH:MI AM')", result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailWithIllegalArgumentException() {
-        //given
-        final String timeAsString = "12:00:03";
+    @Test
+    void shouldFailWithIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            //given
+            final String timeAsString = "12:00:03";
 
-        //when
-        formatter.formatWhereValue(timeAsString);
+            //when
+            formatter.formatWhereValue(timeAsString);
+        });
     }
 }

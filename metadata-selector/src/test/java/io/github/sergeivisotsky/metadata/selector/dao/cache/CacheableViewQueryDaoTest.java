@@ -16,25 +16,25 @@ import io.github.sergeivisotsky.metadata.selector.domain.ViewQueryResult;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.AndFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LeafFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class CacheableViewQueryDaoTest {
+class CacheableViewQueryDaoTest {
 
     @Mock
     private ViewQueryDao viewMetadataDao;
 
     private CacheableViewQueryDao cacheableViewMetadataDao;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
         RootCacheConfigProperties rootCacheProps = new RootCacheConfigProperties();
 
@@ -50,7 +50,7 @@ public class CacheableViewQueryDaoTest {
     }
 
     @Test
-    public void shouldGetFormMetadata() {
+    void shouldGetFormMetadata() {
         //given
         ViewField field = new ViewField();
         field.setName("someField");

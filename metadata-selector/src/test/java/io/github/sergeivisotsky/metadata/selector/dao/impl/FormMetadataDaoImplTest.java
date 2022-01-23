@@ -21,8 +21,8 @@ import io.github.sergeivisotsky.metadata.selector.domain.form.FormField;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormMetadata;
 import io.github.sergeivisotsky.metadata.selector.domain.form.FormSection;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -40,7 +40,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Sergei Visotsky
  */
-public class FormMetadataDaoImplTest extends AbstractMetadataDao {
+class FormMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -57,13 +57,13 @@ public class FormMetadataDaoImplTest extends AbstractMetadataDao {
     @InjectMocks
     private FormMetadataDaoImpl dao;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void shouldGetFormMetadata() {
+    void shouldGetFormMetadata() {
         //given
         when(formMetadataMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
         when(formSectionMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");

@@ -24,8 +24,8 @@ import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewField;
 import io.github.sergeivisotsky.metadata.selector.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -45,7 +45,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Sergei Visotsky
  */
-public class ViewMetadataDaoImplTest extends AbstractMetadataDao {
+class ViewMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -65,13 +65,13 @@ public class ViewMetadataDaoImplTest extends AbstractMetadataDao {
     @InjectMocks
     private ViewMetadataDaoImpl dao;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void shouldGetFormMetadata() {
+    void shouldGetFormMetadata() {
         //given
         ViewMetadata metadata = new ViewMetadata();
         metadata.setFont("Times New Roman");

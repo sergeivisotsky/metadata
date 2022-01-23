@@ -16,21 +16,21 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for {@link SQLStringFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class SQLStringFormatterTest {
+class SQLStringFormatterTest {
 
     private final SQLFormatter formatter = new SQLStringFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithStringProperly() {
+    void shouldFormatWhereValueWithStringProperly() {
         //given
         String someString = "abcdefghijklmnopqrstuvwxyz";
 

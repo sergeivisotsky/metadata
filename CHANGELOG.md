@@ -3,6 +3,7 @@
 ## 1.3.0
 ### Features
 * [#81] - Improve cache & introduce such for query API
+* [#83] - Migrate JUnit 4 -> JUnit 5
 
 ## 1.2.0
 ### Features

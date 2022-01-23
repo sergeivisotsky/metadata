@@ -23,28 +23,25 @@ import java.util.Optional;
 
 import io.github.sergeivisotsky.metadata.selector.rest.dto.FormMetadataRequest;
 import org.apache.commons.io.IOUtils;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * An integration test for the whole framework.
  *
  * @author Sergei Visotsky
  */
-@RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @SpringBootTest(classes = ITestBootstrap.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ViewMetadataRestTest {
+class ViewMetadataRestTest {
 
     private static final ClassLoader CLASS_LOADER = ViewMetadataRestTest.class.getClassLoader();
 
@@ -55,7 +52,7 @@ public class ViewMetadataRestTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testGetViewMetadata() throws IOException {
+    void testGetViewMetadata() throws IOException {
         InputStream jsonStream = CLASS_LOADER.getResourceAsStream("json/testViewMetadata.json");
         Optional.ofNullable(jsonStream).orElseThrow(IllegalStateException::new);
 
@@ -69,7 +66,7 @@ public class ViewMetadataRestTest {
     }
 
     @Test
-    public void testGetLookupMetadata() throws IOException {
+    void testGetLookupMetadata() throws IOException {
         InputStream jsonStream = CLASS_LOADER.getResourceAsStream("json/testLookupMetadata.json");
         Optional.ofNullable(jsonStream).orElseThrow(IllegalStateException::new);
 
@@ -83,8 +80,8 @@ public class ViewMetadataRestTest {
     }
 
     @Test
-    @Ignore
-    public void testGetFormMetadata() throws IOException {
+    @Disabled
+    void testGetFormMetadata() throws IOException {
         InputStream jsonStream = CLASS_LOADER.getResourceAsStream("json/testLookupMetadata.json");
         Optional.ofNullable(jsonStream).orElseThrow(IllegalStateException::new);
 

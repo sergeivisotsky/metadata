@@ -19,21 +19,22 @@ package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.date;
 import java.util.Date;
 
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter.SQLFormatter;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for {@link MySQLDateFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class MySQLDateFormatterTest {
+class MySQLDateFormatterTest {
 
     private final SQLFormatter formatter = new MySQLDateFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithDateProperly() {
+    void shouldFormatWhereValueWithDateProperly() {
         //given
         final Date date = new Date(19700102);
 
@@ -44,12 +45,14 @@ public class MySQLDateFormatterTest {
         assertEquals("STR_TO_DATE('1970-01-01', '%d,%m,%Y')", result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailWithIllegalArgumentException() {
-        //given
-        final String date = "19700102";
+    @Test
+    void shouldFailWithIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            //given
+            final String date = "19700102";
 
-        //when
-        formatter.formatWhereValue(date);
+            //when
+            formatter.formatWhereValue(date);
+        });
     }
 }

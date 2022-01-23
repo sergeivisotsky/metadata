@@ -24,21 +24,21 @@ import io.github.sergeivisotsky.metadata.selector.filtering.dto.EqualsFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.LessFilter;
 import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
 import io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser.PrimitiveSelectParser;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.INTEGER;
 import static io.github.sergeivisotsky.metadata.selector.domain.FieldType.STRING;
 import static io.github.sergeivisotsky.metadata.selector.domain.SortDirection.ASC;
 import static io.github.sergeivisotsky.metadata.selector.domain.SortDirection.DESC;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for {@link PostgreSQLDialect}.
  *
  * @author Sergei Visotsky
  */
-public class PostgreSQLDialectTest {
+class PostgreSQLDialectTest {
 
     private static final String QUERY = "SELECT sst.column_one,\n" +
             "sst.column_two,\n" +
@@ -64,14 +64,14 @@ public class PostgreSQLDialectTest {
 
     private static PostgreSQLDialect dialect;
 
-    @BeforeClass
-    public static void beforeClass() {
+    @BeforeAll
+    static void beforeAll() {
         dialect = new PostgreSQLDialect();
         dialect.setSelectParser(new PrimitiveSelectParser());
     }
 
     @Test
-    public void shouldCreateSelectQuery() {
+    void shouldCreateSelectQuery() {
         //given
         ViewQuery viewQuery = ViewQuery.builder()
                 .orderList(List.of(new Order("someField", ASC)))

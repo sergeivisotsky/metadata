@@ -16,21 +16,21 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for {@link SQLIntegerFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class SQLIntegerFormatterTest {
+class SQLIntegerFormatterTest {
 
     private final SQLFormatter formatter = new SQLIntegerFormatter();
 
     @Test
-    public void shouldFormatWhereValueWithDecimalProperly() {
+    void shouldFormatWhereValueWithDecimalProperly() {
         //given
         Integer someInt = 123;
 

@@ -16,20 +16,20 @@
 
 package io.github.sergeivisotsky.metadata.selector.jdbc.sqlparser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Unit test for {@link PrimitiveSelectParser}.
  */
-public class PrimitiveSelectParserTest {
+class PrimitiveSelectParserTest {
 
     private final SelectParser selectParser = new PrimitiveSelectParser();
 
     @Test
-    public void shouldParseSelect() throws SQLParseException {
+    void shouldParseSelect() throws SQLParseException {
         //given
         final String parseSelect = "SELECT t.some_first_column AS first,\n" +
                 "t.some_second_column AS second,\n" +

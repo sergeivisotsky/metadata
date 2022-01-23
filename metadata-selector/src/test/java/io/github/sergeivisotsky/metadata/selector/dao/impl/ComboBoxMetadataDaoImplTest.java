@@ -24,17 +24,17 @@ import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.domain.ComboBox;
 import io.github.sergeivisotsky.metadata.selector.domain.ComboBoxContent;
 import io.github.sergeivisotsky.metadata.selector.mapper.MetadataMapper;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -46,7 +46,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Sergei Visotsky
  */
-public class ComboBoxMetadataDaoImplTest extends AbstractMetadataDao {
+class ComboBoxMetadataDaoImplTest extends AbstractMetadataDao {
 
     @Mock
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -62,8 +62,8 @@ public class ComboBoxMetadataDaoImplTest extends AbstractMetadataDao {
 
     private static List<ComboBox> comboBoxes;
 
-    @BeforeClass
-    public static void beforeClass() {
+    @BeforeAll
+    static void beforeAll() {
         comboBoxes = new ArrayList<>();
 
         ComboBox comboBoxOne = new ComboBox();
@@ -85,13 +85,13 @@ public class ComboBoxMetadataDaoImplTest extends AbstractMetadataDao {
         comboBoxes.add(comboBoxThree);
     }
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void shouldGetComboBoxesByFormMetadataId() {
+    void shouldGetComboBoxesByFormMetadataId() {
         //given
         when(comboBoxMapper.getSql()).thenReturn("SELECT * FROM some_table WHERE id = 1");
         when(jdbcTemplate.query(anyString(), anyMap(), any(RowMapper.class))).thenReturn(comboBoxes);
@@ -107,7 +107,7 @@ public class ComboBoxMetadataDaoImplTest extends AbstractMetadataDao {
     }
 
     @Test
-    public void shouldNormalizeCombos() {
+    void shouldNormalizeCombos() {
         //when
         List<ComboBox> resultCombos = dao.normalizeCombos(comboBoxes);
 

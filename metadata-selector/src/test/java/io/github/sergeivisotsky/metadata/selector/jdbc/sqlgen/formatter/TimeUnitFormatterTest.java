@@ -19,19 +19,20 @@ package io.github.sergeivisotsky.metadata.selector.jdbc.sqlgen.formatter;
 import java.sql.Time;
 import java.util.Date;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test for {@link TimeUnitFormatter}.
  *
  * @author Sergei Visotsky
  */
-public class TimeUnitFormatterTest {
+class TimeUnitFormatterTest {
 
     @Test
-    public void shouldFormatDate() {
+    void shouldFormatDate() {
         //given
         final Date date = new Date(19700102);
 
@@ -42,17 +43,19 @@ public class TimeUnitFormatterTest {
         assertEquals("1970-01-01", actual);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailWithIllegalArgumentExceptionWhenIncorrectDateTypePassed() {
-        //given
-        final String date = "19700102";
+    @Test
+    void shouldFailWithIllegalArgumentExceptionWhenIncorrectDateTypePassed() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            //given
+            final String date = "19700102";
 
-        //when
-        TimeUnitFormatter.formatDate(date);
+            //when
+            TimeUnitFormatter.formatDate(date);
+        });
     }
 
     @Test
-    public void shouldFormatDateTime() {
+    void shouldFormatDateTime() {
         //given
         final Date date = new Date(19700102);
 
@@ -63,17 +66,19 @@ public class TimeUnitFormatterTest {
         assertEquals("1970-01-01T05:28:20.102", actual);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailWithIllegalArgumentExceptionWhenIncorrectDateTimeTypePassed() {
-        //given
-        final String date = "19700102";
+    @Test
+    void shouldFailWithIllegalArgumentExceptionWhenIncorrectDateTimeTypePassed() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            //given
+            final String date = "19700102";
 
-        //when
-        TimeUnitFormatter.formatDateTime(date);
+            //when
+            TimeUnitFormatter.formatDateTime(date);
+        });
     }
 
     @Test
-    public void shouldFormatTime() {
+    void shouldFormatTime() {
         //given
         final Time time = Time.valueOf("12:00:03");
 
@@ -85,12 +90,14 @@ public class TimeUnitFormatterTest {
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailWithIllegalArgumentExceptionWhenIncorrectTimeTypePassed() {
-        //given
-        final String timeAsString = "12:00:03";
+    @Test
+    void shouldFailWithIllegalArgumentExceptionWhenIncorrectTimeTypePassed() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            //given
+            final String timeAsString = "12:00:03";
 
-        //when
-        TimeUnitFormatter.formatTime(timeAsString);
+            //when
+            TimeUnitFormatter.formatTime(timeAsString);
+        });
     }
 }
