@@ -1,0 +1,10 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  io.github.sergeivisotsky.metadata.engine.config.MetadataSelectorConfig,\
+  io.github.sergeivisotsky.metadata.engine.config.DataSourceConfig,\
+  io.github.sergeivisotsky.metadata.engine.config.DataSourceDialectConfig,\
+  io.github.sergeivisotsky.metadata.engine.config.SelectorConfig,\
+  io.github.sergeivisotsky.metadata.engine.config.ChartMetadataConfig,\
+  io.github.sergeivisotsky.metadata.engine.config.PropertiesConfig,\
+  io.github.sergeivisotsky.metadata.engine.config.CacheableMetadataConfig,\
+  io.github.sergeivisotsky.metadata.engine.filtering.config.FilteringConfig,\
+  io.github.sergeivisotsky.metadata.engine.jdbc.sqlparser.config.SQLParserConfig

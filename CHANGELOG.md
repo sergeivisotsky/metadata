@@ -5,6 +5,10 @@
 * [#81] - Improve cache & introduce such for query API
 * [#83] - Migrate JUnit 4 -> JUnit 5
 
+## 1.2.1
+### Miscellaneous
+* [#85] - Rename metadata-provider -> metadata
+
 ## 1.2.0
 ### Features
 * [#60] - Add a support for hasMoreElements and totalElements and estimated elements
