@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.dao.key;
+package io.github.sergeivisotsky.metadata.selector.dao.cache.key;
 
 import java.util.Objects;
 
 /**
  * @author Sergei Visotsky
  */
-public class ViewMetadataCacheKey extends MetadataCacheKey {
+public class ViewMetadataCacheKey {
     private final String viewName;
     private final String lang;
 

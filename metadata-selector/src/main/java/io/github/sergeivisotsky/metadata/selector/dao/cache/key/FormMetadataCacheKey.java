@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.selector.domain;
+package io.github.sergeivisotsky.metadata.selector.dao.cache.key;
 
 import java.util.Objects;
 
 /**
  * @author Sergei Visotsky
  */
-public class Order {
+public class FormMetadataCacheKey {
+    private final String formName;
+    private final String lang;
 
-    private final String fieldName;
-    private final SortDirection direction;
-
-    public Order(String fieldName, SortDirection direction) {
-        this.fieldName = fieldName;
-        this.direction = direction;
+    public FormMetadataCacheKey(String formName, String lang) {
+        this.formName = formName;
+        this.lang = lang;
     }
 
-    public String getFieldName() {
-        return fieldName;
+    public String getFormName() {
+        return formName;
     }
 
-    public SortDirection getDirection() {
-        return direction;
+    public String getLang() {
+        return lang;
     }
 
     @Override
@@ -47,12 +46,12 @@ public class Order {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Order order = (Order) obj;
-        return fieldName.equals(order.fieldName) && direction.equals(order.direction);
+        FormMetadataCacheKey cacheKey = (FormMetadataCacheKey) obj;
+        return formName.equals(cacheKey.formName) && lang.equals(cacheKey.lang);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fieldName, direction);
+        return Objects.hash(formName, lang);
     }
 }

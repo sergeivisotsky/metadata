@@ -13,7 +13,18 @@ datasource:
   sqlDialect: postgresql
 
 cache:
-  initialCapacity: 100
-  maximumSize: 800
-  expireAfterAccess: 8
-  expirationAfterAccessUnits: HOURS
+  view:
+    initialCapacity: 100
+    maximumSize: 800
+    expireAfterAccess: 8
+    expirationAfterAccessUnits: HOURS
+  form:
+    initialCapacity: 100
+    maximumSize: 800
+    expireAfterAccess: 8
+    expirationAfterAccessUnits: HOURS
+  query:
+    initialCapacity: 100
+    maximumSize: 800
+    expireAfterAccess: 8
+    expirationAfterAccessUnits: HOURS

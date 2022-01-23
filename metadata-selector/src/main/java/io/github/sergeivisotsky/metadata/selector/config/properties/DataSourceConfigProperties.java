@@ -16,14 +16,9 @@
 
 package io.github.sergeivisotsky.metadata.selector.config.properties;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-
 /**
  * @author Sergei Visotsky
  */
-@Configuration
-@ConfigurationProperties(prefix = "datasource")
 public class DataSourceConfigProperties {
 
     private String driverClassName;

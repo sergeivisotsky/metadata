@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 the original author or authors.
+ * Copyright 2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,29 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package io.github.sergeivisotsky.metadata.selector.dao.key;
+package io.github.sergeivisotsky.metadata.selector.dao.cache.key;
 
 import java.util.Objects;
 
+import io.github.sergeivisotsky.metadata.selector.filtering.dto.ViewQuery;
+
 /**
+ * Query ache key.
+ *
  * @author Sergei Visotsky
  */
-public class FormMetadataCacheKey extends MetadataCacheKey {
-    private final String formName;
-    private final String lang;
+public class ViewQueryCacheKey {
 
-    public FormMetadataCacheKey(String formName, String lang) {
-        this.formName = formName;
+    private final String viewName;
+    private final String lang;
+    private final ViewQuery query;
+
+    public ViewQueryCacheKey(String viewName, String lang, ViewQuery query) {
+        this.viewName = viewName;
         this.lang = lang;
+        this.query = query;
     }
 
-    public String getFormName() {
-        return formName;
+    public String getViewName() {
+        return viewName;
     }
 
     public String getLang() {
         return lang;
+    }
+
+    public ViewQuery getQuery() {
+        return query;
     }
 
     @Override
@@ -46,12 +56,13 @@ public class FormMetadataCacheKey extends MetadataCacheKey {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        FormMetadataCacheKey cacheKey = (FormMetadataCacheKey) obj;
-        return formName.equals(cacheKey.formName) && lang.equals(cacheKey.lang);
+        ViewQueryCacheKey that = (ViewQueryCacheKey) obj;
+        return viewName.equals(that.viewName) && lang.equals(that.lang) && query.equals(that.query);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(formName, lang);
+        return Objects.hash(viewName, lang, query);
     }
+
 }

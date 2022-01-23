@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Sergei Visotsky
  */
-public class ViewMetadata extends BaseMetadata {
+public class ViewMetadata {
 
     private Language lang;
     private String viewName;

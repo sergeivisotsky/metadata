@@ -18,7 +18,7 @@ package io.github.sergeivisotsky.metadata.selector.config;
 
 import java.util.List;
 
-import io.github.sergeivisotsky.metadata.selector.config.properties.CacheConfigProperties;
+import io.github.sergeivisotsky.metadata.selector.config.properties.RootCacheConfigProperties;
 import io.github.sergeivisotsky.metadata.selector.dao.ComboBoxMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.FormMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.LayoutMetadataDao;
@@ -26,7 +26,9 @@ import io.github.sergeivisotsky.metadata.selector.dao.LookupMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.NavigationMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.selector.dao.ViewQueryDao;
-import io.github.sergeivisotsky.metadata.selector.dao.impl.CacheableMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.cache.CacheableFormMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.cache.CacheableViewMetadataDao;
+import io.github.sergeivisotsky.metadata.selector.dao.cache.CacheableViewQueryDao;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.ComboBoxMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.FormMetadataDaoImpl;
 import io.github.sergeivisotsky.metadata.selector.dao.impl.LayoutMetadataDaoImpl;
@@ -52,6 +54,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @author Sergei Visotsky
@@ -63,18 +66,11 @@ import org.springframework.context.annotation.Configuration;
 public class MetadataSelectorConfig {
 
     @Bean
-    public ViewMetadataDao metadataDao(@Qualifier("simpleMetadataDao") ViewMetadataDao viewMetadataDao,
-                                       FormMetadataDao formMetadataDao,
-                                       CacheConfigProperties cacheConfigProperties) {
-        return new CacheableMetadataDao(viewMetadataDao, cacheConfigProperties, formMetadataDao);
-    }
-
-    @Bean("simpleMetadataDao")
-    public ViewMetadataDao simpleMetadataDao(MetadataMapper<ViewField> viewFieldMetadataMapper,
-                                             MetadataMapper<ViewMetadata> formMetadataMapper,
-                                             ComboBoxMetadataDao comboBoxMetadataDao,
-                                             LayoutMetadataDao layoutMetadataDao,
-                                             NavigationMetadataDao navigationMetadataDao) {
+    public ViewMetadataDao viewMetadataDao(MetadataMapper<ViewField> viewFieldMetadataMapper,
+                                           MetadataMapper<ViewMetadata> formMetadataMapper,
+                                           ComboBoxMetadataDao comboBoxMetadataDao,
+                                           LayoutMetadataDao layoutMetadataDao,
+                                           NavigationMetadataDao navigationMetadataDao) {
         return new ViewMetadataDaoImpl(viewFieldMetadataMapper, formMetadataMapper, comboBoxMetadataDao, layoutMetadataDao, navigationMetadataDao);
     }
 
@@ -104,7 +100,6 @@ public class MetadataSelectorConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean
     public FormMetadataDao formMetadataDao(MetadataMapper<FormMetadata> formMetadataMapper,
                                            MetadataMapper<FormSection> formSectionMapper,
                                            MetadataMapper<FormField> formFieldMapper,
@@ -113,7 +108,6 @@ public class MetadataSelectorConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean
     public ViewQueryDao viewQueryDao(SQLDialect sqlDialect) {
         return new ViewQueryDaoImpl(sqlDialect);
     }

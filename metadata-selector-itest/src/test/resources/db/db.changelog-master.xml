@@ -4,11 +4,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <include file="./db.changelog-core-master.xml" relativeToChangelogFile="true"/>
-    <include file="./db.changelog-24-08-2021.xml" relativeToChangelogFile="true"/>
+    <!-- core -->
+    <include file="/db/core/db.changelog-master-core.xml"/>
 
     <!-- custom -->
-    <include file="./db.changelog-custom-schema.xml" relativeToChangelogFile="true"/>
-    <include file="./db.changelog-custom-data.xml" relativeToChangelogFile="true"/>
+    <include file="/db/db.changelog-24-08-2021.xml"/>
+    <include file="/db/db.changelog-custom-schema.xml"/>
+    <include file="/db/db.changelog-custom-data.xml"/>
 
 </databaseChangeLog>

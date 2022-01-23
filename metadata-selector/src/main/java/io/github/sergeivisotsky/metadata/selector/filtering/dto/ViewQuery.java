@@ -17,6 +17,7 @@
 package io.github.sergeivisotsky.metadata.selector.filtering.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 import io.github.sergeivisotsky.metadata.selector.domain.Order;
 
@@ -98,5 +99,23 @@ public class ViewQuery {
         public ViewQuery build() {
             return new ViewQuery(filter, offset, limit, orderList);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        ViewQuery viewQuery = (ViewQuery) obj;
+        return filter.equals(viewQuery.filter) && offset.equals(viewQuery.offset) &&
+                limit.equals(viewQuery.limit) && orderList.equals(viewQuery.orderList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filter, offset, limit, orderList);
     }
 }
