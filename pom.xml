@@ -5,25 +5,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.sergeivisotsky.metadata</groupId>
-    <artifactId>metadata-provider-parent</artifactId>
+    <artifactId>metadata-parent</artifactId>
     <version>${revision}</version>
 
-    <name>Metadata Provider</name>
+    <name>Metadata</name>
     <description>Metadata provisioning library</description>
 
     <packaging>pom</packaging>
 
     <modules>
-        <module>metadata-selector</module>
+        <module>metadata-engine</module>
         <module>metadata-deploy</module>
-        <module>metadata-provider-bom</module>
+        <module>metadata-bom</module>
     </modules>
 
     <profiles>
         <profile>
             <id>itest</id>
             <modules>
-                <module>metadata-selector-itest</module>
+                <module>metadata-engine-itest</module>
             </modules>
         </profile>
     </profiles>
@@ -36,9 +36,9 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/sergeivisotsky/metadata-provider</url>
-        <connection>git://github.com/sergeivisotsky/metadata-provider.git</connection>
-        <developerConnection>git@github.com:sergeivisotsky/metadata-provider.git</developerConnection>
+        <url>https://github.com/sergeivisotsky/metadata</url>
+        <connection>git://github.com/sergeivisotsky/metadata.git</connection>
+        <developerConnection>git@github.com:sergeivisotsky/metadata.git</developerConnection>
     </scm>
     <developers>
         <developer>
@@ -54,7 +54,7 @@
     </developers>
 
     <properties>
-        <revision>1.2.0</revision>
+        <revision>1.2.1</revision>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <spring-boot.version>2.6.2</spring-boot.version>
