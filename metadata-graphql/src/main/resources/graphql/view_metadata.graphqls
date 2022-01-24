@@ -1,0 +1,60 @@
+type ViewMetadata {
+    lang: Language
+    viewName: String
+    definition: String
+    offset: Int
+    padding: Int
+    font: String
+    fontSize: Int
+    description: String
+    viewField: [ViewField]
+    layout: [Layout]
+    comboBox: [ComboBox]
+    navigation: Navigation
+}
+
+type ViewField {
+    name: String
+    fieldType: FieldType
+    uiDescription: String
+    uiQueryName: String
+    uiQueryFromText: String
+    uiQueryToText: String
+    uiColumnName: String
+    uiColumnRenderer: String
+    canShowInQuery: Boolean
+    canShowInTable: Boolean
+    showInQuery: Boolean
+    showInTable: Boolean
+    includeInSelect: Boolean
+    orderInQuery: Int
+    orderInTable: Int
+    enabledByDefault: Int
+    uiControl: String
+}
+
+type ComboBox {
+    id: Long
+    codifier: String
+    font: String
+    fontSize: Int
+    weight: Int
+    height: Int
+    displayable: Boolean
+    immutable: Boolean
+    comboContent: [ComboBoxContent]
+}
+
+type Layout {
+    area: Area
+    weight: Int
+    height: Int
+    font: String
+    fontSize: Int
+}
+
+type ComboBoxContent {
+    key: String
+    defaultValue: String
+    comboId: Long
+}

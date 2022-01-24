@@ -1,0 +1,13 @@
+type Navigation {
+    type: NavigationType
+    numberOfElements: Int
+    fixed: Int
+    resizable: Boolean
+    elements: [NavigationElement]
+}
+
+type NavigationElement {
+    code: String
+    value: String
+    isActive: Boolean
+}

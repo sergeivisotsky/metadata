@@ -25,5 +25,5 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
  */
 @Configuration
 @ConditionalOnMissingBean(annotation = ControllerAdvice.class)
-public class SelectorConfig {
+public class EngineConfig {
 }

@@ -17,6 +17,8 @@
         <module>metadata-engine</module>
         <module>metadata-deploy</module>
         <module>metadata-bom</module>
+        <module>metadata-rest</module>
+        <module>metadata-graphql</module>
     </modules>
 
     <profiles>
@@ -63,6 +65,7 @@
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <graphql-codegen-maven-plugin.version>5.4.0</graphql-codegen-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -166,6 +169,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.github.kobylynskyi</groupId>
+                <artifactId>graphql-codegen-maven-plugin</artifactId>
+                <version>${graphql-codegen-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

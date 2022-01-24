@@ -1,0 +1,17 @@
+type ViewQueryResult {
+    fieldList: [ViewField]
+    rowList: [[Object]]
+    orderList: [Order]
+    paging: Paging
+}
+
+type Order {
+    fieldName: String
+    direction: SortDirection
+}
+
+type Paging {
+    totalElements: Long
+    offset: Long
+    hasMoreElements: Boolean
+}

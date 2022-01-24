@@ -1,0 +1,13 @@
+type ChartMetadata {
+    name: String
+    type: ChartType
+    inactiveOpacity: Double
+    gap: Int
+    spacing: Double
+    categories: [Category]
+}
+
+type Category {
+    key: String
+    value: String
+}

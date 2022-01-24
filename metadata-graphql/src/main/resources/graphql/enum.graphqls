@@ -1,0 +1,69 @@
+enum NavigationType {
+    MENU
+    NAV_BAR
+}
+
+enum Language {
+    EN
+    PL
+    RU
+    LV
+}
+
+enum FieldType {
+    INTEGER
+    DECIMAL
+    STRING
+    DATE
+    TIME
+    DATETIME
+}
+
+enum Area {
+    LEFT
+    RIGHT
+    TOP
+    BOTTOM
+    CONTENT
+}
+
+enum LookupType {
+    COMBO,
+    RADIO,
+    VIEW,
+    NONE
+}
+
+enum UIControlType {
+    RADIO,
+    TEXTAREA,
+    TEXT,
+    CHECKBOX,
+    COMBO,
+    DATE,
+    DATETIME,
+    TIME
+}
+
+enum FormSectionCardinality {
+    SINGLE,
+    MULTIPLE
+}
+
+enum ChartType {
+    PIE,
+    BAR,
+    LINE,
+    AREA,
+    BUBBLE
+}
+
+enum NavigationType {
+    MENU,
+    NAV_BAR
+}
+
+enum SortDirection {
+    ASC,
+    DESC
+}

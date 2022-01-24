@@ -1,0 +1,14 @@
+type LookupHolder {
+    name: String
+    weight: Int
+    height: Int
+    lookupMetadata: [LookupMetadata]
+}
+
+
+type LookupMetadata {
+    code: String
+    lang: String
+    defaultValue: String
+    displayValue: String
+}

@@ -17,6 +17,16 @@
         <dependencies>
             <dependency>
                 <groupId>io.github.sergeivisotsky.metadata</groupId>
+                <artifactId>metadata-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.sergeivisotsky.metadata</groupId>
+                <artifactId>metadata-graphql</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.sergeivisotsky.metadata</groupId>
                 <artifactId>metadata-engine</artifactId>
                 <version>${project.version}</version>
             </dependency>

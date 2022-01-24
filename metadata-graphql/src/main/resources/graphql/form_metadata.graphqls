@@ -1,0 +1,43 @@
+type FormMetadata {
+    id: Long
+    name: String
+    uiName: String
+    uiDescription: String
+    sections: [FormSection]
+}
+
+type FormSection {
+    name: String
+    parentSectionName: String
+    uiName: String
+    uiDescription: String
+    orderInForm: Int
+    cardinality: FormSectionCardinality
+    fields: [FormField]
+    subSections: [FormSection]
+}
+
+type FormField {
+    name: String
+    type: FieldType
+    length: Int
+    decimalScale: Int
+    editable: Boolean
+    formSectionName: String
+    uiControlType: UIControlType
+    uiName: String
+    uiDescription: String
+    hasLanguage: Boolean
+    order: Int
+    controlsDynamicChange: Boolean
+    lookupInfo: LookupInfo
+}
+
+type LookupInfo {
+    lookupType: LookupType
+    viewName: String
+    valueField: String
+    textInField: String
+    isTextEnabled: Boolean
+    comboTextTemplate: String
+}
