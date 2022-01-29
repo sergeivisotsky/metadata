@@ -19,20 +19,8 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java-extended-scalars</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>graphql-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphiql-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -80,9 +68,6 @@
                                     ${project.basedir}/src/main/resources/graphql/navigation_metadata.graphqls
                                 </graphqlSchemaPath>
                                 <graphqlSchemaPath>
-                                    ${project.basedir}/src/main/resources/graphql/view_query.graphqls
-                                </graphqlSchemaPath>
-                                <graphqlSchemaPath>
                                     ${project.basedir}/src/main/resources/graphql/lookup.graphqls
                                 </graphqlSchemaPath>
                                 <graphqlSchemaPath>
@@ -106,7 +91,7 @@
                                 <Double>java.lang.Double</Double>
                                 <Object>java.lang.Object</Object>
                             </customTypesMapping>
-                            <modelNameSuffix>TO</modelNameSuffix>
+                            <modelNameSuffix>Dto</modelNameSuffix>
                             <parentInterfaces>
                                 <queryResolver>graphql.kickstart.tools.GraphQLQueryResolver</queryResolver>
                                 <resolver><![CDATA[graphql.kickstart.tools.GraphQLResolver<{{TYPE}}>]]></resolver>

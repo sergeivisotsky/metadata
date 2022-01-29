@@ -15,7 +15,7 @@
  */
 package io.github.sergeivisotsky.metadata.engine.graphql.resolver;
 
-import io.github.sergeivisotsky.metadata.graphql.model.FormMetadataTO;
+import io.github.sergeivisotsky.metadata.graphql.model.FormMetadataDto;
 import io.github.sergeivisotsky.metadata.graphql.resolver.GetFormMetadataQueryResolver;
 
 /**
@@ -23,7 +23,7 @@ import io.github.sergeivisotsky.metadata.graphql.resolver.GetFormMetadataQueryRe
  */
 public class FormMetadataQueryResolver implements GetFormMetadataQueryResolver {
     @Override
-    public FormMetadataTO getFormMetadata(String lang, String formName) throws Exception {
+    public FormMetadataDto getFormMetadata(String lang, String formName) throws Exception {
         return null;
     }
 }

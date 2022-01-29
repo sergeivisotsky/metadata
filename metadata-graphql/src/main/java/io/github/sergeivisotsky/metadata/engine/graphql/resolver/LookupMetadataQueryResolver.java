@@ -15,7 +15,7 @@
  */
 package io.github.sergeivisotsky.metadata.engine.graphql.resolver;
 
-import io.github.sergeivisotsky.metadata.graphql.model.LookupHolderTO;
+import io.github.sergeivisotsky.metadata.graphql.model.LookupHolderDto;
 import io.github.sergeivisotsky.metadata.graphql.resolver.GetLookupMetadataQueryResolver;
 
 /**
@@ -23,7 +23,7 @@ import io.github.sergeivisotsky.metadata.graphql.resolver.GetLookupMetadataQuery
  */
 public class LookupMetadataQueryResolver implements GetLookupMetadataQueryResolver {
     @Override
-    public LookupHolderTO getLookupMetadata(String lookupName, String lang) throws Exception {
+    public LookupHolderDto getLookupMetadata(String lookupName, String lang) throws Exception {
         return null;
     }
 }

@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.sergeivisotsky.metadata.engine.graphql.resolver.config;
+package io.github.sergeivisotsky.metadata.engine.graphql.config;
 
 import io.github.sergeivisotsky.metadata.engine.graphql.resolver.ChartMetadataQueryResolver;
 import io.github.sergeivisotsky.metadata.engine.graphql.resolver.FormMetadataQueryResolver;
 import io.github.sergeivisotsky.metadata.engine.graphql.resolver.LookupMetadataQueryResolver;
 import io.github.sergeivisotsky.metadata.engine.graphql.resolver.ViewMetadataQueryResolver;
+import io.github.sergeivisotsky.metadata.engine.graphql.resolver.ViewQueryGraphQLQueryResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -31,6 +32,11 @@ public class ResolverConfig {
     @Bean
     public ViewMetadataQueryResolver viewMetadataQueryResolver() {
         return new ViewMetadataQueryResolver();
+    }
+
+    @Bean
+    public ViewQueryGraphQLQueryResolver viewQueryGraphQLQueryResolver() {
+        return new ViewQueryGraphQLQueryResolver();
     }
 
     @Bean
@@ -47,5 +53,4 @@ public class ResolverConfig {
     public ChartMetadataQueryResolver chartMetadataQueryResolver() {
         return new ChartMetadataQueryResolver();
     }
-
 }

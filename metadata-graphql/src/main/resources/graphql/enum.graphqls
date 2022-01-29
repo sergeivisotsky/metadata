@@ -58,11 +58,6 @@ enum ChartType {
     BUBBLE
 }
 
-enum NavigationType {
-    MENU,
-    NAV_BAR
-}
-
 enum SortDirection {
     ASC,
     DESC

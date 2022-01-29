@@ -15,16 +15,15 @@
  */
 package io.github.sergeivisotsky.metadata.engine.graphql.resolver;
 
-import io.github.sergeivisotsky.metadata.graphql.model.ViewMetadataDto;
-import io.github.sergeivisotsky.metadata.graphql.resolver.GetViewMetadataQueryResolver;
+import io.github.sergeivisotsky.metadata.graphql.model.ViewQueryResultResponseDto;
+import io.github.sergeivisotsky.metadata.graphql.resolver.QueryQueryResolver;
 
 /**
  * @author Sergei Visotsky
  */
-public class ViewMetadataQueryResolver implements GetViewMetadataQueryResolver {
+public class ViewQueryGraphQLQueryResolver implements QueryQueryResolver {
     @Override
-    public ViewMetadataDto getViewMetadata(String viewName, String lang) throws Exception {
+    public ViewQueryResultResponseDto query(String viewName, String lang) throws Exception {
         return null;
     }
-
 }

@@ -15,7 +15,7 @@
  */
 package io.github.sergeivisotsky.metadata.engine.graphql.resolver;
 
-import io.github.sergeivisotsky.metadata.graphql.model.ChartMetadataTO;
+import io.github.sergeivisotsky.metadata.graphql.model.ChartMetadataDto;
 import io.github.sergeivisotsky.metadata.graphql.resolver.GetChartMetadataQueryResolver;
 
 /**
@@ -24,7 +24,7 @@ import io.github.sergeivisotsky.metadata.graphql.resolver.GetChartMetadataQueryR
 public class ChartMetadataQueryResolver implements GetChartMetadataQueryResolver {
 
     @Override
-    public ChartMetadataTO getChartMetadata(String chartName) throws Exception {
+    public ChartMetadataDto getChartMetadata(String chartName) throws Exception {
         return null;
     }
 }
