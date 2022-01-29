@@ -19,6 +19,26 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-extended-scalars</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphiql-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
@@ -51,6 +71,9 @@
                         <configuration>
                             <graphqlSchemaPaths>
                                 <graphqlSchemaPath>
+                                    ${project.basedir}/src/main/resources/graphql/query.graphqls
+                                </graphqlSchemaPath>
+                                <graphqlSchemaPath>
                                     ${project.basedir}/src/main/resources/graphql/view_metadata.graphqls
                                 </graphqlSchemaPath>
                                 <graphqlSchemaPath>
@@ -76,18 +99,18 @@
                                 </graphqlSchemaPath>
                             </graphqlSchemaPaths>
                             <outputDir>${project.build.directory}/generated-sources/graphql</outputDir>
-                            <apiPackageName>io.github.sergeivisotsky.metadata.graphql.api</apiPackageName>
+                            <apiPackageName>io.github.sergeivisotsky.metadata.graphql.resolver</apiPackageName>
                             <modelPackageName>io.github.sergeivisotsky.metadata.graphql.model</modelPackageName>
                             <customTypesMapping>
-                                <DateTime>java.time.LocalDateTime</DateTime>
+                                <Long>java.lang.Long</Long>
+                                <Double>java.lang.Double</Double>
+                                <Object>java.lang.Object</Object>
                             </customTypesMapping>
                             <modelNameSuffix>TO</modelNameSuffix>
-                            <!--<parentInterfaces>
+                            <parentInterfaces>
                                 <queryResolver>graphql.kickstart.tools.GraphQLQueryResolver</queryResolver>
-                                <mutationResolver>graphql.kickstart.tools.GraphQLMutationResolver</mutationResolver>
-                                <subscriptionResolver>graphql.kickstart.tools.GraphQLSubscriptionResolver</subscriptionResolver>
                                 <resolver><![CDATA[graphql.kickstart.tools.GraphQLResolver<{{TYPE}}>]]></resolver>
-                            </parentInterfaces>-->
+                            </parentInterfaces>
                         </configuration>
                     </execution>
                 </executions>

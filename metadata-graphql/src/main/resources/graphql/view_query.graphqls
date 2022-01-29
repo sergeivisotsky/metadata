@@ -1,3 +1,9 @@
+type ViewQueryResultResponse {
+    fieldNames: [String]
+    content: [[Object]]
+    orderList: [Order]
+    paging: Paging
+}
 type ViewQueryResult {
     fieldList: [ViewField]
     rowList: [[Object]]

@@ -1,0 +1,11 @@
+schema {
+    query: Query
+}
+
+type Query {
+    getViewMetadata(viewName: String!, lang: String!): ViewMetadata
+    query(viewName: String!, lang: String!): ViewQueryResultResponse
+    getFormMetadata(lang: String!, formName: String!): FormMetadata
+    getLookupMetadata(lookupName: String!, lang: String!): LookupHolder
+    getChartMetadata(chartName: String!): ChartMetadata
+}
