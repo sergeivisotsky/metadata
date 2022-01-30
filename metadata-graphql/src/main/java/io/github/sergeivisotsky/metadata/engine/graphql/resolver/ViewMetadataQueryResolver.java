@@ -15,6 +15,7 @@
  */
 package io.github.sergeivisotsky.metadata.engine.graphql.resolver;
 
+import io.github.sergeivisotsky.metadata.engine.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.graphql.model.ViewMetadataDto;
 import io.github.sergeivisotsky.metadata.graphql.resolver.GetViewMetadataQueryResolver;
 
@@ -22,8 +23,19 @@ import io.github.sergeivisotsky.metadata.graphql.resolver.GetViewMetadataQueryRe
  * @author Sergei Visotsky
  */
 public class ViewMetadataQueryResolver implements GetViewMetadataQueryResolver {
+
+    private final ViewMetadataDao metadataDao;
+
+    public ViewMetadataQueryResolver(ViewMetadataDao metadataDao) {
+        this.metadataDao = metadataDao;
+    }
+
     @Override
     public ViewMetadataDto getViewMetadata(String viewName, String lang) throws Exception {
+        // TODO: Here should be mapper...
+        //  Mapper should be customizable...
+        //  Meaning, should be in preconfig and interface here.
+//        return metadataDao.getViewMetadata(viewName, lang);
         return null;
     }
 
