@@ -27,6 +27,14 @@
             <artifactId>validation-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
@@ -47,58 +55,6 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>io.github.kobylynskyi</groupId>
-                <artifactId>graphql-codegen-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <graphqlSchemaPaths>
-                                <graphqlSchemaPath>
-                                    ${project.basedir}/src/main/resources/graphql/query.graphqls
-                                </graphqlSchemaPath>
-                                <graphqlSchemaPath>
-                                    ${project.basedir}/src/main/resources/graphql/view_metadata.graphqls
-                                </graphqlSchemaPath>
-                                <graphqlSchemaPath>
-                                    ${project.basedir}/src/main/resources/graphql/navigation_metadata.graphqls
-                                </graphqlSchemaPath>
-                                <graphqlSchemaPath>
-                                    ${project.basedir}/src/main/resources/graphql/lookup.graphqls
-                                </graphqlSchemaPath>
-                                <graphqlSchemaPath>
-                                    ${project.basedir}/src/main/resources/graphql/form_metadata.graphqls
-                                </graphqlSchemaPath>
-                                <graphqlSchemaPath>
-                                    ${project.basedir}/src/main/resources/graphql/view_metadata.graphqls
-                                </graphqlSchemaPath>
-                                <graphqlSchemaPath>
-                                    ${project.basedir}/src/main/resources/graphql/enum.graphqls
-                                </graphqlSchemaPath>
-                                <graphqlSchemaPath>
-                                    ${project.basedir}/src/main/resources/graphql/chart_metadata.graphqls
-                                </graphqlSchemaPath>
-                            </graphqlSchemaPaths>
-                            <outputDir>${project.build.directory}/generated-sources/graphql</outputDir>
-                            <apiPackageName>io.github.sergeivisotsky.metadata.graphql.resolver</apiPackageName>
-                            <modelPackageName>io.github.sergeivisotsky.metadata.graphql.model</modelPackageName>
-                            <customTypesMapping>
-                                <Long>java.lang.Long</Long>
-                                <Double>java.lang.Double</Double>
-                                <Object>java.lang.Object</Object>
-                            </customTypesMapping>
-                            <modelNameSuffix>Dto</modelNameSuffix>
-                            <parentInterfaces>
-                                <queryResolver>graphql.kickstart.tools.GraphQLQueryResolver</queryResolver>
-                                <resolver><![CDATA[graphql.kickstart.tools.GraphQLResolver<{{TYPE}}>]]></resolver>
-                            </parentInterfaces>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
