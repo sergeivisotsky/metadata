@@ -15,6 +15,8 @@
  */
 package io.github.sergeivisotsky.metadata.engine.graphql.config;
 
+import javax.annotation.Nonnull;
+
 import graphql.scalars.ExtendedScalars;
 import graphql.schema.Coercing;
 import graphql.schema.GraphQLScalarType;
@@ -46,17 +48,19 @@ public class ScalarConfig {
                 .description("Double scalar")
                 .coercing(new Coercing<Double, Double>() {
                     @Override
-                    public Double serialize(Object input) {
+                    public Double serialize(@Nonnull Object input) {
                         return (Double) input;
                     }
 
                     @Override
-                    public Double parseValue(Object input) {
+                    @Nonnull
+                    public Double parseValue(@Nonnull Object input) {
                         return (Double) input;
                     }
 
                     @Override
-                    public Double parseLiteral(Object input) {
+                    @Nonnull
+                    public Double parseLiteral(@Nonnull Object input) {
                         return (Double) input;
                     }
                 }).build();
