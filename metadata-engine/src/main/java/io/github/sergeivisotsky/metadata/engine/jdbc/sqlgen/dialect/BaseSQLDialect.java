@@ -146,7 +146,7 @@ abstract class BaseSQLDialect implements SQLDialect {
     }
 
     protected String createOrderClause(List<Order> orderList, Map<String, String> fieldNameToFilterColumnMap) {
-        if (orderList.isEmpty()) {
+        if (orderList == null || orderList.isEmpty()) {
             return "";
         }
         StringBuilder buf = new StringBuilder("ORDER BY");
