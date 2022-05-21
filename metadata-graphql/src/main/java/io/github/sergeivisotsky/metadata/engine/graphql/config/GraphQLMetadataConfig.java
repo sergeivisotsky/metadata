@@ -15,7 +15,7 @@
  */
 package io.github.sergeivisotsky.metadata.engine.graphql.config;
 
-import io.github.sergeivisotsky.metadata.engine.graphql.PageableGraphQLParser;
+import io.github.sergeivisotsky.metadata.engine.graphql.filtering.GraphQLViewQueryParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,8 +28,8 @@ import org.springframework.context.annotation.Configuration;
 public class GraphQLMetadataConfig {
 
     @Bean
-    public PageableGraphQLParser pageableGraphQLParser() {
-        return new PageableGraphQLParser();
+    public GraphQLViewQueryParser pageableGraphQLParser() {
+        return new GraphQLViewQueryParser();
     }
 
 }

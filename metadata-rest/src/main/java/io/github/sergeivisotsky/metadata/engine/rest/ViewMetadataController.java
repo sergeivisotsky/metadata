@@ -24,7 +24,7 @@ import io.github.sergeivisotsky.metadata.engine.dao.ViewQueryDao;
 import io.github.sergeivisotsky.metadata.engine.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.engine.domain.ViewQueryResult;
 import io.github.sergeivisotsky.metadata.engine.exception.UrlParseException;
-import io.github.sergeivisotsky.metadata.engine.filtering.UrlViewQueryParser;
+import io.github.sergeivisotsky.metadata.engine.rest.filtering.UrlViewQueryParser;
 import io.github.sergeivisotsky.metadata.engine.filtering.dto.ViewQuery;
 import io.github.sergeivisotsky.metadata.engine.rest.dto.ViewQueryResultResponse;
 import org.apache.commons.lang3.exception.ExceptionUtils;

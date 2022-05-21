@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.sergeivisotsky.metadata.engine.graphql;
+package io.github.sergeivisotsky.metadata.engine.graphql.filtering;
 
 import java.util.Map;
 
@@ -27,7 +27,7 @@ import io.github.sergeivisotsky.metadata.engine.filtering.dto.ViewQuery;
  *
  * @author Sergejs Visockis
  */
-public class PageableGraphQLParser extends ViewQueryParser {
+public class GraphQLViewQueryParser extends ViewQueryParser {
 
 
     @Override
