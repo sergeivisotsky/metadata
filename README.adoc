@@ -5,10 +5,10 @@ A UI metadata provider is a framework to build a metadata driven UI.
 == Description
 This approach is especially useful in project teams with a high back-end or DBA competence rather than UI.
 
-In general provides an element alignment by invocation of a set of REST endpoints of GraphQL queries that provides all
+In general provides an element alignment by invocation of a set of REST endpoints or GraphQL queries that provide all
 data required like cardinality, language, font size, and font itself.
 
-Main point is that library itself aims to provide a configurable metadata engine and a set of endpoints in case of REST
+Main point is that Framework itself aims to provide a configurable metadata engine and a set of endpoints in case of REST
 or queries in case of GraphQL interface at the same time UI should be written from scratch taking into account
 corresponding use case specifics to be able to properly handle a metadata and construct itself based on it.
 
