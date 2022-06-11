@@ -502,7 +502,12 @@ as per wish/requirements in each particular case.
 
 [[supported_dbs]]
 === Supported databases
-Any relational database is supported.
+Supported RDBMS:
+* PostgreSQL
+* Microsoft SQL Server
+* Oracle
+* MySQL
+
 However, NoSQL are not supported at the moment.
 
 [[query_api]]
