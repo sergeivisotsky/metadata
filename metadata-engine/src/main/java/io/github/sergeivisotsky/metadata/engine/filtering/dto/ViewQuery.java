@@ -110,8 +110,20 @@ public class ViewQuery {
             return false;
         }
         ViewQuery viewQuery = (ViewQuery) obj;
-        return filter.equals(viewQuery.filter) && offset.equals(viewQuery.offset) &&
-                limit.equals(viewQuery.limit) && orderList.equals(viewQuery.orderList);
+        return nullSafeEquals(filter, viewQuery.filter) &&
+                nullSafeEquals(offset, viewQuery.offset) &&
+                nullSafeEquals(limit, viewQuery.limit) &&
+                nullSafeEquals(orderList, viewQuery.orderList);
+    }
+
+    private static boolean nullSafeEquals(Object o1, Object o2) {
+        if (o1 == null && o2 == null) {
+            return true;
+        }
+        if (o1 == null || o2 == null) {
+            return false;
+        }
+        return o1.equals(o2);
     }
 
     @Override
