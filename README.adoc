@@ -5,12 +5,12 @@ A UI metadata provider is a framework to build a metadata driven UI.
 == Description
 This approach is especially useful in project teams with a high back-end or DBA competence rather than UI.
 
-In general provides an element alignment by invocation of a single endpoint which provides all data required like
-cardinality, language, font size, and font itself.
+In general provides an element alignment by invocation of a set of REST endpoints or GraphQL queries that provide all
+data required like cardinality, language, font size, and font itself.
 
-Main point is that library itself aims to provide a configurable metadata engine and a set of endpoints at the same time
-UI should be written from scratch taking into account corresponding use case specifics to be able to properly handle a
-metadata and construct itself based on it.
+Main point is that Framework itself aims to provide a configurable metadata engine and a set of endpoints in case of REST
+or queries in case of GraphQL interface at the same time UI should be written from scratch taking into account
+corresponding use case specifics to be able to properly handle a metadata and construct itself based on it.
 
 == Table of contents
 . <<getting_started,Get started>>
@@ -25,7 +25,7 @@ metadata and construct itself based on it.
 . <<db_schema,Database schema>>
 .. <<db_graphic_representation,Graphic representation>>
 .. <<db_extension,Database extension>>
-.. <<accepted_dbs,Accepted databases>>
+.. <<supported_dbs,Supported databases>>
 . <<query_api,Metadata Query API>>
 . <<query_api_db_structure,Metadata Query API database structure>>
 . <<chart_metadata,Chart metadata configuration>>
@@ -38,47 +38,15 @@ metadata and construct itself based on it.
 Metadata Engine supports two interfaces REST and GraphQL depending on particular UI architecture and overall client design.
 
 To get started with a usage of metadata provider:
-* REST representation preconfigured https://github.com/sergeivisotsky/metadata-preconfig-rest[project]
-* GraphQL representation preconfigured https://github.com/sergeivisotsky/metadata-preconfig-graphql[project]
+
+* REST interface preconfigured https://github.com/sergeivisotsky/metadata-preconfig-rest[project]
+* GraphQL interface preconfigured https://github.com/sergeivisotsky/metadata-preconfig-graphql[project]
 
 and press `Use this template` also include all branches so that starter had all versions, and it would be more convenient so select a needed one.
 
-To use a metadata provider framework without a starter just add the following maven dependency to the main application:
+To use a metadata provider framework without a starter just add the following BOM to the main application under `dependencyManagement` section:
 
-In case of REST representation:
-
-[source,html]
-----
-<dependency>
-    <groupId>io.github.sergeivisotsky.metadata</groupId>
-    <artifactId>metadata-rest</artifactId>
-</dependency>
-----
-
-In case of GraphQL representation:
-
-[source,html]
-----
-<dependency>
-    <groupId>io.github.sergeivisotsky.metadata</groupId>
-    <artifactId>metadata-graphql</artifactId>
-</dependency>
-----
-
-And the following dependency to a deployment application:
-
-[source,html]
-----
-<dependency>
-    <groupId>io.github.sergeivisotsky.metadata</groupId>
-    <artifactId>metadata-deploy</artifactId>
-</dependency>
-----
-
-It is also highly recommended adding library starter to have a compatible version of both dependencies to
-your `dependencyManegemnt` section of parent POM:
-
-[source,html]
+[source,xml]
 ----
 <dependency>
     <groupId>io.github.sergeivisotsky.metadata</groupId>
@@ -89,7 +57,13 @@ your `dependencyManegemnt` section of parent POM:
 </dependency>
 ----
 
-It will be loaded from Maven central.
+The following BOM itself contains all needed versions of all Metadata Framework dependencies that may be used.
+
+Dependencies that it contains:
+
+* metadata-rest - metadata REST based interface
+* metadata-graphql - metadata GraphQL based interface
+* metadata-deploy - metadata Liquibase deployment scripts (Out-Of-The-Box metadata engine database schema)
 
 [[extension_points]]
 == Extension points
@@ -308,13 +282,19 @@ From the first glance this is more than enough, however for a delivery project s
 add an additional structure which will represent some mysterious footer data.
 
 What we need is to do the following steps:
+
 1. Create a corresponding database table/new fields by means of adjusting deployment Liquibase scripts
+
 2. Add a new structure in preconfigured domain model like `ExtendedViewMetadata` or create a completely new one which will be a part of form metadata
+
 3. Adjust `ViewMetadataMapper` or create a completely new mapper in case of the new requirements
 
-However lets move to our example of mysterious footer...
+However, lets move to our example of mysterious footer...
+
 We have a requirement that:
+
 1. Web page footer should be generated from metadata
+
 2. Should be a bumped up in the response of OOTBS metadata endpoint
 
 [[first_step]]
@@ -385,7 +365,9 @@ public class ExtendedViewMetadata extends ViewMetadata {
 [[third_step]]
 === Third step
 Adjust a corresponding mapper. `ViewMetadataMapper` in our case.
+
 1. SQL should be adjusted
+
 2. Result set extraction should be adjusted
 
 [source,java]
@@ -480,7 +462,10 @@ In the result you can see the following new section in metadata endpoint
 }
 ----
 
-A source code of this demo can be found in the following https://github.com/sergeivisotsky/metadata-provider-wiki[repository].
+For a cases when it is required to create a completely new metadata endpoint or GraphQL query with a new database
+table a corresponding DAO class should be implemented.
+
+Each new DAO class should extend an `AbstractMetadataDao` which hold an encapsulated Spring's `NamedParameterJdbcTemplate` API invocation.
 
 [[db_schema]]
 == Database schema
@@ -515,9 +500,14 @@ It is possible to extend a database schema. For an extension purposes and databa
 Out of the box solution is written in XML representation however YAML representation is also acceptable
 as per wish/requirements in each particular case.
 
-[[accepted_dbs]]
-=== Accepted databases
-Any relational database is supported.
+[[supported_dbs]]
+=== Supported databases
+Supported RDBMS:
+* PostgreSQL
+* Microsoft SQL Server
+* Oracle
+* MySQL
+
 However, NoSQL are not supported at the moment.
 
 [[query_api]]
@@ -672,14 +662,18 @@ To create a chart metadata schema add the following liquibase changelog files to
 GraphQL based preconfigured project by itself does not include any specific adjustments except a GraphQL schemas located
 under `classpath:graphql/` directory.
 
-As an example moving back to the following extension example <<extension_points>.
+As an example moving back to the following extension example <<extension_points,extension points>>.
 
 In case of GraphQL representation it would be required to do exactly same changes e.g.
+
 * New column creation in database schema using Liquibase script
+
 * Extended domain model adjustments
+
 * Mapper adjustments
 
 Plus:
+
 * GraphQL schema adjustments
 
 GraphQL schema adjustment:

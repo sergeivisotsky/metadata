@@ -12,53 +12,47 @@
             <column name="ui_description" value="This is the main form"/>
         </insert>
         <insert tableName="form_metadata">
-            <column name="id" value="1"/>
             <column name="name" value="feedback"/>
         </insert>
         <insert tableName="form_section">
-            <column name="id" value="1"/>
             <column name="name" value="feedback"/>
             <column name="order_in_form" value="1"/>
             <column name="cardinality" value="SINGLE"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="form_metadata_id" valueComputed="(SELECT id FROM form_metadata WHERE name = 'feedback')"/>
         </insert>
         <insert tableName="form_section">
-            <column name="id" value="2"/>
             <column name="name" value="secondary_section"/>
             <column name="order_in_form" value="1"/>
             <column name="cardinality" value="SINGLE"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="form_metadata_id" valueComputed="(SELECT id FROM form_metadata WHERE name = 'feedback')"/>
         </insert>
         <insert tableName="form_section">
-            <column name="id" value="3"/>
             <column name="name" value="third_section"/>
             <column name="order_in_form" value="1"/>
             <column name="cardinality" value="SINGLE"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="form_metadata_id" valueComputed="(SELECT id FROM form_metadata WHERE name = 'feedback')"/>
         </insert>
         <insert tableName="lookup_info">
-            <column name="id" value="1"/>
             <column name="lookup_type" value="RADIO"/>
             <column name="view_name" value="main"/>
             <column name="value_field" value="main_view_field"/>
             <column name="text_in_field" value="main text in field"/>
-            <column name="is_text_enabled" value="true"/>
+            <column name="is_text_enabled" valueBoolean="true"/>
             <column name="combo_text_template" value="some value"/>
         </insert>
         <insert tableName="form_field">
-            <column name="id" value="1"/>
             <column name="name" value="feedback"/>
             <column name="type" value="INTEGER"/>
             <column name="length" value="150"/>
             <column name="decimal_scale" value="80"/>
-            <column name="editable" value="false"/>
+            <column name="editable" valueBoolean="false"/>
             <column name="form_section_name" value="feedback"/>
             <column name="ui_control_type" value="CHECKBOX"/>
-            <column name="has_language" value="true"/>
+            <column name="has_language" valueBoolean="true"/>
             <column name="order" value="3"/>
-            <column name="controls_dynamic_change" value="true"/>
-            <column name="lookup_info_id" value="1"/>
-            <column name="form_metadata_id" value="1"/>
+            <column name="controls_dynamic_change" valueBoolean="true"/>
+            <column name="lookup_info_id" valueComputed="(SELECT id FROM lookup_info WHERE view_name = 'main')"/>
+            <column name="form_metadata_id" valueComputed="(SELECT id FROM form_metadata WHERE name = 'feedback')"/>
         </insert>
     </changeSet>
     <changeSet id="2" author="svisockis">
@@ -76,14 +70,33 @@
         </insert>
     </changeSet>
     <changeSet id="3" author="svisockis">
-        <update tableName="form_section">
-            <column name="parent_section_id" value="1"/>
-            <where>id = 2</where>
-        </update>
-        <update tableName="form_section">
-            <column name="parent_section_id" value="1"/>
-            <where>id = 3</where>
-        </update>
+        <sql dbms="postgres,mssql,oracle"><![CDATA[
+            UPDATE form_section
+            SET parent_section_id = (SELECT id
+                                     FROM form_section
+                                     WHERE name = 'feedback')
+            WHERE name = 'secondary_section';
+
+
+            UPDATE form_section
+            SET parent_section_id = (SELECT id
+                                     FROM form_section
+                                     WHERE name = 'feedback')
+            WHERE name = 'third_section';
+            ]]>
+        </sql>
+        <sql dbms="mysql"><![CDATA[
+            UPDATE form_section
+            SET parent_section_id = (SELECT fs.id
+                                     FROM (SELECT * FROM form_section f WHERE f.name = 'feedback') AS fs)
+            WHERE name = 'secondary_section';
+
+            UPDATE form_section
+            SET parent_section_id = (SELECT fs.id
+                                     FROM (SELECT * FROM form_section f WHERE f.name = 'feedback') AS fs)
+            WHERE name = 'third_section';
+            ]]>
+        </sql>
     </changeSet>
 
 </databaseChangeLog>

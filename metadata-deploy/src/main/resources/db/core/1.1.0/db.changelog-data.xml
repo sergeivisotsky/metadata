@@ -14,14 +14,14 @@
             <column name="ui_query_to_text" value="some query to text"/>
             <column name="ui_column_name" value="some_name"/>
             <column name="ui_column_renderer" value="some renderer"/>
-            <column name="can_show_in_query" value="true"/>
-            <column name="can_show_in_table" value="false"/>
-            <column name="show_in_query" value="true"/>
-            <column name="show_in_table" value="false"/>
-            <column name="include_in_select" value="true"/>
+            <column name="can_show_in_query" valueBoolean="true"/>
+            <column name="can_show_in_table" valueBoolean="false"/>
+            <column name="show_in_query" valueBoolean="true"/>
+            <column name="show_in_table" valueBoolean="false"/>
+            <column name="include_in_select" valueBoolean="true"/>
             <column name="order_in_query" value="1"/>
             <column name="order_in_table" value="3"/>
-            <where>id = 1</where>
+            <where>name = 'b_column_two'</where>
         </update>
     </changeSet>
 
