@@ -31,7 +31,7 @@
             <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="key" type="java.sql.Types.VARCHAR(10)"/>
+            <column name="content_key" type="java.sql.Types.VARCHAR(10)"/>
             <column name="default_value" type="java.sql.Types.VARCHAR(45)"/>
         </createTable>
         <createTable tableName="combo_box_and_content_relation">
@@ -56,7 +56,6 @@
 
     <changeSet id="2" author="svisockis">
         <insert tableName="combo_box">
-            <column name="id" value="1"/>
             <column name="codifier" value="CD_001"/>
             <column name="font" value="Times New Roman"/>
             <column name="font_size" value="12"/>
@@ -64,40 +63,35 @@
             <column name="height" value="20"/>
             <column name="displayable" value="true"/>
             <column name="immutable" value="false"/>
-            <column name="view_metadata_id" value="1"/>
+            <column name="view_metadata_id" valueComputed="(SELECT id FROM view_metadata WHERE view_name = 'main')"/>
         </insert>
         <insert tableName="combo_box_content">
-            <column name="id" value="1"/>
-            <column name="key" value="initial"/>
+            <column name="content_key" value="initial"/>
             <column name="default_value" value="Some initial value"/>
         </insert>
         <insert tableName="combo_box_content">
-            <column name="id" value="2"/>
-            <column name="key" value="secondary"/>
+            <column name="content_key" value="secondary"/>
             <column name="default_value" value="Some secondary value"/>
         </insert>
         <insert tableName="combo_box_and_content_relation">
-            <column name="box_id" value="1"/>
-            <column name="box_content_id" value="1"/>
+            <column name="box_id" valueComputed="(SELECT id FROM combo_box WHERE codifier = 'CD_001')"/>
+            <column name="box_content_id" valueComputed="(SELECT id FROM combo_box_content WHERE content_key = 'initial')"/>
         </insert>
         <insert tableName="combo_box_and_content_relation">
-            <column name="box_id" value="1"/>
-            <column name="box_content_id" value="2"/>
+            <column name="box_id" valueComputed="(SELECT id FROM combo_box WHERE codifier = 'CD_001')"/>
+            <column name="box_content_id" valueComputed="(SELECT id FROM combo_box_content WHERE content_key = 'secondary')"/>
         </insert>
     </changeSet>
     <changeSet id="3" author="svisockis">
         <insert tableName="combo_box_content">
-            <column name="id" value="3"/>
-            <column name="key" value="someThird"/>
+            <column name="content_key" value="someThird"/>
             <column name="default_value" value="Some third value"/>
         </insert>
         <insert tableName="combo_box_and_content_relation">
-            <column name="box_id" value="1"/>
-            <column name="box_content_id" value="3"/>
+            <column name="box_id" valueComputed="(SELECT id FROM combo_box WHERE codifier = 'CD_001')"/>
+            <column name="box_content_id" valueComputed="(SELECT id FROM combo_box_content WHERE content_key = 'someThird')"/>
         </insert>
-
         <insert tableName="combo_box">
-            <column name="id" value="2"/>
             <column name="codifier" value="CD_002"/>
             <column name="font" value="Times New Roman"/>
             <column name="font_size" value="12"/>
@@ -105,16 +99,15 @@
             <column name="height" value="20"/>
             <column name="displayable" value="true"/>
             <column name="immutable" value="false"/>
-            <column name="view_metadata_id" value="1"/>
+            <column name="view_metadata_id" valueComputed="(SELECT id FROM view_metadata WHERE view_name = 'main')"/>
         </insert>
         <insert tableName="combo_box_content">
-            <column name="id" value="4"/>
-            <column name="key" value="someThing"/>
+            <column name="content_key" value="someThing"/>
             <column name="default_value" value="Some thing value"/>
         </insert>
         <insert tableName="combo_box_and_content_relation">
-            <column name="box_id" value="2"/>
-            <column name="box_content_id" value="4"/>
+            <column name="box_id" valueComputed="(SELECT id FROM combo_box WHERE codifier = 'CD_001')"/>
+            <column name="box_content_id" valueComputed="(SELECT id FROM combo_box_content WHERE content_key = 'someThing')"/>
         </insert>
     </changeSet>
 

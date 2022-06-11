@@ -34,52 +34,45 @@
                                  referencedColumnNames="id"/>
 
         <insert tableName="lookup_holder">
-            <column name="id" value="1"/>
             <column name="name" value="CHECK_POINT"/>
             <column name="weight" value="250"/>
             <column name="height" value="70"/>
         </insert>
         <insert tableName="lookup_metadata">
-            <column name="id" value="1"/>
             <column name="code" value="0001"/>
             <column name="display_value" value="Some default Value one"/>
             <column name="lang" value="en"/>
-            <column name="lookup_holder_id" value="1"/>
+            <column name="lookup_holder_id" valueComputed="(SELECT id FROM lookup_holder WHERE name = 'CHECK_POINT')"/>
         </insert>
         <insert tableName="lookup_metadata">
-            <column name="id" value="2"/>
             <column name="code" value="0002"/>
             <column name="display_value" value="Something more then this"/>
             <column name="lang" value="en"/>
-            <column name="lookup_holder_id" value="1"/>
+            <column name="lookup_holder_id" valueComputed="(SELECT id FROM lookup_holder WHERE name = 'CHECK_POINT')"/>
         </insert>
         <insert tableName="lookup_metadata">
-            <column name="id" value="3"/>
             <column name="code" value="0003"/>
             <column name="display_value" value="Some second display value"/>
             <column name="lang" value="en"/>
-            <column name="lookup_holder_id" value="1"/>
+            <column name="lookup_holder_id" valueComputed="(SELECT id FROM lookup_holder WHERE name = 'CHECK_POINT')"/>
         </insert>
         <insert tableName="lookup_metadata">
-            <column name="id" value="4"/>
             <column name="code" value="0004"/>
             <column name="display_value" value="Какое-то значие по умолчанию один"/>
             <column name="lang" value="ru"/>
-            <column name="lookup_holder_id" value="1"/>
+            <column name="lookup_holder_id" valueComputed="(SELECT id FROM lookup_holder WHERE name = 'CHECK_POINT')"/>
         </insert>
         <insert tableName="lookup_metadata">
-            <column name="id" value="5"/>
             <column name="code" value="0005"/>
-            <column name="display_value" value="Что-то большее, чем то"/>
+            <column name="display_value" value="Тест значение лукапа"/>
             <column name="lang" value="ru"/>
-            <column name="lookup_holder_id" value="1"/>
+            <column name="lookup_holder_id" valueComputed="(SELECT id FROM lookup_holder WHERE name = 'CHECK_POINT')"/>
         </insert>
         <insert tableName="lookup_metadata">
-            <column name="id" value="6"/>
             <column name="code" value="0006"/>
             <column name="display_value" value="Какое-то второе значение отображения"/>
             <column name="lang" value="ru"/>
-            <column name="lookup_holder_id" value="1"/>
+            <column name="lookup_holder_id" valueComputed="(SELECT id FROM lookup_holder WHERE name = 'CHECK_POINT')"/>
         </insert>
     </changeSet>
 

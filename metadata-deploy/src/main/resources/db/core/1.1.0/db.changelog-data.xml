@@ -21,7 +21,7 @@
             <column name="include_in_select" value="true"/>
             <column name="order_in_query" value="1"/>
             <column name="order_in_table" value="3"/>
-            <where>id = 1</where>
+            <where>name = 'b_column_two'</where>
         </update>
     </changeSet>
 

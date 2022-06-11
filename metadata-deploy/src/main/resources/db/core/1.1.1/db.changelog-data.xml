@@ -6,7 +6,6 @@
 
     <changeSet id="1" author="svisockis">
         <insert tableName="view_field">
-            <column name="id" value="2"/>
             <column name="name" value="b_column_two"/>
             <column name="enabled_by_default" value="1"/>
             <column name="ui_control" value="control_secondary"/>

@@ -5,6 +5,9 @@
 * [#95] - Introduce executeQuery for a single element
 * [#98] - Adopt Query API for a GraphQL version
 
+=== Miscellaneous
+* [#100] - Review Liquibase scripts compatibility with different database dialects
+
 == 1.3.0
 === Features
 * [#81] - Improve cache & introduce such for query API
