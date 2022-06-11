@@ -17,11 +17,11 @@
             <column name="ui_query_to_text" value="some query to text"/>
             <column name="ui_column_name" value="some_name_two"/>
             <column name="ui_column_renderer" value="some renderer"/>
-            <column name="can_show_in_query" value="true"/>
-            <column name="can_show_in_table" value="true"/>
-            <column name="show_in_query" value="true"/>
-            <column name="show_in_table" value="false"/>
-            <column name="include_in_select" value="true"/>
+            <column name="can_show_in_query" valueBoolean="true"/>
+            <column name="can_show_in_table" valueBoolean="true"/>
+            <column name="show_in_query" valueBoolean="true"/>
+            <column name="show_in_table" valueBoolean="false"/>
+            <column name="include_in_select" valueBoolean="true"/>
             <column name="order_in_query" value="2"/>
             <column name="order_in_table" value="5"/>
         </insert>

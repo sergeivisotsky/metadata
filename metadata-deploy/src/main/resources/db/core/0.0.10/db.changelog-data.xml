@@ -8,38 +8,38 @@
         <insert tableName="navigation">
             <column name="type" value="NAV_BAR"/>
             <column name="number_of_elements" value="5"/>
-            <column name="fixed" value="true"/>
-            <column name="resizable" value="false"/>
+            <column name="fixed" valueBoolean="true"/>
+            <column name="resizable" valueBoolean="false"/>
             <column name="view_metadata_id" valueComputed="(SELECT id FROM view_metadata WHERE view_name = 'main')"/>
         </insert>
         <insert tableName="navigation_element">
             <column name="code" value="NV_ONE"/>
             <column name="value" value="This is the first item"/>
-            <column name="is_active" value="true"/>
+            <column name="is_active" valueBoolean="true"/>
             <column name="navigation_id" valueComputed="(SELECT id FROM navigation WHERE type = 'NAV_BAR')"/>
         </insert>
         <insert tableName="navigation_element">
             <column name="code" value="NV_TWO"/>
             <column name="value" value="This is the second item"/>
-            <column name="is_active" value="true"/>
+            <column name="is_active" valueBoolean="true"/>
             <column name="navigation_id" valueComputed="(SELECT id FROM navigation WHERE type = 'NAV_BAR')"/>
         </insert>
         <insert tableName="navigation_element">
             <column name="code" value="NV_THR"/>
             <column name="value" value="This is the third item"/>
-            <column name="is_active" value="true"/>
+            <column name="is_active" valueBoolean="true"/>
             <column name="navigation_id" valueComputed="(SELECT id FROM navigation WHERE type = 'NAV_BAR')"/>
         </insert>
         <insert tableName="navigation_element">
             <column name="code" value="NV_FUR"/>
             <column name="value" value="This is the fourth item"/>
-            <column name="is_active" value="true"/>
+            <column name="is_active" valueBoolean="true"/>
             <column name="navigation_id" valueComputed="(SELECT id FROM navigation WHERE type = 'NAV_BAR')"/>
         </insert>
         <insert tableName="navigation_element">
             <column name="code" value="NV_FIV"/>
             <column name="value" value="This is the fifth item"/>
-            <column name="is_active" value="true"/>
+            <column name="is_active" valueBoolean="true"/>
             <column name="navigation_id" valueComputed="(SELECT id FROM navigation WHERE type = 'NAV_BAR')"/>
         </insert>
     </changeSet>

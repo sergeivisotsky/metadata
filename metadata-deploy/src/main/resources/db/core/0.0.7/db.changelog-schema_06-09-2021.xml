@@ -61,8 +61,8 @@
             <column name="font_size" value="12"/>
             <column name="weight" value="300"/>
             <column name="height" value="20"/>
-            <column name="displayable" value="true"/>
-            <column name="immutable" value="false"/>
+            <column name="displayable" valueBoolean="true"/>
+            <column name="immutable" valueBoolean="false"/>
             <column name="view_metadata_id" valueComputed="(SELECT id FROM view_metadata WHERE view_name = 'main')"/>
         </insert>
         <insert tableName="combo_box_content">
@@ -97,8 +97,8 @@
             <column name="font_size" value="12"/>
             <column name="weight" value="700"/>
             <column name="height" value="20"/>
-            <column name="displayable" value="true"/>
-            <column name="immutable" value="false"/>
+            <column name="displayable" valueBoolean="true"/>
+            <column name="immutable" valueBoolean="false"/>
             <column name="view_metadata_id" valueComputed="(SELECT id FROM view_metadata WHERE view_name = 'main')"/>
         </insert>
         <insert tableName="combo_box_content">
