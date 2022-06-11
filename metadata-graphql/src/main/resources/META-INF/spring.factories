@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  io.github.sergeivisotsky.metadata.engine.graphql.config.GraphQLMetadataConfig,\
   io.github.sergeivisotsky.metadata.engine.graphql.config.ScalarConfig

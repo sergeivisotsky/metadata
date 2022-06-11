@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 the original author or authors.
+ * Copyright 2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.github.sergeivisotsky.metadata.engine.graphql.config;
 
-package io.github.sergeivisotsky.metadata.engine.filtering.config;
-
-import io.github.sergeivisotsky.metadata.engine.filtering.UrlViewQueryParser;
+import io.github.sergeivisotsky.metadata.engine.graphql.PageableGraphQLParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author Sergei Visotsky
+ * GraphQL based metadata interface specific beans Spring {@link Configuration}
+ *
+ * @author Sergejs Visockis
  */
 @Configuration
-public class FilteringConfig {
+public class GraphQLMetadataConfig {
 
     @Bean
-    public UrlViewQueryParser urlViewQueryParser() {
-        return new UrlViewQueryParser();
+    public PageableGraphQLParser pageableGraphQLParser() {
+        return new PageableGraphQLParser();
     }
+
 }
