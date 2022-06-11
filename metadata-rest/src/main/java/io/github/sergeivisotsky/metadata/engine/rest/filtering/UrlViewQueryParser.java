@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.engine.filtering;
+package io.github.sergeivisotsky.metadata.engine.rest.filtering;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,7 @@ import io.github.sergeivisotsky.metadata.engine.domain.SortDirection;
 import io.github.sergeivisotsky.metadata.engine.domain.ViewField;
 import io.github.sergeivisotsky.metadata.engine.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.engine.exception.UrlParseException;
+import io.github.sergeivisotsky.metadata.engine.filtering.ViewQueryParser;
 import io.github.sergeivisotsky.metadata.engine.filtering.dto.AndFilter;
 import io.github.sergeivisotsky.metadata.engine.filtering.dto.BetweenFilter;
 import io.github.sergeivisotsky.metadata.engine.filtering.dto.EqualsFilter;

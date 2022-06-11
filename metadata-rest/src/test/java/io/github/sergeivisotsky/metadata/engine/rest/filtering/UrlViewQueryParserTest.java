@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.engine.filtering;
+package io.github.sergeivisotsky.metadata.engine.rest.filtering;
 
 import java.util.List;
 import java.util.Map;

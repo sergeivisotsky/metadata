@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.github.sergeivisotsky.metadata.engine.rest.config.ChartMetadataRestConfig
+  io.github.sergeivisotsky.metadata.engine.rest.config.ChartMetadataRestConfig,\
+  io.github.sergeivisotsky.metadata.engine.rest.config.FilteringConfig

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package io.github.sergeivisotsky.metadata.engine.filtering.config;
+package io.github.sergeivisotsky.metadata.engine.rest.config;
 
-import io.github.sergeivisotsky.metadata.engine.filtering.UrlViewQueryParser;
+import io.github.sergeivisotsky.metadata.engine.rest.filtering.UrlViewQueryParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
