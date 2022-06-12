@@ -23,7 +23,7 @@ import io.github.sergeivisotsky.metadata.engine.dao.ViewMetadataDao;
 import io.github.sergeivisotsky.metadata.engine.dao.ViewQueryDao;
 import io.github.sergeivisotsky.metadata.engine.domain.ViewMetadata;
 import io.github.sergeivisotsky.metadata.engine.domain.ViewQueryResult;
-import io.github.sergeivisotsky.metadata.engine.exception.UrlParseException;
+import io.github.sergeivisotsky.metadata.engine.exception.ViewQueryParseException;
 import io.github.sergeivisotsky.metadata.engine.rest.filtering.UrlViewQueryParser;
 import io.github.sergeivisotsky.metadata.engine.filtering.dto.ViewQuery;
 import io.github.sergeivisotsky.metadata.engine.rest.dto.ViewQueryResultResponse;
@@ -75,7 +75,7 @@ public class ViewMetadataController {
         ViewQuery query;
         try {
             query = filterService.constructViewQuery(metadata, params);
-        } catch (UrlParseException e) {
+        } catch (ViewQueryParseException e) {
             LOG.error("Invalid query: {}, StackTrace: {}", req.getRequestURI(),
                     ExceptionUtils.getStackTrace(e));
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

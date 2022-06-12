@@ -18,23 +18,21 @@ package io.github.sergeivisotsky.metadata.engine.graphql.filtering;
 import java.util.Map;
 
 import io.github.sergeivisotsky.metadata.engine.domain.ViewMetadata;
-import io.github.sergeivisotsky.metadata.engine.exception.UrlParseException;
+import io.github.sergeivisotsky.metadata.engine.exception.ViewQueryParseException;
 import io.github.sergeivisotsky.metadata.engine.filtering.ViewQueryParser;
 import io.github.sergeivisotsky.metadata.engine.filtering.dto.ViewQuery;
 
 /**
- * Pageable graphQL parser.
- *
  * @author Sergejs Visockis
  */
 public class GraphQLViewQueryParser extends ViewQueryParser {
 
-
     @Override
-    public ViewQuery constructViewQuery(ViewMetadata metadata, Map<String, String[]> params) throws UrlParseException {
+    public ViewQuery constructViewQuery(ViewMetadata metadata, Map<String, String[]> params) throws ViewQueryParseException {
         return ViewQuery.builder()
                 .offset(parseOffset(params))
                 .limit(parseLimit(params))
+                .orderList(parseOrderList(metadata, params))
                 .build();
     }
 }

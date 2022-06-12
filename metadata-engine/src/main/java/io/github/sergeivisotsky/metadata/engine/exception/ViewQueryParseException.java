@@ -19,11 +19,11 @@ package io.github.sergeivisotsky.metadata.engine.exception;
 /**
  * @author Sergei Visotsky
  */
-public class UrlParseException extends Exception {
+public class ViewQueryParseException extends Exception {
 
     private static final long serialVersionUID = 5367831296458570561L;
 
-    public UrlParseException(String message) {
+    public ViewQueryParseException(String message) {
         super(message);
     }
 

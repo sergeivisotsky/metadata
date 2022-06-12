@@ -25,7 +25,8 @@ import io.github.sergeivisotsky.metadata.engine.domain.FieldType;
 import io.github.sergeivisotsky.metadata.engine.domain.Language;
 import io.github.sergeivisotsky.metadata.engine.domain.ViewField;
 import io.github.sergeivisotsky.metadata.engine.domain.ViewMetadata;
-import io.github.sergeivisotsky.metadata.engine.exception.UrlParseException;
+import io.github.sergeivisotsky.metadata.engine.exception.ViewQueryParseException;
+import io.github.sergeivisotsky.metadata.engine.filtering.ViewQueryParser;
 import io.github.sergeivisotsky.metadata.engine.filtering.dto.AndFilter;
 import io.github.sergeivisotsky.metadata.engine.filtering.dto.BetweenFilter;
 import io.github.sergeivisotsky.metadata.engine.filtering.dto.GreaterFilter;
@@ -48,7 +49,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class UrlViewQueryParserTest {
 
-    private final UrlViewQueryParser parser = new UrlViewQueryParser();
+    private final ViewQueryParser parser = new UrlViewQueryParser();
 
     private static ViewMetadata metadata;
 
@@ -88,7 +89,7 @@ class UrlViewQueryParserTest {
     }
 
     @Test
-    void shouldConstructViewQueryWithBetweenAndFilters() throws UrlParseException {
+    void shouldConstructViewQueryWithBetweenAndFilters() throws ViewQueryParseException {
         //given
         Map<String, String[]> params = ImmutableMap.<String, String[]>builder()
                 .put("someField", new String[]{"value1"})
@@ -115,7 +116,7 @@ class UrlViewQueryParserTest {
     }
 
     @Test
-    void shouldConstructViewQueryWithGreaterFilter() throws UrlParseException {
+    void shouldConstructViewQueryWithGreaterFilter() throws ViewQueryParseException {
         //given
         Map<String, String[]> params = ImmutableMap.<String, String[]>builder()
                 .put("someField", new String[]{"value1"})
@@ -142,7 +143,7 @@ class UrlViewQueryParserTest {
     }
 
     @Test
-    void shouldConstructViewQueryWithLessFilter() throws UrlParseException {
+    void shouldConstructViewQueryWithLessFilter() throws ViewQueryParseException {
         //given
         Map<String, String[]> params = ImmutableMap.<String, String[]>builder()
                 .put("someField", new String[]{"value1"})
@@ -169,7 +170,7 @@ class UrlViewQueryParserTest {
     }
 
     @Test
-    void shouldConstructViewQueryWithLikeFilter() throws UrlParseException {
+    void shouldConstructViewQueryWithLikeFilter() throws ViewQueryParseException {
         //given
         Map<String, String[]> params = ImmutableMap.<String, String[]>builder()
                 .put("someField", new String[]{"value1"})
@@ -196,8 +197,8 @@ class UrlViewQueryParserTest {
     }
 
     @Test
-    void shouldConstructViewQueryThrowUrlParseException() {
-        Assertions.assertThrows(UrlParseException.class, () -> {
+    void shouldConstructViewQueryThrowViewQueryParseException() {
+        Assertions.assertThrows(ViewQueryParseException.class, () -> {
             //given
             Map<String, String[]> params = ImmutableMap.<String, String[]>builder()
                     .put("someField", new String[]{"value1"})

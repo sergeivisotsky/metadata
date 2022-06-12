@@ -18,7 +18,7 @@ package io.github.sergeivisotsky.metadata.engine.filtering.dto;
 
 import java.util.stream.Stream;
 
-import io.github.sergeivisotsky.metadata.engine.exception.UrlParseException;
+import io.github.sergeivisotsky.metadata.engine.exception.ViewQueryParseException;
 
 /**
  * @author Sergei Visotsky
@@ -47,10 +47,10 @@ public enum FilterOperator {
         return filter;
     }
 
-    public static FilterOperator getByCode(String code) throws UrlParseException {
+    public static FilterOperator getByCode(String code) throws ViewQueryParseException {
         return Stream.of(values())
                 .filter(op -> code.equals(op.code))
                 .findFirst()
-                .orElseThrow(() -> new UrlParseException("Filter operator provided by code " + code + " is not found"));
+                .orElseThrow(() -> new ViewQueryParseException("Filter operator provided by code " + code + " is not found"));
     }
 }
