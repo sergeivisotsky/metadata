@@ -47,7 +47,7 @@ public class CacheableFormMetadataDao implements FormMetadataDao {
     }
 
     @Override
-    public FormMetadata getFormMetadata(String lang, String formName) {
+    public FormMetadata getFormMetadata(String formName, String lang) {
         try {
             FormMetadataCacheKey cacheKey = new FormMetadataCacheKey(formName, lang);
             return cache.get(cacheKey, () -> formMetadataDao.getFormMetadata(formName, lang));

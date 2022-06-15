@@ -55,11 +55,11 @@ public class FormMetadataDaoImpl extends AbstractMetadataDao implements FormMeta
      * {@inheritDoc}
      */
     @Override
-    public FormMetadata getFormMetadata(String lang, String formName) {
+    public FormMetadata getFormMetadata(String formName, String lang) {
         try {
             Map<String, Object> params = Map.of(
-                    "lang", lang,
-                    "formName", formName
+                    "formName", formName,
+                    "lang", lang
             );
 
             List<FormField> formFields = jdbcTemplate.query(formFieldMapper.getSql(), params,

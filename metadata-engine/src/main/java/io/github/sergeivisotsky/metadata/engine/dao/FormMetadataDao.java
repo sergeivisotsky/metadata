@@ -28,10 +28,10 @@ public interface FormMetadataDao {
     /**
      * Implements a DAO logic to access a form metadata.
      *
-     * @param lang     language on which metadata should be taken.
      * @param formName name of the form.
+     * @param lang     language on which metadata should be taken.
      * @return form metadata object.
      */
-    FormMetadata getFormMetadata(String lang, String formName);
+    FormMetadata getFormMetadata(String formName, String lang);
 
 }

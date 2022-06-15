@@ -41,6 +41,6 @@ public class FormMetadataController {
     @PostMapping("/metadata/{lang}")
     public FormMetadata getFormMetadata(@PathVariable("lang") String lang,
                                         @RequestBody FormMetadataRequest request) {
-        return formMetadataDao.getFormMetadata(lang, request.getFormName());
+        return formMetadataDao.getFormMetadata(request.getFormName(), lang);
     }
 }
